@@ -15,7 +15,7 @@ const CardFooter = props => {
         <img src={"../../static/icons/eye.svg"} alt={"View Count"} />
         <span className={stylesheet.count}>{props.enteredCount}</span>
       </div>
-
+      {/*TODO On enter giveaway hide from list? Flip Over? And Send to server*/}
       <a href={props.giveaway}>
         <img
           src={"../../static/icons/play.svg"}
@@ -28,6 +28,6 @@ const CardFooter = props => {
 };
 CardFooter.propTypes = {
   giveaway: string.isRequired,
-  enteredCount: number.isRequired,
+  enteredCount: number.isRequired
 };
 export default CardFooter;

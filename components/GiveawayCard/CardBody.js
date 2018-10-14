@@ -12,7 +12,7 @@ const CardBody = props => {
   return (
     <div className={stylesheet["giveawayCard--body"]}>
       <div className={stylesheet["giveawayCard--category"]}>
-        {props.category}
+        {props.category || "Uncategorized"}
       </div>
       <GroupItem
         firstItem={"Req:"}
