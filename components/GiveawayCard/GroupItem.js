@@ -1,6 +1,6 @@
 import React from "react";
 import stylesheet from "./index.css";
-import PropTypes, { string, number, boolean } from "prop-types";
+import PropTypes, { string, number, bool } from "prop-types";
 
 const GroupItem = props => {
   return (
@@ -29,8 +29,8 @@ GroupItem.propTypes = {
   firstItem: PropTypes.oneOfType([string, number]).isRequired,
   secondItem: PropTypes.oneOfType([string, number]).isRequired,
   className: string.isRequired,
-  around: boolean,
-  bold: boolean,
-  highlighted: boolean
+  around: bool,
+  bold: bool,
+  highlighted: bool
 };
 export default GroupItem;

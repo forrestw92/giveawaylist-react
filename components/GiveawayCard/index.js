@@ -5,6 +5,9 @@ import CardHeader from "./CardHeader";
 import CardFooter from "./CardFooter";
 import CardBody from "./CardBody";
 class GiveawayCard extends React.Component {
+  handleEnterClick = e => {
+    console.log(e);
+  };
   render() {
     const {
       picture,
@@ -31,10 +34,13 @@ class GiveawayCard extends React.Component {
           winners={winners}
           odds={odds}
           requirement={requirement}
-          category={category}
+          category={category || "Uncategorized"}
           oddsType={oddsType}
         />
-        <CardFooter giveaway={giveaway} enteredCount={enteredCount} />
+        <CardFooter
+          giveaway={giveaway}
+          enteredCount={enteredCount}
+        />
       </div>
     );
   }

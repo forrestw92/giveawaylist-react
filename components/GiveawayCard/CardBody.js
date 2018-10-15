@@ -12,7 +12,7 @@ const CardBody = props => {
   return (
     <div className={stylesheet["giveawayCard--body"]}>
       <div className={stylesheet["giveawayCard--category"]}>
-        {props.category || "Uncategorized"}
+        {props.category}
       </div>
       <GroupItem
         firstItem={"Req:"}
@@ -59,7 +59,7 @@ CardBody.propTypes = {
   winners: number.isRequired,
   odds: number.isRequired,
   requirement: string.isRequired,
-  category: string.isRequired,
+  category: string,
   oddsType: number.isRequired
 };
 export default CardBody;

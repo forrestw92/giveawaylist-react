@@ -16,7 +16,7 @@ const CardFooter = props => {
         <span className={stylesheet.count}>{props.enteredCount}</span>
       </div>
       {/*TODO On enter giveaway hide from list? Flip Over? And Send to server*/}
-      <a href={props.giveaway}>
+      <a href={props.giveaway} target="_blank" rel="noopener noreferrer">
         <img
           src={"../../static/icons/play.svg"}
           alt={"Enter Giveaway"}
