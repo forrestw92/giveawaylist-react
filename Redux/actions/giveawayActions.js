@@ -1,13 +1,18 @@
-import { FETCH_GIVEAWAYS, DELETE_GIVEAWAY } from "./types";
+import { FETCH_GIVEAWAYS, DELETE_GIVEAWAY, TOTAL_GIVEAWAYS } from "./types";
 import axios from "axios";
 
 export const fetchGiveaways = pageId => dispatch => {
   axios
     .post(`https://forrestwalker.me/api/o1/giveaway/${pageId}`)
     .then(res => {
+      console.log(res.data.totalGiveaways);
       dispatch({
         type: FETCH_GIVEAWAYS,
         payload: res.data.results
+      });
+      dispatch({
+        type: TOTAL_GIVEAWAYS,
+        payload: res.data.totalGiveaways
       });
     })
     .catch(err => {
