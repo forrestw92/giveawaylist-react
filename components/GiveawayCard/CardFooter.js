@@ -1,6 +1,6 @@
 import React from "react";
 import stylesheet from "./index.css";
-import { string, number } from "prop-types";
+import { string, number, func } from "prop-types";
 
 const CardFooter = props => {
   return (
@@ -16,7 +16,12 @@ const CardFooter = props => {
         <span className={stylesheet.count}>{props.enteredCount}</span>
       </div>
       {/*TODO On enter giveaway hide from list? Flip Over? And Send to server*/}
-      <a href={props.giveaway} target="_blank" rel="noopener noreferrer">
+      <a
+        href={props.giveaway}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => props.handleEnterClick(props.id)}
+      >
         <img
           src={"../../static/icons/play.svg"}
           alt={"Enter Giveaway"}
@@ -28,6 +33,8 @@ const CardFooter = props => {
 };
 CardFooter.propTypes = {
   giveaway: string.isRequired,
-  enteredCount: number.isRequired
+  id: number.isRequired,
+  enteredCount: number.isRequired,
+  handleEnterClick: func.isRequired
 };
 export default CardFooter;

@@ -4,12 +4,16 @@ import GiveawayCard from "../../components/GiveawayCard";
 import stylesheet from "./index.css";
 class GiveawayContainer extends React.Component {
   render() {
-    const { giveaways } = this.props;
+    const { giveaways, deleteGiveaway } = this.props;
     return (
       <section className={stylesheet.giveawayContainer}>
         {giveaways &&
           giveaways.map((giveaway, index) => (
-            <GiveawayCard key={index} {...giveaway} />
+            <GiveawayCard
+              key={index}
+              {...giveaway}
+              deleteGiveaway={deleteGiveaway}
+            />
           ))}
       </section>
     );

@@ -1,15 +1,18 @@
 import React from "react";
 import { string, number } from "prop-types";
+import { deleteGiveaway } from "../../Redux/actions/giveawayActions";
 import stylesheet from "./index.css";
 import CardHeader from "./CardHeader";
 import CardFooter from "./CardFooter";
 import CardBody from "./CardBody";
-class GiveawayCard extends React.Component {
+class GiveawayCard extends React.PureComponent {
   handleEnterClick = e => {
-    console.log(e);
+    this.props.deleteGiveaway(e);
   };
+
   render() {
     const {
+      id,
       picture,
       name,
       requirement,
@@ -40,6 +43,8 @@ class GiveawayCard extends React.Component {
         <CardFooter
           giveaway={giveaway}
           enteredCount={enteredCount}
+          id={id}
+          handleEnterClick={this.handleEnterClick}
         />
       </div>
     );
@@ -60,6 +65,7 @@ GiveawayCard.propTypes = {
   category: string,
   winners: number,
   enteredCount: number,
-  oddsType: number
+  oddsType: number,
+  id: number
 };
 export default GiveawayCard;

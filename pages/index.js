@@ -1,43 +1,50 @@
 import React from "react";
-import { withRouter } from "next/router";
-import { array } from "prop-types";
+import { connect } from "react-redux";
+import { object, func, number } from "prop-types";
 import axios from "axios";
+import {
+  fetchGiveaways,
+  deleteGiveaway
+} from "../Redux/actions/giveawayActions";
+
 import Head from "../components/head";
 import Header from "../components/Header";
 import GiveawayContainer from "../Containers/GiveawayContainer";
 import "./global.css";
 class Home extends React.Component {
-  static async getInitialProps({ query }) {
-    const pageId = query.pageId || 1;
-
-    const giveaways = await axios
-      .post(`https://forrestwalker.me/api/o1/giveaway/${pageId}`)
-      .then(res => res.data.results)
-      .then(res => res)
-      .catch(err => {
-        const { status, statusText } = err.response;
-        return { error: { status, statusText } };
-      });
-    return { giveaways };
+  static getInitialProps({ query }) {
+    return { pageId: parseInt(query.pageId) || 1 };
   }
-
+  componentDidMount() {
+    this.props.fetchGiveaways(this.props.pageId);
+  }
   render() {
-    const { giveaways } = this.props;
+    const { items } = this.props.giveaways;
     return (
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
         <Header />
-        <main className={"content"}>
-          <GiveawayContainer giveaways={giveaways} />
-        </main>
+        <main className={"content"} />
+        <GiveawayContainer
+          giveaways={items}
+          deleteGiveaway={this.props.deleteGiveaway}
+        />
       </React.Fragment>
     );
   }
 }
 Home.propTypes = {
-  giveaways: array
+  giveaways: object,
+  fetchGiveaways: func.isRequired,
+  deleteGiveaway: func.isRequired,
+  pageId: number
 };
 Home.defaultProps = {
-  giveaways: []
+  giveaways: {},
+  pageId: 1
 };
-export default Home;
+
+export default connect(
+  state => state,
+  { fetchGiveaways, deleteGiveaway }
+)(Home);

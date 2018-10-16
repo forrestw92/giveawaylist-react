@@ -59,8 +59,18 @@
   display: flex;
   justify-content: space-between;
   padding: 5px;
-  background: #fdfefd;
   line-height: 1.5;
+  position: relative;
+}
+.groupItem--alternative::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  background: rgba(69, 123, 157, .05);
+  width: 105%;
+  overflow: hidden;
+  height: 100%;
+  left: -2%;
 }
 .groupItem--alternative p {
   margin: 0;

@@ -33,17 +33,17 @@ const CardBody = props => {
         className={"groupItem--alternative"}
       />
       <GroupItem
-        firstItem={"Start"}
+        firstItem={"Started"}
         secondItem={"Ends"}
         className={"groupItem"}
         around={true}
         bold={true}
       />
       <GroupItem
-        firstItem={moment(props.addedDate + " PDT")
+        firstItem={moment(props.addedDate)
           .tz("America/Los_Angeles")
           .fromNow()}
-        secondItem={moment(props.endDate + " PDT")
+        secondItem={moment(props.endDate)
           .tz("America/Los_Angeles")
           .fromNow()}
         className={"groupItem--alternative"}
