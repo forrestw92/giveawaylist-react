@@ -11,6 +11,7 @@ import Head from "../components/head";
 import Header from "../components/Header";
 import GiveawayContainer from "../Containers/GiveawayContainer";
 import "./global.css";
+import Pageination from "../components/Pageination/Pageination";
 class Home extends React.Component {
   static getInitialProps({ query }) {
     return { pageId: parseInt(query.pageId) || 1 };
@@ -18,8 +19,13 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.fetchGiveaways(this.props.pageId);
   }
+  componentDidUpdate(nextProps) {
+    if (this.props.pageId !== nextProps.pageId) {
+        this.props.fetchGiveaways(nextProps.pageId);
+    }
+  }
   render() {
-    const { items } = this.props.giveaways;
+    const { items, totalGiveaways } = this.props.giveaways;
     return (
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
@@ -28,6 +34,10 @@ class Home extends React.Component {
         <GiveawayContainer
           giveaways={items}
           deleteGiveaway={this.props.deleteGiveaway}
+        />
+        <Pageination
+          totalPages={totalGiveaways / 24}
+          currentlySelected={this.props.pageId}
         />
       </React.Fragment>
     );

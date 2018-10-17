@@ -1,0 +1,23 @@
+.pageination {
+    display:flex;
+    flex-flow: row nowrap;
+    padding: 0px;
+    margin: 5px;
+    padding: 0;
+    margin: 0;
+    justify-content: flex-end;
+}
+.pageination > li {
+    padding:10px;
+    margin:5px;
+    list-style:none;
+}
+.disabled {
+    background:green;
+}
+.page {
+    background:blue;
+}
+a {
+    color:white;
+}
