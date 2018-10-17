@@ -1,13 +1,12 @@
 import React from "react";
-import { string, number } from "prop-types";
-import { deleteGiveaway } from "../../Redux/actions/giveawayActions";
+import { string, number, func } from "prop-types";
 import stylesheet from "./index.css";
 import CardHeader from "./CardHeader";
 import CardFooter from "./CardFooter";
 import CardBody from "./CardBody";
 class GiveawayCard extends React.PureComponent {
   handleEnterClick = e => {
-    this.props.deleteGiveaway(e);
+    this.props.deleteSingleGiveaway(e);
   };
 
   render() {
@@ -52,6 +51,7 @@ class GiveawayCard extends React.PureComponent {
 }
 
 GiveawayCard.propTypes = {
+  deleteSingleGiveaway: func.isRequired,
   picture: string,
   name: string,
   requirement: string,

@@ -1,6 +1,6 @@
 import {
   FETCH_GIVEAWAYS,
-  DELETE_GIVEAWAY,
+  DELETE_SINGLE_GIVEAWAY,
   TOTAL_GIVEAWAYS,
   DELETE_GIVEAWAYS
 } from "./types";
@@ -34,10 +34,10 @@ export const fetchGiveaways = pageId => dispatch => {
  * @param {number} id
  * @returns {Function}
  */
-export const deleteGiveaway = id => dispatch => {
+export const deleteSingleGiveaway = id => dispatch => {
   //Need to post to server deleted of giveaway
   dispatch({
-    type: DELETE_GIVEAWAY,
+    type: DELETE_SINGLE_GIVEAWAY,
     payload: id
   });
 };

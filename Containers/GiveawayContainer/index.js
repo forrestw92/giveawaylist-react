@@ -1,10 +1,10 @@
 import React from "react";
-import { string } from "prop-types";
+import { array, func } from "prop-types";
 import GiveawayCard from "../../components/GiveawayCard";
 import stylesheet from "./index.css";
 class GiveawayContainer extends React.Component {
   render() {
-    const { giveaways, deleteGiveaway } = this.props;
+    const { giveaways, deleteSingleGiveaway } = this.props;
     return (
       <section className={stylesheet.giveawayContainer}>
         {giveaways &&
@@ -12,7 +12,7 @@ class GiveawayContainer extends React.Component {
             <GiveawayCard
               key={index}
               {...giveaway}
-              deleteGiveaway={deleteGiveaway}
+              deleteSingleGiveaway={deleteSingleGiveaway}
             />
           ))}
         {!giveaways && <h1 className={"Loading"}>Loading</h1>}
@@ -20,4 +20,8 @@ class GiveawayContainer extends React.Component {
     );
   }
 }
+GiveawayContainer.propTypes = {
+  giveaways: array.isRequired,
+  deleteSingleGiveaway: func.isRequired
+};
 export default GiveawayContainer;

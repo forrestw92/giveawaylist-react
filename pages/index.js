@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { object, func, number } from "prop-types";
-import axios from "axios";
 import {
   fetchGiveaways,
-  deleteGiveaway,
+  deleteSingleGiveaway,
   deleteGiveaways
 } from "../Redux/actions/giveawayActions";
 
@@ -26,14 +25,22 @@ class Home extends React.Component {
     }
   }
   render() {
-    const { giveaways, deleteGiveaway, deleteGiveaways, pageId } = this.props;
+    const {
+      giveaways,
+      deleteSingleGiveaway,
+      deleteGiveaways,
+      pageId
+    } = this.props;
     const { items, totalGiveaways } = giveaways;
     return (
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
         <Header />
         <main className={"content"} />
-        <GiveawayContainer giveaways={items} deleteGiveaway={deleteGiveaway} />
+        <GiveawayContainer
+          giveaways={items}
+          deleteSingleGiveaway={deleteSingleGiveaway}
+        />
         <Pageination
           totalPages={totalGiveaways / 24}
           currentlySelected={pageId}
@@ -46,7 +53,7 @@ class Home extends React.Component {
 Home.propTypes = {
   giveaways: object,
   fetchGiveaways: func.isRequired,
-  deleteGiveaway: func.isRequired,
+  deleteSingleGiveaway: func.isRequired,
   deleteGiveaways: func.isRequired,
   pageId: number
 };
@@ -57,5 +64,5 @@ Home.defaultProps = {
 
 export default connect(
   state => state,
-  { fetchGiveaways, deleteGiveaway, deleteGiveaways }
+  { fetchGiveaways, deleteSingleGiveaway, deleteGiveaways }
 )(Home);

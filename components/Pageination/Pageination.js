@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Link from "next/link";
-import { number } from "prop-types";
+import { number, func } from "prop-types";
 import stylesheet from "./styles.css";
 export default class Pageination extends Component {
   render() {
@@ -16,9 +16,9 @@ export default class Pageination extends Component {
       const renderItems = [
         {
           id: 0,
-          disabled: currentlySelected === 1,
+          disabled: currentlySelected === lowestSelection,
           text: BACK,
-          render: currentlySelected > 1
+          render: currentlySelected > lowestSelection
         },
         {
           id: 1,
@@ -30,22 +30,23 @@ export default class Pageination extends Component {
           id: 2,
           disabled: true,
           text: SEPERATOR,
-          render: currentlySelected > 1
+          render: currentlySelected > lowestSelection
         },
         {
           id: 3,
-          disabled: currentlySelected === 1,
+          disabled: currentlySelected === lowestSelection,
           text:
             currentlySelected <= renderLowAmmount ? "1" : currentlySelected - 1,
           render: currentlySelected < renderHighAmmount
         },
         {
           id: 4,
-          disabled: currentlySelected !== 3 && currentlySelected !== 1,
+          disabled:
+            currentlySelected !== 3 && currentlySelected !== lowestSelection,
           text:
             currentlySelected === 3
               ? "2"
-              : currentlySelected === 1
+              : currentlySelected === lowestSelection
                 ? currentlySelected + 1
                 : currentlySelected,
           render: true
@@ -54,7 +55,7 @@ export default class Pageination extends Component {
           id: 5,
           disabled: currentlySelected === 3,
           text:
-            currentlySelected === 3 || currentlySelected === 1
+            currentlySelected === 3 || currentlySelected === lowestSelection
               ? "3"
               : currentlySelected + 1,
           render: true
@@ -86,7 +87,8 @@ export default class Pageination extends Component {
           disabled: false,
           text: NEXT,
           render:
-            currentlySelected >= 1 && currentlySelected !== renderHighAmmount
+            currentlySelected >= lowestSelection &&
+            currentlySelected !== renderHighAmmount
         }
       ];
       return renderItems;
@@ -127,5 +129,6 @@ export default class Pageination extends Component {
 }
 Pageination.propTypes = {
   totalPages: number.isRequired,
-  currentlySelected: number.isRequired
+  currentlySelected: number.isRequired,
+  deleteGiveaways: func.isRequired
 };
