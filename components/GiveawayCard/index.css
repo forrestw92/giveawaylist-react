@@ -9,6 +9,7 @@
   background: #fff;
   overflow: hidden;
   box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.2);
+  border-bottom: 4px solid #457b9d;
 }
 .giveawayCard:hover,
 .giveawayCard:focus {
@@ -30,9 +31,10 @@
 }
 .giveawayCard--category {
   text-align: center;
+  text-shadow: 0 1px rgba(0,0,0,.2);
+  padding: 5px;
 }
 .giveawayCard--footer {
-  border-top: 1px solid #457b9d;
   padding: 10px;
   display: flex;
   flex-flow: row nowrap;
@@ -79,7 +81,8 @@
   padding: 0;
 }
 .highlighted {
-  color: #457b9d;
+  color: rgb(69, 123, 157);
+  text-shadow: 1px 1px rgba(69,123,157,.3);
 }
 .around {
   justify-content: space-around;
