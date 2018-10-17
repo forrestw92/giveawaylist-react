@@ -25,7 +25,7 @@ class LoginContainer extends React.Component {
           <img alt="Twitter Login" src={"../../static/icons/twitter.svg"} />
           <img alt="Google Login" src={"../../static/icons/google.svg"} />
         </div>
-        <form>
+        <form className={stylesheet["login--form"]}>
           <div className={stylesheet["input--group"]}>
             <input
               type={"text"}
