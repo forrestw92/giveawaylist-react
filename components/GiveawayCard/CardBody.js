@@ -18,19 +18,22 @@ const CardBody = props => {
         firstItem={"Req:"}
         secondItem={props.requirement}
         className={"groupItem--alternative"}
+        isItemBold={true}
       />
       <GroupItem
-        firstItem={"Odds"}
+        firstItem={"Odds:"}
         secondItem={
           (props.oddsType === 1 ? "Every " : "1 in ") + oddsOrdiany(props.odds)
         }
         className={"groupItem"}
         highlighted={props.odds < 1000}
+        isItemBold={true}
       />
       <GroupItem
         firstItem={"Prizes:"}
         secondItem={`${props.prize - props.winners} Left`}
         className={"groupItem--alternative"}
+        isItemBold={true}
       />
       <GroupItem
         firstItem={"Started"}
@@ -38,6 +41,7 @@ const CardBody = props => {
         className={"groupItem"}
         around={true}
         bold={true}
+        isItemBold={false}
       />
       <GroupItem
         firstItem={moment(props.addedDate)

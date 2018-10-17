@@ -11,7 +11,17 @@ const GroupItem = props => {
           : stylesheet[props.className]
       }
     >
-      <p className={props.highlighted ? stylesheet["highlighted"] : undefined}>
+      <p
+        className={
+          props.highlighted && props.isItemBold
+            ? stylesheet["highlighted"] + " " + stylesheet["item"]
+            : props.isItemBold
+              ? stylesheet["item"]
+              : props.highlighted
+                ? stylesheet["highlighted"]
+                : undefined
+        }
+      >
         {props.bold ? <strong>{props.firstItem}</strong> : props.firstItem}
       </p>
       <p className={props.highlighted ? stylesheet["highlighted"] : undefined}>
@@ -23,7 +33,8 @@ const GroupItem = props => {
 GroupItem.defaultProps = {
   around: false,
   bold: false,
-  highlighted: false
+  highlighted: false,
+  isItemBold: false
 };
 GroupItem.propTypes = {
   firstItem: PropTypes.oneOfType([string, number]).isRequired,
@@ -31,6 +42,7 @@ GroupItem.propTypes = {
   className: string.isRequired,
   around: bool,
   bold: bool,
-  highlighted: bool
+  highlighted: bool,
+  isItemBold: bool
 };
 export default GroupItem;
