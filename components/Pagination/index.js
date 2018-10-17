@@ -49,7 +49,8 @@ export default class Pagination extends Component {
           id: 4,
           disabled:
             currentlySelected >= renderHighAmmount
-              ? currentlySelected !== renderHighAmmount && currentlySelected <= highestSelection-2
+              ? currentlySelected !== renderHighAmmount &&
+                currentlySelected <= highestSelection - 2
               : currentlySelected !== 3 &&
                 currentlySelected !== lowestSelection &&
                 currentlySelected !== renderHighAmmount,
