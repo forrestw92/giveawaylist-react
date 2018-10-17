@@ -1,3 +1,4 @@
+
 .giveawayCard {
   display: flex;
   flex-flow: column nowrap;
@@ -6,6 +7,7 @@
   max-width: 300px;
   margin: 10px;
   background: #fff;
+  overflow: hidden;
   box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .giveawayCard:hover,

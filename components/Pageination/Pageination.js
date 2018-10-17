@@ -12,7 +12,7 @@ export default class Pageination extends Component {
       const lowestSelection = 1;
       const highestSelection = Math.ceil(totalPages);
       const renderLowAmmount = 3;
-      const renderHighAmmount = highestSelection - 2;
+      const renderHighAmmount = highestSelection - 3;
       const renderItems = [
         {
           id: 0,
@@ -34,35 +34,57 @@ export default class Pageination extends Component {
         },
         {
           id: 3,
-          disabled: currentlySelected === lowestSelection,
+          disabled:
+            currentlySelected === lowestSelection ||
+            currentlySelected === renderHighAmmount,
           text:
-            currentlySelected <= renderLowAmmount ? "1" : currentlySelected - 1,
-          render: currentlySelected < renderHighAmmount
+            currentlySelected <= renderLowAmmount
+              ? "1"
+              : currentlySelected >= renderHighAmmount
+                ? currentlySelected
+                : currentlySelected - 1,
+          render: currentlySelected < renderHighAmmount + 1
         },
         {
           id: 4,
           disabled:
-            currentlySelected !== 3 && currentlySelected !== lowestSelection,
+            currentlySelected >= renderHighAmmount
+              ? currentlySelected === renderHighAmmount
+              : currentlySelected !== 3 &&
+                currentlySelected !== lowestSelection &&
+                currentlySelected !== renderHighAmmount,
           text:
             currentlySelected === 3
               ? "2"
-              : currentlySelected === lowestSelection
+              : currentlySelected === lowestSelection ||
+                currentlySelected === renderHighAmmount
                 ? currentlySelected + 1
-                : currentlySelected,
+                : currentlySelected === highestSelection - 1
+                  ? currentlySelected - 1
+                  : currentlySelected === highestSelection
+                    ? currentlySelected - 2
+                    : currentlySelected,
           render: true
         },
         {
           id: 5,
-          disabled: currentlySelected === 3,
+          disabled:
+            currentlySelected === 3 ||
+            currentlySelected === renderLowAmmount ||
+            currentlySelected === highestSelection - 1,
           text:
             currentlySelected === 3 || currentlySelected === lowestSelection
               ? "3"
-              : currentlySelected + 1,
+              : currentlySelected >= renderHighAmmount
+                ? currentlySelected === highestSelection - 2
+                  ? highestSelection - 1
+                  : highestSelection - 1
+                : currentlySelected + 1,
           render: true
         },
         {
           id: 6,
-          disabled: false,
+          disabled: currentlySelected === highestSelection,
           text:
             currentlySelected === renderLowAmmount
               ? "4"
@@ -81,14 +103,20 @@ export default class Pageination extends Component {
             currentlySelected <= renderHighAmmount ||
             currentlySelected === renderHighAmmount
         },
-        { id: 8, disabled: false, text: highestSelection, render: true },
+        {
+          id: 8,
+          disabled: currentlySelected === highestSelection,
+          text: highestSelection,
+          render: currentlySelected !== renderHighAmmount
+        },
         {
           id: 9,
           disabled: false,
           text: NEXT,
           render:
             currentlySelected >= lowestSelection &&
-            currentlySelected !== renderHighAmmount
+            currentlySelected !== renderHighAmmount + 1 &&
+            currentlySelected <= renderHighAmmount
         }
       ];
       return renderItems;

@@ -163,4 +163,5 @@ template {
 
 .clamp-lines {
     text-align: center;
+    overflow:hidden;
 }

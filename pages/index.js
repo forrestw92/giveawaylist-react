@@ -36,16 +36,17 @@ class Home extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
         <Header />
-        <main className={"content"} />
-        <GiveawayContainer
-          giveaways={items}
-          deleteSingleGiveaway={deleteSingleGiveaway}
-        />
-        <Pageination
-          totalPages={totalGiveaways / 24}
-          currentlySelected={pageId}
-          deleteGiveaways={deleteGiveaways}
-        />
+        <main className={"content"}>
+          <GiveawayContainer
+            giveaways={items}
+            deleteSingleGiveaway={deleteSingleGiveaway}
+          />
+          <Pageination
+            totalPages={totalGiveaways / 24}
+            currentlySelected={pageId}
+            deleteGiveaways={deleteGiveaways}
+          />
+        </main>
       </React.Fragment>
     );
   }
