@@ -15,6 +15,7 @@ class GiveawayContainer extends React.Component {
               deleteGiveaway={deleteGiveaway}
             />
           ))}
+        {!giveaways && <h1 className={"Loading"}>Loading</h1>}
       </section>
     );
   }

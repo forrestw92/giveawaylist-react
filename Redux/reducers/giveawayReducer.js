@@ -1,6 +1,7 @@
 import {
   FETCH_GIVEAWAYS,
   DELETE_GIVEAWAY,
+  DELETE_GIVEAWAYS,
   TOTAL_GIVEAWAYS
 } from "../actions/types";
 
@@ -19,6 +20,11 @@ export default function(state = initialState, action) {
     case DELETE_GIVEAWAY:
       return {
         items: state.items.filter(item => item.id !== action.payload)
+      };
+    case DELETE_GIVEAWAYS:
+      console.log("DELETE_GIVEAWAY")
+      return {
+        items: action.payload
       };
     case TOTAL_GIVEAWAYS:
       return {

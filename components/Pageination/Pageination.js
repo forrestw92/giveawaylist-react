@@ -114,7 +114,9 @@ export default class Pageination extends Component {
                         : item.text.toString()
                   }`}
                 >
-                  <a>{item.text}</a>
+                  <a onClick={() => this.props.deleteGiveaways()}>
+                    {item.text.toString()}
+                  </a>
                 </Link>
               )}
             </li>

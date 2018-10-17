@@ -4,7 +4,8 @@ import { object, func, number } from "prop-types";
 import axios from "axios";
 import {
   fetchGiveaways,
-  deleteGiveaway
+  deleteGiveaway,
+  deleteGiveaways
 } from "../Redux/actions/giveawayActions";
 
 import Head from "../components/head";
@@ -21,23 +22,22 @@ class Home extends React.Component {
   }
   componentDidUpdate(nextProps) {
     if (this.props.pageId !== nextProps.pageId) {
-        this.props.fetchGiveaways(nextProps.pageId);
+      this.props.fetchGiveaways(nextProps.pageId);
     }
   }
   render() {
-    const { items, totalGiveaways } = this.props.giveaways;
+    const { giveaways, deleteGiveaway, deleteGiveaways, pageId } = this.props;
+    const { items, totalGiveaways } = giveaways;
     return (
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
         <Header />
         <main className={"content"} />
-        <GiveawayContainer
-          giveaways={items}
-          deleteGiveaway={this.props.deleteGiveaway}
-        />
+        <GiveawayContainer giveaways={items} deleteGiveaway={deleteGiveaway} />
         <Pageination
           totalPages={totalGiveaways / 24}
-          currentlySelected={this.props.pageId}
+          currentlySelected={pageId}
+          deleteGiveaways={deleteGiveaways}
         />
       </React.Fragment>
     );
@@ -47,6 +47,7 @@ Home.propTypes = {
   giveaways: object,
   fetchGiveaways: func.isRequired,
   deleteGiveaway: func.isRequired,
+  deleteGiveaways: func.isRequired,
   pageId: number
 };
 Home.defaultProps = {
@@ -56,5 +57,5 @@ Home.defaultProps = {
 
 export default connect(
   state => state,
-  { fetchGiveaways, deleteGiveaway }
+  { fetchGiveaways, deleteGiveaway, deleteGiveaways }
 )(Home);
