@@ -54,6 +54,7 @@
   height: 40px;
   cursor: pointer;
 }
+
 .groupItem {
   display: flex;
   justify-content: space-between;
@@ -80,6 +81,7 @@
   margin: 0;
   padding: 0;
 }
+
 .highlighted {
   color: rgb(69, 123, 157);
   text-shadow: 1px 1px rgba(69,123,157,.3);
@@ -90,6 +92,9 @@
 .groupItem p {
   margin: 0;
   padding: 0;
+}
+.groupItem .item,.groupItem--alternative .item{
+  font-weight: bold;
 }
 @media only screen and (max-width: 548px) {
   .giveawayCard {
