@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Link from "next/link";
 import { number, func } from "prop-types";
 import stylesheet from "./styles.css";
-export default class Pageination extends Component {
+export default class Pagination extends Component {
   render() {
     const { totalPages, currentlySelected } = this.props;
     const SEPERATOR = "...",
@@ -155,7 +155,7 @@ export default class Pageination extends Component {
     );
   }
 }
-Pageination.propTypes = {
+Pagination.propTypes = {
   totalPages: number.isRequired,
   currentlySelected: number.isRequired,
   deleteGiveaways: func.isRequired

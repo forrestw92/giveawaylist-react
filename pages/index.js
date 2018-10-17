@@ -11,7 +11,7 @@ import Head from "../components/head";
 import Header from "../components/Header";
 import GiveawayContainer from "../Containers/GiveawayContainer";
 import "./global.css";
-import Pageination from "../components/Pageination/Pageination";
+import Pagination from "../components/Pagination/";
 class Home extends React.Component {
   static getInitialProps({ query }) {
     return { pageId: parseInt(query.pageId) || 1 };
@@ -41,7 +41,7 @@ class Home extends React.Component {
             giveaways={items}
             deleteSingleGiveaway={deleteSingleGiveaway}
           />
-          <Pageination
+          <Pagination
             totalPages={totalGiveaways / 24}
             currentlySelected={pageId}
             deleteGiveaways={deleteGiveaways}
