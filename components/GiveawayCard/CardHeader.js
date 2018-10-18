@@ -8,13 +8,14 @@ const CardHeader = props => {
     <div className={stylesheet["giveawayCard--header"]}>
       <CardImage picture={props.picture} />
 
-      <ClampLines
-        text={props.name}
-        lines="2"
-        ellipsis="..."
-        buttons={false}
-        className={stylesheet["giveaway--name"]}
-      />
+      <div className={stylesheet["giveawayCard--itemName"]}>
+        <ClampLines
+          text={props.name}
+          lines="2"
+          ellipsis="..."
+          buttons={false}
+        />
+      </div>
     </div>
   );
 };
