@@ -5,9 +5,9 @@ import stylesheet from "./styles.css";
 export default class Pagination extends Component {
   render() {
     const { totalPages, currentlySelected } = this.props;
-    const SEPERATOR = "...",
-      NEXT = "Next",
-      BACK = "Back";
+    const SEPARATOR = "...",
+      NEXT = "Next >",
+      BACK = "< Back";
     const genPages = () => {
       const lowestSelection = 1;
       const highestSelection = Math.ceil(totalPages);
@@ -29,7 +29,7 @@ export default class Pagination extends Component {
         {
           id: 2,
           disabled: true,
-          text: SEPERATOR,
+          text: SEPARATOR,
           render: currentlySelected > lowestSelection
         },
         {
@@ -99,7 +99,7 @@ export default class Pagination extends Component {
         {
           id: 7,
           disabled: true,
-          text: SEPERATOR,
+          text: SEPARATOR,
           render:
             currentlySelected <= renderHighAmmount ||
             currentlySelected === renderHighAmmount
@@ -130,7 +130,11 @@ export default class Pagination extends Component {
             <li
               key={item.id}
               className={
-                item.disabled ? stylesheet["disabled"] : stylesheet["page"]
+                item.text === SEPARATOR && item.disabled
+                  ? stylesheet["separator"]
+                  : item.disabled
+                    ? stylesheet["disabled"]
+                    : stylesheet["page"]
               }
             >
               {item.disabled ? (
