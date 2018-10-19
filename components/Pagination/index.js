@@ -134,7 +134,9 @@ export default class Pagination extends Component {
                   ? stylesheet["separator"]
                   : item.disabled
                     ? stylesheet["disabled"]
-                    : stylesheet["page"]
+                    : item.id === 0 || item.id === 9
+                      ? stylesheet["backNext"]
+                      : stylesheet["page"]
               }
             >
               {item.disabled ? (

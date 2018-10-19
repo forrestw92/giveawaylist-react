@@ -9,16 +9,18 @@
 .pageination > li {
     padding: 6px 10px;
     list-style: none;
-    border-radius: 15px;
 }
 .disabled {
     background-color: #1D3557;
     color: white;
-    border-radius: 10px;
-    margin: 0 4px;
+    border-radius: 15px;
+    margin: 0 8px;
+    display: block;
 }
 .page {
     background-color: none;
+    display: block;
+    margin: 0 -10px;
 }
 a {
     color: black;
@@ -27,7 +29,29 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.page a {
+    padding: 15px;
+}
 .separator {
     background-color: none;
-    margin: 0 -8px;
+    display: block;
+}
+.backNext {
+    background-color: none;
+}
+.backNext a {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px;
+    margin: 0 -15px;
+}
+
+@media screen and (max-width: 550px) {
+    .separator {display: none;}
+    .page {display: none;}
+    .disabled {display: none; color: white;}
+    .backNext {background-color: #1D3557; margin: 0 15px; width: 90px; text-align: center; border: 2px solid #1D3557; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;}
+    .backNext a {color: white; padding: 10px 25px;}
+    .backNext:hover {background-color: rgb(255, 166, 0); border: 2px solid black;} 
+    .backNext:hover > a {color: black; text-decoration: none;}
 }
