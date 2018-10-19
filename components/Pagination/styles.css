@@ -50,8 +50,8 @@ a:hover {
     .separator {display: none;}
     .page {display: none;}
     .disabled {display: none; color: white;}
-    .backNext {background-color: #1D3557; margin: 0 15px; width: 90px; text-align: center; border: 2px solid #1D3557; font-weight: 900; text-transform: uppercase; letter-spacing: 2px;}
-    .backNext a {color: white; padding: 10px 25px;}
+    .backNext {background-color: #1D3557; margin: 0 15px; width: 90px; text-align: center; border: 2px solid #1D3557; font-weight: 900; text-transform: uppercase; transition: all 0.25s ease;}
+    .backNext a {color: white; padding: 10px 25px; letter-spacing: 2px;}
     .backNext:hover {background-color: rgb(255, 166, 0); border: 2px solid black;} 
     .backNext:hover > a {color: black; text-decoration: none;}
 }
