@@ -1,0 +1,29 @@
+.button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 0;
+  height: 40px;
+  width: 125px;
+  text-align: center;
+  dispaly: flex;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 1px 1px 0 rgb(0, 0, 0);
+  transition: box-shadow .25s ease;
+}
+.button.login,
+.button.register {
+  display: flex;
+  margin: auto;
+}
+.button.login:hover,
+.button.register:hover {
+  box-shadow: 0 3px 1px 1px rgba(0, 0, 0,.8);
+}
+.button.login {
+  background: blue;
+}
+.button.register {
+  background: green;
+}

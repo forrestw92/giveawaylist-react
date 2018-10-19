@@ -1,8 +1,8 @@
 import React from "react";
-
 import stylesheet from "./index.css";
 import Form from "../../components/Form";
-import InputGroup from "../../components/Form/InputGroup";
+import Button from "../../components/Button";
+import { register } from "../../API";
 class RegisterContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -11,9 +11,18 @@ class RegisterContainer extends React.Component {
       email: "",
       email2: "",
       password: "",
-      password2: ""
+      password2: "",
+      message: {}
     };
   }
+  _onSubmit = e => {
+    e.preventDefault();
+    const sendData = this.state;
+    delete sendData.message;
+    register({ ...sendData })
+      .then(res => this.setState({ message: res.response.data }))
+      .catch(err => this.setState({ message: err.response.data }));
+  };
   _onChange = (e, state) => {
     switch (state) {
       case "username":
@@ -80,12 +89,21 @@ class RegisterContainer extends React.Component {
     ];
     return (
       <section className={stylesheet["register"]}>
+
         <Form
           title={"Register"}
           {...this.state}
           _onChange={this._onChange}
           inputs={inputs}
-        />
+          _onSubmit={this._onSubmit}
+        >
+            {this.state.message && <p>{this.state.message.err}</p>}
+          <Button
+            _onClick={this._onSubmit}
+            label={"Register"}
+            className={"register"}
+          />
+        </Form>
       </section>
     );
   }

@@ -1,12 +1,12 @@
 import React from "react";
-import { string, array, func } from "prop-types";
+import { string, array, func, object } from "prop-types";
 import stylesheet from "../../Containers/RegisterContainer/index.css";
 import SocialIcons from "./SocialIcons";
 import InputGroup from "./InputGroup";
 
 class Form extends React.PureComponent {
   render() {
-    const { title, _onChange, inputs } = this.props;
+    const { title, _onChange, inputs, children } = this.props;
     return (
       <React.Fragment>
         <h1 className={stylesheet["title"]}>{title}</h1>
@@ -25,6 +25,7 @@ class Form extends React.PureComponent {
                 autoComplete={input.autoComplete}
               />
             ))}
+          {children}
         </form>
       </React.Fragment>
     );
@@ -33,6 +34,7 @@ class Form extends React.PureComponent {
 Form.propTypes = {
   _onChange: func.isRequired,
   title: string.isRequired,
-  inputs: array.isRequired
+  inputs: array.isRequired,
+  children: object
 };
 export default Form;
