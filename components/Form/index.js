@@ -11,7 +11,10 @@ class Form extends React.PureComponent {
       <React.Fragment>
         <h1 className={stylesheet["title"]}>{title}</h1>
         <SocialIcons />
-        <form className={stylesheet["register--form"]} onSubmit={e => e.preventDefault()}>
+        <form
+          className={stylesheet["register--form"]}
+          onSubmit={e => e.preventDefault()}
+        >
           {inputs &&
             inputs.map((input, key) => (
               <InputGroup

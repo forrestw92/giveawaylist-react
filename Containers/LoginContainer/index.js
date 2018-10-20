@@ -8,16 +8,16 @@ class LoginContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      email: "",
       password: ""
     };
   }
-  _onClick = e => {
+  _onClick = () => {
     login({ ...this.state }).then(res => console.log(res));
   };
   _onChange = (e, state) => {
-    if (state === "username") {
-      this.setState({ username: e.target.value });
+    if (state === "email") {
+      this.setState({ email: e.target.value });
     } else if (state === "password") {
       this.setState({ password: e.target.value });
     }
@@ -26,10 +26,10 @@ class LoginContainer extends React.Component {
     const inputs = [
       {
         label: "Username or Email",
-        value: this.state.username,
+        value: this.state.email,
         type: "text",
-        id: "username",
-        name: "username",
+        id: "email",
+        name: "email",
         autoComplete: "true"
       },
       {
