@@ -23,7 +23,10 @@ const CardBody = props => {
       <GroupItem
         firstItem={"Odds:"}
         secondItem={
-          (props.oddsType === 1 ? "Every " : "1 in ") + oddsOrdiany(props.odds)
+          props.odds === 0
+            ? "Sweepstakes"
+            : (props.oddsType === 1 ? "Every " : "1 in ") +
+              oddsOrdiany(props.odds)
         }
         className={"groupItem"}
         highlighted={props.odds < 1000}
