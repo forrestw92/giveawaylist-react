@@ -89,7 +89,6 @@ class RegisterContainer extends React.Component {
     ];
     return (
       <section className={stylesheet["register"]}>
-
         <Form
           title={"Register"}
           {...this.state}
@@ -97,11 +96,12 @@ class RegisterContainer extends React.Component {
           inputs={inputs}
           _onSubmit={this._onSubmit}
         >
-            {this.state.message && <p>{this.state.message.err}</p>}
+          {this.state.message && <p>{this.state.message.err}</p>}
           <Button
             _onClick={this._onSubmit}
             label={"Register"}
             className={"register"}
+            type={"button"}
           />
         </Form>
       </section>
