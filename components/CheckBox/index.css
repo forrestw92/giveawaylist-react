@@ -1,0 +1,63 @@
+.checkbox {
+  font-size: 16px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  background:#fff;
+}
+.checkbox::after {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  animation-name: checkbox;
+  animation-duration: 1s;
+  z-index: 3;
+
+}
+
+.checkbox:checked {
+  background: #fff url("/static/icons/check.png") center;
+  z-index: 3;
+
+}
+
+.checkbox:checked::after {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  animation-name: checkboxChecked;
+  animation-duration: 1s;
+}
+@keyframes checkboxChecked {
+  0% {
+    background-color: inherit;
+    left: -1px;
+    top: -1px;
+  }
+  100% {
+    background-color: inherit;
+    left: 20px;
+    top: -20px;
+  }
+}
+
+@keyframes checkbox {
+  0% {
+    background-color: inherit;
+    left: 20px;
+    top: 20px;
+  }
+  100% {
+    background-color: inherit;
+    left: -1px;
+    top: -1px;
+  }
+}

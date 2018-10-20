@@ -1,0 +1,10 @@
+.filterContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px;
+  background: #fff;
+}
+.filterGroup {
+  display: flex;
+  flex-flow: column nowrap;
+}
