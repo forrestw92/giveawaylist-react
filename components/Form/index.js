@@ -1,6 +1,6 @@
 import React from "react";
 import { string, array, func, object } from "prop-types";
-import stylesheet from "../../Containers/RegisterContainer/index.css";
+import stylesheet from "./index.css";
 import SocialIcons from "./SocialIcons";
 import InputGroup from "./InputGroup";
 

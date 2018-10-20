@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import stylesheet from "../../Containers/RegisterContainer/index.css";
+import React from "react";
+import stylesheet from "./index.css";
 const GOOGLE_LOGIN = "https://forrestwalker.me/api/o1/auth/google";
 const FACEBOOK_LOGIN = "https://forrestwalker.me/api/o1/auth/facebook";
 const TWITTER_LOGIN = "https://forrestwalker.me/api/o1/auth/twitter";

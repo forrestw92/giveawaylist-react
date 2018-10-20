@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { string, func } from "prop-types";
-import stylesheet from "../../Containers/RegisterContainer/index.css";
+import stylesheet from "./index.css";
 
 const InputGroup = props => {
   return (

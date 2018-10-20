@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes, { string, number } from "prop-types";
+import { string, number } from "prop-types";
 import moment from "moment-timezone";
 import stylesheet from "./index.css";
 import GroupItem from "./GroupItem";
