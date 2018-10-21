@@ -38,13 +38,7 @@ const Head = props => (
       <meta property="og:image:height" content="630" />
     </NextHead>
     <style jsx global>{`
-      body {
-        background: #fdfefd;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        font-family: "Lato", sans-serif;
-      }
+
     `}</style>
   </React.Fragment>
 );

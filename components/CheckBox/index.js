@@ -7,7 +7,6 @@ class CheckBox extends React.Component {
     const { id, label, name, _onChange } = this.props;
     return (
       <label htmlFor={id}>
-        {label}
         <input
           type={"checkbox"}
           name={name}
@@ -15,6 +14,7 @@ class CheckBox extends React.Component {
           className={stylesheet["checkbox"]}
           onChange={e => _onChange(e)}
         />
+        {label}
       </label>
     );
   }

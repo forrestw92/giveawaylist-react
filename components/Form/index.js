@@ -38,6 +38,6 @@ Form.propTypes = {
   _onChange: func.isRequired,
   title: string.isRequired,
   inputs: array.isRequired,
-  children: object
+  children: array
 };
 export default Form;

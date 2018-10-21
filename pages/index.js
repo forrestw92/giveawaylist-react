@@ -11,6 +11,7 @@ import Head from "../components/head";
 import Header from "../components/Header";
 import GiveawayContainer from "../Containers/GiveawayContainer";
 import "./global.css";
+import stylesheet from "./global.css";
 import Pagination from "../components/Pagination/";
 class Home extends React.Component {
   static getInitialProps({ query }) {
@@ -36,7 +37,7 @@ class Home extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
         <Header />
-        <main className={"content"}>
+        <main className={stylesheet["content"]}>
           <GiveawayContainer
             giveaways={items}
             deleteSingleGiveaway={deleteSingleGiveaway}

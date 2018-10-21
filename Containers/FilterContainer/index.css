@@ -3,8 +3,24 @@
   flex-flow: column nowrap;
   padding: 10px;
   background: #fff;
+  width: 25%;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  margin: 10px;
+  min-width: 200px;
+  max-width: 200px;
 }
 .filterGroup {
   display: flex;
   flex-flow: column nowrap;
+}
+.filterTitle {
+  border-bottom: 1px solid #1d3557;
+}
+.title {
+  text-align: center;
+}
+.input--group {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 10px;
 }

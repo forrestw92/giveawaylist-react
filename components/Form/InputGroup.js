@@ -1,17 +1,17 @@
 import React from "react";
 import { string, func } from "prop-types";
 import stylesheet from "./index.css";
+import TextInput from "../TextInput";
 
 const InputGroup = props => {
   return (
     <div className={stylesheet["input--group"]}>
-      <input
+      <TextInput
         type={props.type}
-        className={stylesheet["input"]}
         id={props.id}
         name={props.name}
         autoComplete={props.autoComplete}
-        onChange={e => props._onChange(e, props.name)}
+        _onChange={props._onChange}
         value={props.value}
       />
       <label
