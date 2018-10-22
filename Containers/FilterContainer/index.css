@@ -8,12 +8,16 @@
   margin: 10px;
   min-width: 200px;
   max-width: 200px;
+  transition: left 0.25s ease-in-out;
 }
 @media only screen and (max-width: 1040px) {
   .filterContainer {
     position: absolute;
     left: -240px;
   }
+}
+.filterContainer .off-screen {
+  left: 0;
 }
 .filterGroup {
   display: flex;

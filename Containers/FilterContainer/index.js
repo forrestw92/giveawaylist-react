@@ -2,6 +2,7 @@ import React from "react";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
+import FAB from "../../components/FAB";
 class FilterContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -85,6 +86,12 @@ class FilterContainer extends React.Component {
   render() {
     return (
       <section className={stylesheet["filterContainer"]}>
+        <FAB
+          _onClick={() => console.log(this)}
+          className={"fab"}
+          image={"../../static/icons/filter.svg"}
+          ariaLabel={"Filter"}
+        />
         <h1 className={stylesheet["title"]}>Filter</h1>
         <div className={stylesheet["filterGroup"]}>
           <h4 className={stylesheet["filterTitle"]}>Requirements</h4>
