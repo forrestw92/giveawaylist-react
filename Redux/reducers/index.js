@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import postReducer from "./giveawayReducer";
+import giveawayReducer from "./giveawayReducer";
+import menuReducer from "./menuReducer";
 
 export default combineReducers({
-  giveaways: postReducer
+  giveaways: giveawayReducer,
+  menus: menuReducer
 });

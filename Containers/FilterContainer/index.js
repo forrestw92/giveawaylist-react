@@ -1,4 +1,5 @@
 import React from "react";
+import { func } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
@@ -83,11 +84,21 @@ class FilterContainer extends React.Component {
     }
     this.setState({ oddsMin: e.target.value });
   };
+  _onClick = () => {
+    this.props.showHideFAB();
+  };
   render() {
+    const { isFABOpen } = this.props;
     return (
-      <section className={stylesheet["filterContainer"]}>
+      <section
+        className={
+          isFABOpen
+            ? stylesheet["filterContainer"] + " " + stylesheet["off-screen"]
+            : stylesheet["filterContainer"]
+        }
+      >
         <FAB
-          _onClick={() => console.log(this)}
+          _onClick={() => this._onClick()}
           className={"fab"}
           image={"../../static/icons/filter.svg"}
           ariaLabel={"Filter"}
@@ -227,5 +238,7 @@ class FilterContainer extends React.Component {
     );
   }
 }
-FilterContainer.propTypes = {};
+FilterContainer.propTypes = {
+  showHideFAB: func.isRequired
+};
 export default FilterContainer;

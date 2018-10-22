@@ -9,7 +9,7 @@ class FAB extends React.Component {
       <div
         className={stylesheet[className]}
         aria-label={ariaLabel}
-        onClick={() => _onClick}
+        onClick={() => _onClick()}
       >
         <img src={image} alt={ariaLabel} />
       </div>
