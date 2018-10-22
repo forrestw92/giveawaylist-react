@@ -37,9 +37,6 @@ const Head = props => (
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
     </NextHead>
-    <style jsx global>{`
-
-    `}</style>
   </React.Fragment>
 );
 

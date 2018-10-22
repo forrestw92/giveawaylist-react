@@ -9,6 +9,12 @@
   min-width: 200px;
   max-width: 200px;
 }
+@media only screen and (max-width: 1040px) {
+  .filterContainer {
+    position: absolute;
+    left: -240px;
+  }
+}
 .filterGroup {
   display: flex;
   flex-flow: column nowrap;

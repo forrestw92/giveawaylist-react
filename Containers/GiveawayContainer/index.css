@@ -3,5 +3,10 @@
   flex-flow: row wrap;
   justify-content: center;
   padding: 10px;
-  width:75%;
+  width: 75%;
+}
+@media only screen and (max-width: 1040px) {
+  .giveawayContainer {
+    width: 100%;
+  }
 }
