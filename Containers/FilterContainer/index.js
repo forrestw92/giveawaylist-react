@@ -1,5 +1,5 @@
 import React from "react";
-import { func } from "prop-types";
+import { func, bool } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
@@ -87,6 +87,7 @@ class FilterContainer extends React.Component {
   _onClick = () => {
     this.props.showHideFAB();
   };
+
   render() {
     const { isFABOpen } = this.props;
     return (
@@ -96,6 +97,7 @@ class FilterContainer extends React.Component {
             ? stylesheet["filterContainer"] + " " + stylesheet["off-screen"]
             : stylesheet["filterContainer"]
         }
+        style={{ top: this.state.sticky }}
       >
         <FAB
           _onClick={() => this._onClick()}
@@ -239,6 +241,7 @@ class FilterContainer extends React.Component {
   }
 }
 FilterContainer.propTypes = {
-  showHideFAB: func.isRequired
+  showHideFAB: func.isRequired,
+  isFABOpen: bool.isRequired
 };
 export default FilterContainer;

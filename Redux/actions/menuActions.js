@@ -1,4 +1,4 @@
-import { SHOW_HIDE_MENU, SHOW_HIDE_FAB } from "./types";
+import { SHOW_HIDE_MENU, SHOW_HIDE_FAB, STICKY_FAB } from "./types";
 
 /**
  * Hides or shows menu based on icon click
@@ -14,8 +14,13 @@ export const showHideMenu = () => dispatch => {
  * @returns {Function}
  */
 export const showHideFAB = () => dispatch => {
-  console.log("SDFSDF")
   dispatch({
     type: SHOW_HIDE_FAB
+  });
+};
+
+export const stickyFAB = () => dispatch => {
+  dispatch({
+    type: STICKY_FAB
   });
 };

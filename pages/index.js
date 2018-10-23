@@ -6,7 +6,7 @@ import {
   deleteSingleGiveaway,
   deleteGiveaways
 } from "../Redux/actions/giveawayActions";
-import { showHideFAB } from "../Redux/actions/menuActions";
+import { showHideFAB, stickyFAB } from "../Redux/actions/menuActions";
 import Head from "../components/head";
 import Header from "../components/Header";
 import GiveawayContainer from "../Containers/GiveawayContainer";
@@ -33,6 +33,7 @@ class Home extends React.Component {
       pageId,
       menus
     } = this.props;
+    const { fabOpen, fabSticky } = menus;
     const { items, totalGiveaways } = giveaways;
     return (
       <React.Fragment>
@@ -41,13 +42,14 @@ class Home extends React.Component {
         <main className={stylesheet["content"]}>
           <GiveawayContainer
             giveaways={items}
-            isFABOpen={menus.fabOpen}
+            isFABOpen={fabOpen}
             deleteSingleGiveaway={deleteSingleGiveaway}
             showHideFAB={this.props.showHideFAB}
           />
           <Pagination
             totalPages={totalGiveaways / 24}
             currentlySelected={pageId}
+            fabSticky={fabSticky}
             deleteGiveaways={deleteGiveaways}
           />
         </main>
@@ -71,5 +73,11 @@ Home.defaultProps = {
 
 export default connect(
   state => state,
-  { fetchGiveaways, deleteSingleGiveaway, deleteGiveaways, showHideFAB }
+  {
+    fetchGiveaways,
+    deleteSingleGiveaway,
+    deleteGiveaways,
+    showHideFAB,
+    stickyFAB
+  }
 )(Home);

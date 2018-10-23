@@ -11,6 +11,7 @@ class GiveawayContainer extends React.Component {
       showHideFAB,
       isFABOpen
     } = this.props;
+
     return (
       <React.Fragment>
         <FilterContainer showHideFAB={showHideFAB} isFABOpen={isFABOpen} />
