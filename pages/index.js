@@ -20,9 +20,10 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.fetchGiveaways(this.props.pageId);
   }
-  componentDidUpdate(nextProps) {
-    if (this.props.pageId !== nextProps.pageId) {
-      this.props.fetchGiveaways(nextProps.pageId);
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.pageId !== this.props.pageId) {
+      this.props.fetchGiveaways(this.props.pageId);
     }
   }
   render() {
