@@ -27,7 +27,6 @@
     position: fixed;
   }
 }
-
 .filterGroup {
   display: flex;
   flex-flow: column nowrap;
