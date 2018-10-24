@@ -86,6 +86,11 @@ class FilterContainer extends React.Component {
   };
   _onClick = () => {
     this.props.showHideFAB();
+    if (document.body.style.overflow === "hidden") {
+      document.body.style.overflow = "auto";
+    } else {
+      document.body.style.overflow = "hidden";
+    }
   };
 
   render() {
@@ -97,7 +102,6 @@ class FilterContainer extends React.Component {
             ? stylesheet["filterContainer"] + " " + stylesheet["off-screen"]
             : stylesheet["filterContainer"]
         }
-        style={{ top: this.state.sticky }}
       >
         <FAB
           _onClick={() => this._onClick()}
