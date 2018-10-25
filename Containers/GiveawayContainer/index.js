@@ -31,7 +31,7 @@ class GiveawayContainer extends React.Component {
                 deleteSingleGiveaway={deleteSingleGiveaway}
               />
             ))}
-          {!giveaways && <h1 className={"Loading"}>Loading</h1>}
+          {giveaways.length === 0 && <h1 className={"Loading"}>Loading</h1>}
         </section>
       </React.Fragment>
     );
