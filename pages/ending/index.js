@@ -7,7 +7,7 @@ const Home = () => (
   <div>
     <Head title="Ending Giveaways - Amazon Giveaway List" />
     <Header />
-    <Navigation currentPage={"ending"} />
+    <Navigation currentPage={"/ending"} />
   </div>
 );
 

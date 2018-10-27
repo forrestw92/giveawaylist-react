@@ -52,11 +52,19 @@ const links = [
 
 class Navigation extends React.PureComponent {
   render() {
+    const { currentPage } = this.props;
     return (
       <nav>
         <ul className={stylesheet["navigation"]}>
           {links.map(({ key, href, label, className }) => (
-            <li key={key} className={stylesheet[className]}>
+            <li
+              key={key}
+              className={
+                currentPage === href
+                  ? stylesheet[className] + " " + stylesheet["active"]
+                  : stylesheet[className]
+              }
+            >
               <Link href={href}>
                 <a>{label}</a>
               </Link>

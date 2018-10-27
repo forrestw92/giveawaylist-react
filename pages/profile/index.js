@@ -6,7 +6,7 @@ class Profile extends React.Component {
     return (
       <section>
         <Header />
-        <Navigation currentPage={"profile"} />
+        <Navigation currentPage={"/profile"} />
         Profile Page
       </section>
     );

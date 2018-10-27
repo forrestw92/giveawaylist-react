@@ -7,13 +7,7 @@ const Home = () => (
   <div>
     <Head title="Book Giveaways - Amazon Giveaway List" />
     <Header />
-    <Navigation currentPage={"ebooks"} />
-    <style jsx>{`
-      .hero {
-        width: 100%;
-        color: #333;
-      }
-    `}</style>
+    <Navigation currentPage={"/ebooks"} />
   </div>
 );
 

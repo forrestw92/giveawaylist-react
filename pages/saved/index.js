@@ -6,7 +6,7 @@ const Home = () => (
   <div>
     <Head title="Saved Giveaways - Amazon Giveaway List" />
     <Header />
-    <Navigation currentPage={"saved"} />
+    <Navigation currentPage={"/saved"} />
   </div>
 );
 

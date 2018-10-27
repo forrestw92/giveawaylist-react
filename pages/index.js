@@ -41,7 +41,7 @@ class Home extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
         <Header />
-        <Navigation currentPage={"home"} />
+        <Navigation currentPage={"/"} />
         <main className={stylesheet["content"]}>
           <GiveawayContainer
             giveaways={items}

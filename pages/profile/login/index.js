@@ -10,7 +10,7 @@ class Login extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Login" />
         <Header />
-        <Navigation currentPage={"login"} />
+        <Navigation currentPage={"/profile/login"} />
         <main className={"content"}>
           <LoginContainer />
         </main>
