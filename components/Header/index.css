@@ -5,11 +5,33 @@
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-
+  justify-content: center;
+  position: relative;
 }
 .logo {
   display: flex;
-  justify-content: center;
   height: 65px;
+  width: 70%;
+  position: absolute;
+  margin: auto;
+}
+@media only screen and (max-width: 425px) {
+  .logo {
+    left: 5px;
+  }
+}
+.menu {
+  width: 45px;
+  height: 45px;
+  background: inherit;
+  border: 0;
+  right: 5px;
+  position: absolute;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.menu img {
+  height: 100%;
   width: 100%;
 }

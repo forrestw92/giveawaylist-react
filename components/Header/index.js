@@ -10,6 +10,19 @@ class Header extends React.Component {
           className={stylesheet.logo}
           alt="Giveaway List Logo"
         />
+        <button
+          className={stylesheet.menu}
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="menu"
+          aria-label="Navigation"
+        >
+          <img
+            src="../../static/icons/menu.svg"
+            className={stylesheet}
+            alt="Giveaway List Logo"
+          />
+        </button>
       </header>
     );
   }
