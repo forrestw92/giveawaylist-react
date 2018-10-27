@@ -52,7 +52,6 @@ const links = [
 
 class Navigation extends React.PureComponent {
   render() {
-    const { currentPage } = this.props;
     return (
       <nav>
         <ul className={stylesheet["navigation"]}>

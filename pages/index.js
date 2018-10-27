@@ -13,7 +13,7 @@ import GiveawayContainer from "../Containers/GiveawayContainer";
 import "./global.css";
 import stylesheet from "./global.css";
 import Pagination from "../components/Pagination/";
-import Navigation from "../components/Navigation";
+import Navigation from "../components/Navigation/";
 class Home extends React.Component {
   static getInitialProps({ query }) {
     return { pageId: parseInt(query.pageId) || 1 };

@@ -1,5 +1,4 @@
 import React from "react";
-
 import Head from "../../../components/head";
 import Header from "../../../components/Header";
 import "../../global.css";
