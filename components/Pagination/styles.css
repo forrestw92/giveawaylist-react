@@ -5,6 +5,8 @@
   width: 100%;
   margin: 0 0 20px 0;
   justify-content: center;
+  position: absolute;
+  bottom: -40px;
 }
 .pageination > li {
   padding: 6px 10px;

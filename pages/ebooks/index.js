@@ -1,12 +1,13 @@
 import React from "react";
 import Head from "../../components/head";
-import Nav from "../../components/nav";
+import Header from "../../components/Header";
+import Navigation from "../../components/Navigation";
 
 const Home = () => (
   <div>
     <Head title="Book Giveaways - Amazon Giveaway List" />
-    <Nav />
-
+    <Header />
+    <Navigation currentPage={"ebooks"} />
     <style jsx>{`
       .hero {
         width: 100%;

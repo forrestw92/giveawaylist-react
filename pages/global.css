@@ -163,9 +163,10 @@ template {
 }
 .content {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   width: 100%;
   justify-content: center;
+  position: relative;
 }
 
 .clamp-lines {
