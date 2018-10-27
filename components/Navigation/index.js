@@ -1,7 +1,8 @@
 import React from "react";
-import { string } from "prop-types";
+import { string, bool } from "prop-types";
 import stylesheet from "./index.css";
 import Link from "next/link";
+import { connect } from "react-redux";
 const links = [
   {
     href: "/",
@@ -52,10 +53,18 @@ const links = [
 
 class Navigation extends React.PureComponent {
   render() {
-    const { currentPage } = this.props;
+    const { currentPage, menuOpen } = this.props;
     return (
-      <nav>
-        <ul className={stylesheet["navigation"]}>
+      <nav role="navigation">
+        <ul
+          className={
+            menuOpen
+              ? stylesheet["navigation"] + " " + stylesheet["opened"]
+              : stylesheet["navigation"]
+          }
+          id={"menu"}
+          tabIndex={"-1"}
+        >
           {links.map(({ key, href, label, className }) => (
             <li
               key={key}
@@ -76,6 +85,12 @@ class Navigation extends React.PureComponent {
   }
 }
 Navigation.propTypes = {
-  currentPage: string.isRequired
+  currentPage: string.isRequired,
+  menuOpen: bool.isRequired
 };
-export default Navigation;
+function mapStateToProps(state) {
+  return {
+    menuOpen: state.menus.menuOpen
+  };
+}
+export default connect(mapStateToProps)(Navigation);

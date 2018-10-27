@@ -1,7 +1,12 @@
 import React from "react";
-import { string } from "prop-types";
+import { func } from "prop-types";
 import stylesheet from "./index.css";
+import {connect} from "react-redux";
+import { showHideMenu } from "../../Redux/actions/menuActions";
 class Header extends React.Component {
+  _onClick = () => {
+    this.props.showHideMenu();
+  };
   render() {
     return (
       <header className={stylesheet.header}>
@@ -16,6 +21,7 @@ class Header extends React.Component {
           aria-expanded="false"
           aria-controls="menu"
           aria-label="Navigation"
+          onClick={() => this._onClick()}
         >
           <img
             src="../../static/icons/menu.svg"
@@ -28,10 +34,11 @@ class Header extends React.Component {
   }
 }
 Header.propTypes = {
-  title: string,
-  description: string,
-  url: string,
-  ogImage: string
+  showHideMenu: func.isRequired
 };
-
-export default Header;
+export default connect(
+  state => state,
+  {
+    showHideMenu
+  }
+)(Header);
