@@ -99,7 +99,7 @@ class FilterContainer extends React.Component {
       <section
         className={
           isFABOpen
-            ? stylesheet["filterContainer"] + " " + stylesheet["off-screen"]
+            ? `${stylesheet["filterContainer"]} ${stylesheet["off-screen"]}`
             : stylesheet["filterContainer"]
         }
       >

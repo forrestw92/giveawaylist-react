@@ -16,9 +16,9 @@ class TextInput extends React.Component {
     return (
       <input
         type={type}
-        className={
-          stylesheet["input"] + (className ? " " + stylesheet[className] : "")
-        }
+        className={`${stylesheet["input"]} ${
+          className ? stylesheet[className] : ""
+        }`}
         id={id}
         name={name}
         placeholder={placeHolder ? placeHolder : ""}

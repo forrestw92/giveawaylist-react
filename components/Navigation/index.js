@@ -67,7 +67,7 @@ class Navigation extends React.PureComponent {
         <ul
           className={
             menuOpen
-              ? stylesheet["navigation"] + " " + stylesheet["opened"]
+              ? `${stylesheet["navigation"]} ${stylesheet["opened"]}`
               : stylesheet["navigation"]
           }
           id={"menu"}
@@ -81,7 +81,7 @@ class Navigation extends React.PureComponent {
               key={key}
               className={
                 currentPage === href
-                  ? stylesheet[className] + " " + stylesheet["active"]
+                  ? `${stylesheet[className]} ${stylesheet["active"]}`
                   : stylesheet[className]
               }
             >
