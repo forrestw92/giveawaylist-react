@@ -18,12 +18,23 @@
   justify-content: space-evenly;
   position: relative;
 }
+
+.navigation .nav--item:hover {
+  background: #a8dadc;
+}
+.navigation .nav--item:hover a {
+  color: black;
+}
 .navigation .nav--item.active {
   background: #1d3557;
   box-shadow: 0 2px 3px #1d3557;
 }
+.navigation .nav--item.active:hover a {
+  color: #fdfefd;
+}
 .navigation .nav--item a {
   color: #fdfefd;
+  text-align: center;
   margin: auto;
 }
 @media only screen and (max-width: 976px) {

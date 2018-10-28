@@ -26,10 +26,17 @@ const links = [
     className: "nav--item"
   },
   {
+    href: "/ebooks",
+    label: "eBooks Giveaways",
+    isActive: true,
+    shouldRender: true,
+    className: "nav--item"
+  },
+  {
     href: "/sweepstakes",
     label: "Sweepstakes",
     isActive: true,
-    shouldRender: true,
+    shouldRender: false,
     className: "nav--item"
   },
   {
@@ -54,6 +61,7 @@ const links = [
 class Navigation extends React.PureComponent {
   render() {
     const { currentPage, menuOpen } = this.props;
+    const renderLinks = links.filter(link => link.shouldRender);
     return (
       <nav role="navigation">
         <ul
@@ -64,8 +72,11 @@ class Navigation extends React.PureComponent {
           }
           id={"menu"}
           tabIndex={"-1"}
+          style={{
+            height: menuOpen ? renderLinks.length * 50 + "px" : undefined
+          }}
         >
-          {links.map(({ key, href, label, className }) => (
+          {renderLinks.map(({ key, href, label, className }) => (
             <li
               key={key}
               className={
@@ -74,7 +85,7 @@ class Navigation extends React.PureComponent {
                   : stylesheet[className]
               }
             >
-              <Link href={href}>
+              <Link prefetch href={href}>
                 <a>{label}</a>
               </Link>
             </li>
