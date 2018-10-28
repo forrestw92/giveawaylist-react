@@ -20,9 +20,11 @@
 }
 .navigation .nav--item.active {
   background: #1d3557;
+  box-shadow: 0 2px 3px #1d3557;
 }
 .navigation .nav--item a {
   color: #fdfefd;
+  margin: auto;
 }
 @media only screen and (max-width: 976px) {
   .navigation {

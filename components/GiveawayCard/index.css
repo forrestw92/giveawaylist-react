@@ -1,4 +1,3 @@
-
 .giveawayCard {
   display: flex;
   flex-flow: column nowrap;
@@ -22,22 +21,25 @@
   height: 265px;
 }
 .giveawayCard--itemName {
-  background-color: #797878;
+  background: #1d3557;
   color: white;
   height: 45px;
   font-size: 17px;
   padding: 10px 14px;
   line-height: 1.3;
+  text-align: center;
+  letter-spacing: 1px;
 }
 .giveawayCard--header .image {
   margin: 20px auto;
+  height: 160px;
+  width: 160px;
 }
 .giveawayCard--body {
   /* border-top: 1px solid #457b9d; */
 }
 .giveawayCard--category {
   text-align: center;
-  background-color: orange;
   color: black;
   padding: 6px 2px 8px 2px;
 }
@@ -46,7 +48,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  border-bottom: 5px solid #797878;
+  border-bottom: 5px solid #1d3557;
 }
 .giveawayCard--footer .views--giveaway {
   display: flex;
@@ -76,10 +78,10 @@
   position: relative;
 }
 .groupItem--alternative::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -1px;
-  background: rgba(69, 123, 157, .05);
+  background: rgba(69, 123, 157, 0.05);
   width: 105%;
   overflow: hidden;
   height: 100%;
@@ -92,7 +94,7 @@
 
 .highlighted {
   color: rgb(69, 123, 157);
-  text-shadow: 1px 1px rgba(69,123,157,.3);
+  text-shadow: 1px 1px rgba(69, 123, 157, 0.3);
 }
 .around {
   justify-content: space-around;
@@ -101,7 +103,8 @@
   margin: 0;
   padding: 0;
 }
-.groupItem .item,.groupItem--alternative .item{
+.groupItem .item,
+.groupItem--alternative .item {
   font-weight: bold;
 }
 @media only screen and (max-width: 548px) {
