@@ -6,11 +6,17 @@
   margin: 0 0 20px 0;
   justify-content: center;
   position: absolute;
-  bottom: -40px;
+  bottom: -60px;
 }
 .pageination > li {
-  padding: 6px 10px;
+  padding: 10px;
+  height: 40px;
   list-style: none;
+  font-size: 20px;
+  min-width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .disabled {
   background-color: #1d3557;
@@ -50,13 +56,13 @@ a:hover {
 
 @media screen and (max-width: 550px) {
   .separator {
-    display: none;
+    display: none !important;
   }
   .page {
-    display: none;
+    display: none !important;
   }
   .disabled {
-    display: none;
+    display: none !important;
     color: white;
   }
   .backNext {

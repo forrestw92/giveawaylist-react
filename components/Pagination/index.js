@@ -6,8 +6,8 @@ export default class Pagination extends Component {
   render() {
     const { totalPages, currentlySelected } = this.props;
     const SEPARATOR = "...",
-      NEXT = "Next >",
-      BACK = "< Back";
+      NEXT = "Next",
+      BACK = "Back";
     const genPages = () => {
       const lowestSelection = 1;
       const highestSelection = Math.ceil(totalPages);
