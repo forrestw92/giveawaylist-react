@@ -9,11 +9,16 @@ import axios from "axios";
 /**
  * Fetches giveaways based on page
  * @param {number} pageId
+ * @param {string} type
  * @returns {Function}
  */
-export const fetchGiveaways = pageId => dispatch => {
+export const fetchGiveaways = (pageId, type = "") => dispatch => {
   axios
-    .post(`https://forrestwalker.me/api/o1/giveaway/${pageId}`)
+    .post(
+      `https://forrestwalker.me/api/o1/giveaway/${
+        type !== "" ? type + "/" : ""
+      }${pageId}`
+    )
     .then(res => {
       console.log(res.data.totalGiveaways);
       dispatch({
