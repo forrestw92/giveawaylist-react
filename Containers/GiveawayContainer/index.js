@@ -24,9 +24,9 @@ class GiveawayContainer extends React.Component {
         <FilterContainer showHideFAB={showHideFAB} isFABOpen={isFABOpen} />
         <section className={stylesheet.giveawayContainer}>
           {giveaways &&
-            giveaways.map((giveaway, index) => (
+            giveaways.map(giveaway => (
               <GiveawayCard
-                key={index}
+                key={giveaway.id}
                 {...giveaway}
                 deleteSingleGiveaway={deleteSingleGiveaway}
               />
