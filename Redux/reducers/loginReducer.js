@@ -1,7 +1,7 @@
 import { LOGIN, LOGOUT, USER_DETAILS } from "../actions/types";
 
 const initialState = {
-  loggedIn: [],
+  loggedIn: false,
   userDetails: {}
 };
 

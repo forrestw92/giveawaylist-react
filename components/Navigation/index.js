@@ -1,67 +1,106 @@
 import React from "react";
-import { string, bool } from "prop-types";
-import stylesheet from "./index.css";
+import Router from "next/router";
 import Link from "next/link";
 import { connect } from "react-redux";
-const links = [
-  {
-    href: "/",
-    label: "Home",
-    isActive: true,
-    shouldRender: true,
-    className: "nav--item"
-  },
-  {
-    href: "/ending",
-    label: "Ending Giveaways",
-    isActive: true,
-    shouldRender: true,
-    className: "nav--item"
-  },
-  {
-    href: "/saved",
-    label: "Saved Giveaways",
-    isActive: true,
-    shouldRender: true,
-    className: "nav--item"
-  },
-  {
-    href: "/ebooks",
-    label: "eBooks Giveaways",
-    isActive: true,
-    shouldRender: true,
-    className: "nav--item"
-  },
-  {
-    href: "/sweepstakes",
-    label: "Sweepstakes",
-    isActive: true,
-    shouldRender: false,
-    className: "nav--item"
-  },
-  {
-    href: "/profile",
-    label: "Profile",
-    isActive: true,
-    shouldRender: true,
-    className: "nav--item"
-  },
-  {
-    href: "/profile/login",
-    label: "Login",
-    isActive: true,
-    shouldRender: true,
-    className: "nav--item"
-  }
-].map((item, idx) => {
-  item.key = idx;
-  return item;
-});
+import { string, bool } from "prop-types";
+import stylesheet from "./index.css";
 
 class Navigation extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      links: [
+        {
+          href: "/",
+          label: "Home",
+          shouldRender: true,
+          className: "nav--item"
+        },
+        {
+          href: "/ending",
+          label: "Ending Giveaways",
+          shouldRender: true,
+          className: "nav--item"
+        },
+        {
+          href: "/saved",
+          label: "Saved Giveaways",
+          shouldRender: false,
+          authRoute: true,
+
+          className: "nav--item"
+        },
+        {
+          href: "/ebooks",
+          label: "eBooks Giveaways",
+          shouldRender: true,
+          className: "nav--item"
+        },
+        {
+          href: "/sweepstakes",
+          label: "Sweepstakes",
+          shouldRender: false,
+          className: "nav--item"
+        },
+        {
+          href: "/profile",
+          label: "Profile",
+          shouldRender: false,
+          className: "nav--item"
+        },
+        {
+          href: "/profile/login",
+          label: "Login",
+          shouldRender: true,
+          className: "nav--item"
+        }
+      ]
+    };
+  }
+  componentDidMount() {
+    if (this.props.loggedIn) {
+      const links = this.state.links.map(item => {
+        if (
+          item.href === "/profile" ||
+          item.href === "/profile/login" ||
+          item.href === "/saved"
+        ) {
+          item.shouldRender = !item.shouldRender;
+        }
+        return item;
+      });
+
+      console.log(links);
+      this.setState({ links });
+      if (this.props.currentPage === "/profile/login") {
+        window.location.replace("/profile");
+      }
+    }
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.loggedIn !== this.props.loggedIn) {
+      const links = this.state.links.map(item => {
+        if (
+          item.href === "/profile" ||
+          item.href === "/profile/login" ||
+          item.href === "/saved"
+        ) {
+          item.shouldRender = !item.shouldRender;
+        }
+        return item;
+      });
+
+      console.log(links);
+      this.setState({ links });
+      if (this.props.currentPage === "/profile/login") {
+       Router.push("/profile");
+      }
+    }
+  }
   render() {
     const { currentPage, menuOpen } = this.props;
-    const renderLinks = links.filter(link => link.shouldRender);
+    const renderLinks = this.state.links.filter(link => link.shouldRender);
     return (
       <nav role="navigation">
         <ul
@@ -76,9 +115,9 @@ class Navigation extends React.PureComponent {
             height: menuOpen ? renderLinks.length * 50 + "px" : undefined
           }}
         >
-          {renderLinks.map(({ key, href, label, className }) => (
+          {renderLinks.map(({ href, label, className }) => (
             <li
-              key={key}
+              key={href}
               className={
                 currentPage === href
                   ? `${stylesheet[className]} ${stylesheet["active"]}`
@@ -101,7 +140,8 @@ Navigation.propTypes = {
 };
 function mapStateToProps(state) {
   return {
-    menuOpen: state.menus.menuOpen
+    menuOpen: state.menus.menuOpen,
+    loggedIn: state.user.loggedIn
   };
 }
 export default connect(mapStateToProps)(Navigation);

@@ -9,8 +9,8 @@ import LoginContainer from "../../../Containers/LoginContainer";
 import Navigation from "../../../components/Navigation";
 class Login extends React.Component {
   static async getInitialProps(ctx) {
+    const { giveawayToken } = cookies(ctx);
     if (ctx.res) {
-      const { giveawayToken } = cookies(ctx);
       if (!giveawayToken) {
         return {};
       }
@@ -29,6 +29,9 @@ class Login extends React.Component {
         .catch(err => console.log(err));
       ctx.res.end();
     } else {
+      if (!giveawayToken) {
+        return {};
+      }
       Router.push("/profile");
     }
     return {};

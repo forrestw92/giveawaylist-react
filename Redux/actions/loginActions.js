@@ -1,4 +1,4 @@
- import { LOGIN, LOGOUT, USER_DETAILS } from "./types";
+import { LOGIN, LOGOUT, USER_DETAILS } from "./types";
 
 /**
  * Adds user details
