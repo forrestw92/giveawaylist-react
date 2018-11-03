@@ -19,6 +19,7 @@ class EBooks extends React.Component {
     return { pageId: parseInt(query.pageId) || 1 };
   }
   componentDidMount() {
+    this.props.deleteGiveaways();
     this.props.fetchGiveaways(this.props.pageId, "ebooks");
   }
 

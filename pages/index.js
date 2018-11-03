@@ -19,9 +19,9 @@ class Home extends React.Component {
     return { pageId: parseInt(query.pageId) || 1 };
   }
   componentDidMount() {
+    this.props.deleteGiveaways();
     this.props.fetchGiveaways(this.props.pageId);
   }
-
   componentDidUpdate(prevProps) {
     if (prevProps.pageId !== this.props.pageId) {
       this.props.fetchGiveaways(this.props.pageId);
