@@ -13,9 +13,25 @@ import stylesheet from "../global.css";
 import GiveawayContainer from "../../Containers/GiveawayContainer";
 import Pagination from "../../components/Pagination";
 import { func, number, object } from "prop-types";
+import cookies from "next-cookies";
+import { validateAccount } from "../../API";
+import { userLogin } from "../../Redux/actions/loginActions";
 
 class Ending extends React.Component {
-  static getInitialProps({ query }) {
+  static async getInitialProps({ query, req, store }) {
+    const ctx = { req };
+    const { giveawayToken } = cookies(ctx);
+    if (giveawayToken) {
+      await validateAccount({ token: giveawayToken })
+        .then(result => {
+          console.log(result.data);
+          if (result.data.isvalid) {
+            store.dispatch(userLogin(result.data));
+          }
+        })
+        /** TODO:: Better Error Handling **/
+        .catch(err => console.log(err));
+    }
     return { pageId: parseInt(query.pageId) || 1 };
   }
   componentDidMount() {

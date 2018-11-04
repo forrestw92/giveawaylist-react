@@ -1,6 +1,4 @@
 import React from "react";
-import { func, object, bool } from "prop-types";
-import { connect } from "react-redux";
 import Router from "next/router";
 import Header from "../../components/Header";
 import Navigation from "../../components/Navigation";
@@ -53,7 +51,5 @@ class Profile extends React.Component {
     );
   }
 }
-Profile.propTypes = {
-  userLogin: func.isRequired
-};
+
 export default Profile;

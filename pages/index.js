@@ -14,8 +14,24 @@ import "./global.css";
 import stylesheet from "./global.css";
 import Pagination from "../components/Pagination/";
 import Navigation from "../components/Navigation/";
+import cookies from "next-cookies";
+import { userLogin } from "../Redux/actions/loginActions";
+import { validateAccount } from "../API";
 class Home extends React.Component {
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ query, req, store }) {
+    const ctx = { req };
+    const { giveawayToken } = cookies(ctx);
+    if (giveawayToken) {
+      await validateAccount({ token: giveawayToken })
+        .then(result => {
+          console.log(result.data);
+          if (result.data.isvalid) {
+            store.dispatch(userLogin(result.data));
+          }
+        })
+        /** TODO:: Better Error Handling **/
+        .catch(err => console.log(err));
+    }
     return { pageId: parseInt(query.pageId) || 1 };
   }
   componentDidMount() {

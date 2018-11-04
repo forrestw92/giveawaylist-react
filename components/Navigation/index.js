@@ -1,5 +1,4 @@
 import React from "react";
-import Router from "next/router";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { string, bool } from "prop-types";
