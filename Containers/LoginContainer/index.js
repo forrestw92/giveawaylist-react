@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { object, func } from "prop-types";
+import Router from "next/router";
 import { userLogin } from "../../Redux/actions/loginActions";
 import stylesheet from "./index.css";
 import Form from "../../components/Form";
@@ -16,10 +17,12 @@ class LoginContainer extends React.Component {
     };
   }
   _onClick = () => {
-    login({ ...this.state }).then(res => {
-      this.props.userLogin(res.data);
-      document.cookie = `giveawayToken=${res.data.token}`;
-    });
+    login({ ...this.state })
+      .then(res => {
+        document.cookie = `giveawayToken=${res.token}`;
+        return this.props.userLogin(res.data);
+      })
+      .then(() => Router.push("/profile"));
   };
   _onChange = (e, state) => {
     if (state === "email") {

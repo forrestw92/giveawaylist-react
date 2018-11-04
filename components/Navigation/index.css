@@ -1,11 +1,15 @@
+nav {
+  background: #457b9d;
+}
 .navigation {
   margin: 0;
   padding: 0;
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
+  max-width: 960px;
+  margin: auto;
   height: 50px;
-  border-top: 1px solid #a8dadc;
 }
 .navigation .nav--item {
   padding: 0;

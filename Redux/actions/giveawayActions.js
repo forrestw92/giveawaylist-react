@@ -20,7 +20,6 @@ export const fetchGiveaways = (pageId, type = "") => dispatch => {
       }${pageId}`
     )
     .then(res => {
-      console.log(res.data.totalGiveaways);
       dispatch({
         type: FETCH_GIVEAWAYS,
         payload: res.data.results

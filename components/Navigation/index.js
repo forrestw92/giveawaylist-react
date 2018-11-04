@@ -4,7 +4,6 @@ import Link from "next/link";
 import { connect } from "react-redux";
 import { string, bool } from "prop-types";
 import stylesheet from "./index.css";
-
 class Navigation extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -27,8 +26,6 @@ class Navigation extends React.PureComponent {
           href: "/saved",
           label: "Saved Giveaways",
           shouldRender: false,
-          authRoute: true,
-
           className: "nav--item"
         },
         {
@@ -46,13 +43,13 @@ class Navigation extends React.PureComponent {
         {
           href: "/profile",
           label: "Profile",
-          shouldRender: false,
+          shouldRender: true,
           className: "nav--item"
         },
         {
-          href: "/profile/login",
-          label: "Login",
-          shouldRender: true,
+          href: "/profile/register",
+          label: "Register",
+          shouldRender: false,
           className: "nav--item"
         }
       ]
@@ -61,21 +58,12 @@ class Navigation extends React.PureComponent {
   componentDidMount() {
     if (this.props.loggedIn) {
       const links = this.state.links.map(item => {
-        if (
-          item.href === "/profile" ||
-          item.href === "/profile/login" ||
-          item.href === "/saved"
-        ) {
+        if (item.href === "/saved") {
           item.shouldRender = !item.shouldRender;
         }
         return item;
       });
-
-      console.log(links);
       this.setState({ links });
-      if (this.props.currentPage === "/profile/login") {
-        window.location.replace("/profile");
-      }
     }
   }
   componentDidUpdate(prevProps) {
@@ -93,9 +81,6 @@ class Navigation extends React.PureComponent {
 
       console.log(links);
       this.setState({ links });
-      if (this.props.currentPage === "/profile/login") {
-       Router.push("/profile");
-      }
     }
   }
   render() {
@@ -136,7 +121,8 @@ class Navigation extends React.PureComponent {
 }
 Navigation.propTypes = {
   currentPage: string.isRequired,
-  menuOpen: bool.isRequired
+  menuOpen: bool.isRequired,
+  loggedIn: bool.isRequired
 };
 function mapStateToProps(state) {
   return {

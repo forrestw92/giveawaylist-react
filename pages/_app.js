@@ -5,6 +5,15 @@ import { initializeStore } from "../Redux/store";
 import withRedux from "next-redux-wrapper";
 import Layout from "../components/Layout";
 class MyApp extends App {
+  static async getInitialProps({ Component, router, ctx }) {
+    let pageProps = {};
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+
+    return { pageProps };
+  }
   render() {
     const { Component, pageProps, store } = this.props;
     return (

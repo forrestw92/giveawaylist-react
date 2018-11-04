@@ -33,7 +33,7 @@ export const forgotPassword = FORGOT_DATA =>
   axios.post(`${baseURL}/o1/auth/forgot`, FORGOT_DATA);
 /**
  * Checks if token is valid
- * @param {string} token
+ * @param {object} token
  * @returns {Promise<any>}
  */
 export const validateAccount = token =>

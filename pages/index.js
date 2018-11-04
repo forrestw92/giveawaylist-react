@@ -15,7 +15,7 @@ import stylesheet from "./global.css";
 import Pagination from "../components/Pagination/";
 import Navigation from "../components/Navigation/";
 class Home extends React.Component {
-  static getInitialProps({ query }) {
+  static async getInitialProps({ query }) {
     return { pageId: parseInt(query.pageId) || 1 };
   }
   componentDidMount() {
