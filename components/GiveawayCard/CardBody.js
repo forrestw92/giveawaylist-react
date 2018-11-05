@@ -3,10 +3,36 @@ import { string, number } from "prop-types";
 import moment from "moment-timezone";
 import stylesheet from "./index.css";
 import GroupItem from "./GroupItem";
+
+/**
+ * Gets ordinary for number
+ * @param {number} n
+ * @returns {string} ordinary
+ */
 function oddsOrdiany(n) {
   let s = ["th", "st", "nd", "rd"],
     v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+const now = moment.tz("America/Los_Angeles");
+
+/**
+ * Checks if now is DST and adds hour if not
+ * @param {string} time
+ * @returns {string} time diff
+ */
+function dstCheck(time) {
+  if (!now.isDST()) {
+    return moment(time)
+      .tz("America/Los_Angeles")
+      .add(1, "hours")
+      .fromNow();
+  } else {
+    return moment(time)
+      .tz("America/Los_Angeles")
+      .fromNow();
+  }
 }
 const CardBody = props => {
   return (
@@ -47,12 +73,8 @@ const CardBody = props => {
         isItemBold={false}
       />
       <GroupItem
-        firstItem={moment(props.addedDate)
-          .tz("America/Los_Angeles")
-          .fromNow()}
-        secondItem={moment(props.endDate)
-          .tz("America/Los_Angeles")
-          .fromNow()}
+        firstItem={dstCheck(props.addedDate)}
+        secondItem={dstCheck(props.endDate)}
         className={"groupItem--alternative"}
         around={true}
       />
