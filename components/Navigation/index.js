@@ -13,25 +13,29 @@ class Navigation extends React.PureComponent {
           href: "/",
           label: "Home",
           shouldRender: true,
-          className: "nav--item"
+          className: "nav--item",
+          image: "../../static/icons/home.svg"
         },
         {
           href: "/ending",
-          label: "Ending Giveaways",
+          label: "Ending",
           shouldRender: true,
-          className: "nav--item"
+          className: "nav--item",
+          image: "../../static/icons/clock.svg"
         },
         {
           href: "/saved",
-          label: "Saved Giveaways",
+          label: "Saved",
           shouldRender: false,
-          className: "nav--item"
+          className: "nav--item",
+          image: "../../static/icons/saved.svg"
         },
         {
           href: "/ebooks",
-          label: "eBooks Giveaways",
+          label: "eBooks",
           shouldRender: true,
-          className: "nav--item"
+          className: "nav--item",
+          image: "../../static/icons/book.svg"
         },
         {
           href: "/sweepstakes",
@@ -43,7 +47,8 @@ class Navigation extends React.PureComponent {
           href: "/profile",
           label: "Profile",
           shouldRender: true,
-          className: "nav--item"
+          className: "nav--item",
+          image: "../../static/icons/user.svg"
         },
         {
           href: "/profile/register",
@@ -87,6 +92,11 @@ class Navigation extends React.PureComponent {
     const renderLinks = this.state.links.filter(link => link.shouldRender);
     return (
       <nav role="navigation">
+        <img
+          src="../../static/logo.svg"
+          className={stylesheet["logo"]}
+          alt="Giveaway List Logo"
+        />
         <ul
           className={
             menuOpen
@@ -99,17 +109,16 @@ class Navigation extends React.PureComponent {
             height: menuOpen ? renderLinks.length * 50 + "px" : undefined
           }}
         >
-          {renderLinks.map(({ href, label, className }) => (
+          {renderLinks.map(({ href, label, image, className }) => (
             <li
               key={href}
-              className={
-                currentPage === href
-                  ? `${stylesheet[className]} ${stylesheet["active"]}`
-                  : stylesheet[className]
-              }
+              className={`${stylesheet[className]} ${stylesheet["active"]}`}
             >
               <Link prefetch href={href}>
-                <a>{label}</a>
+                <a className={stylesheet["link"]}>
+                  <img src={image} className={stylesheet["link--image"]} />
+                  <span className={stylesheet["link--text"]}>{label}</span>
+                </a>
               </Link>
             </li>
           ))}

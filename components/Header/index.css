@@ -8,18 +8,7 @@
   justify-content: center;
   position: relative;
 }
-.logo {
-  display: flex;
-  height: 65px;
-  width: 70%;
-  position: absolute;
-  margin: auto;
-}
-@media only screen and (max-width: 425px) {
-  .logo {
-    left: 5px;
-  }
-}
+
 .menu {
   width: 45px;
   height: 45px;
