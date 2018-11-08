@@ -1,7 +1,6 @@
 import React from "react";
 import Router from "next/router";
 import Header from "../../components/Header";
-import Navigation from "../../components/Navigation";
 import { userLogin } from "../../Redux/actions/loginActions";
 import Head from "../../components/head";
 import { validateAccount } from "../../API";
@@ -45,7 +44,6 @@ class Profile extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Profile" />
         <Header />
-        <Navigation currentPage={"/profile"} />
         Profile Page
       </React.Fragment>
     );

@@ -1,7 +1,6 @@
 import React from "react";
 import Head from "../../components/head";
 import Header from "../../components/Header";
-import Navigation from "../../components/Navigation";
 import { connect } from "react-redux";
 import {
   deleteGiveaways,
@@ -58,7 +57,6 @@ class EBooks extends React.Component {
       <React.Fragment>
         <Head title="eBooks Giveaways - Amazon Giveaway List" />
         <Header />
-        <Navigation currentPage={"/ebooks"} />
         <main className={stylesheet["content"]}>
           <GiveawayContainer
             giveaways={items}

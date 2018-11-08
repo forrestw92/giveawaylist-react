@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
-import { string, bool } from "prop-types";
+import { bool } from "prop-types";
 import stylesheet from "./index.css";
 class Navigation extends React.PureComponent {
   constructor(props) {
@@ -88,7 +88,6 @@ class Navigation extends React.PureComponent {
     }
   }
   render() {
-    const { currentPage, menuOpen } = this.props;
     const renderLinks = this.state.links.filter(link => link.shouldRender);
     return (
       <nav role="navigation">
@@ -97,18 +96,7 @@ class Navigation extends React.PureComponent {
           className={stylesheet["logo"]}
           alt="Giveaway List Logo"
         />
-        <ul
-          className={
-            menuOpen
-              ? `${stylesheet["navigation"]} ${stylesheet["opened"]}`
-              : stylesheet["navigation"]
-          }
-          id={"menu"}
-          tabIndex={"-1"}
-          style={{
-            height: menuOpen ? renderLinks.length * 50 + "px" : undefined
-          }}
-        >
+        <ul className={stylesheet["navigation"]} id={"menu"} tabIndex={"-1"}>
           {renderLinks.map(({ href, label, image, className }) => (
             <li
               key={href}
@@ -117,7 +105,7 @@ class Navigation extends React.PureComponent {
               <Link prefetch href={href}>
                 <a className={stylesheet["link"]}>
                   <img src={image} className={stylesheet["link--image"]} />
-                  <span className={stylesheet["link--text"]}>{label}</span>
+                  <span>{label}</span>
                 </a>
               </Link>
             </li>
@@ -128,13 +116,10 @@ class Navigation extends React.PureComponent {
   }
 }
 Navigation.propTypes = {
-  currentPage: string.isRequired,
-  menuOpen: bool.isRequired,
   loggedIn: bool.isRequired
 };
 function mapStateToProps(state) {
   return {
-    menuOpen: state.menus.menuOpen,
     loggedIn: state.user.loggedIn
   };
 }

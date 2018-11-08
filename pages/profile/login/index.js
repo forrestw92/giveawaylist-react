@@ -6,7 +6,6 @@ import Head from "../../../components/head";
 import Header from "../../../components/Header";
 import "../../global.css";
 import LoginContainer from "../../../Containers/LoginContainer";
-import Navigation from "../../../components/Navigation";
 class Login extends React.Component {
   static async getInitialProps(ctx) {
     const { giveawayToken } = cookies(ctx);
@@ -41,7 +40,6 @@ class Login extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Login" />
         <Header />
-        <Navigation currentPage={"/profile/login"} />
         <main className={"content"}>
           <LoginContainer />
         </main>

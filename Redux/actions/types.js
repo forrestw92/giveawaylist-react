@@ -4,7 +4,6 @@ export const TOTAL_GIVEAWAYS = "TOTAL_GIVEAWAYS";
 export const DELETE_GIVEAWAYS = "DELETE_GIVEAWAYS";
 
 export const SHOW_HIDE_FAB = "SHOW_HIDE_FAB";
-export const SHOW_HIDE_MENU = "SHOW_HIDE_MENU";
 export const STICKY_FAB = "STICKY_FAB";
 
 export const LOGIN = "LOGIN";

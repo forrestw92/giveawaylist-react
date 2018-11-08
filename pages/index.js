@@ -13,7 +13,6 @@ import GiveawayContainer from "../Containers/GiveawayContainer";
 import "./global.css";
 import stylesheet from "./global.css";
 import Pagination from "../components/Pagination/";
-import Navigation from "../components/Navigation/";
 import cookies from "next-cookies";
 import { userLogin } from "../Redux/actions/loginActions";
 import { validateAccount } from "../API";
