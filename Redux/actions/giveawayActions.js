@@ -13,7 +13,7 @@ import axios from "axios";
  * @returns {Function}
  */
 export const fetchGiveaways = (pageId, type = "") => dispatch => {
-  axios
+  return axios
     .post(
       `https://forrestwalker.me/api/o1/giveaway/${
         type !== "" ? type + "/" : ""
@@ -28,6 +28,7 @@ export const fetchGiveaways = (pageId, type = "") => dispatch => {
         type: TOTAL_GIVEAWAYS,
         payload: res.data.totalGiveaways
       });
+      return res.data.results;
     })
     .catch(err => {
       console.log(err);

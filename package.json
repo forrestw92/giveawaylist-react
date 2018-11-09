@@ -1,5 +1,6 @@
 {
-  "name": "create-next-example-app",
+  "name": "giveaway-list",
+  "author": "Forrest Walker",
   "scripts": {
     "dev": "next",
     "build": "next build",

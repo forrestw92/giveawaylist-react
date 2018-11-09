@@ -17,9 +17,15 @@ import { validateAccount } from "../../API";
 import { userLogin } from "../../Redux/actions/loginActions";
 
 class Ending extends React.Component {
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, isServer }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
+    await store.dispatch(deleteGiveaways());
+    if (isServer) {
+      await store.dispatch(
+        fetchGiveaways(parseInt(query.pageId) || 1, "ending")
+      );
+    }
     if (giveawayToken) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
@@ -34,12 +40,15 @@ class Ending extends React.Component {
     return { pageId: parseInt(query.pageId) || 1 };
   }
   componentDidMount() {
-    this.props.deleteGiveaways();
-    this.props.fetchGiveaways(this.props.pageId, "ending");
+    if (this.props.giveaways.items.length === 0) {
+      this.props.deleteGiveaways();
+      this.props.fetchGiveaways(this.props.pageId, "ending");
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.pageId !== this.props.pageId) {
+      this.props.deleteGiveaways();
       this.props.fetchGiveaways(this.props.pageId, "ending");
     }
   }

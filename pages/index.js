@@ -16,10 +16,15 @@ import Pagination from "../components/Pagination/";
 import cookies from "next-cookies";
 import { userLogin } from "../Redux/actions/loginActions";
 import { validateAccount } from "../API";
+
 class Home extends React.Component {
-  static async getInitialProps({ query, req, store }) {
+  static async getInitialProps({ query, req, store, isServer }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
+    await store.dispatch(deleteGiveaways());
+    if (isServer) {
+      await store.dispatch(fetchGiveaways(parseInt(query.pageId) || 1));
+    }
     if (giveawayToken) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
@@ -34,11 +39,14 @@ class Home extends React.Component {
     return { pageId: parseInt(query.pageId) || 1 };
   }
   componentDidMount() {
-    this.props.deleteGiveaways();
-    this.props.fetchGiveaways(this.props.pageId);
+    if (this.props.giveaways.items.length === 0) {
+      this.props.deleteGiveaways();
+      this.props.fetchGiveaways(this.props.pageId);
+    }
   }
   componentDidUpdate(prevProps) {
     if (prevProps.pageId !== this.props.pageId) {
+      this.props.deleteGiveaways();
       this.props.fetchGiveaways(this.props.pageId);
     }
   }
