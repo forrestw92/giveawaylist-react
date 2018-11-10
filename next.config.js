@@ -5,7 +5,7 @@ module.exports = withOffline(
   withCSS({
     cssModules: true,
     plugins: [require("autoprefixer")({})],
-    webpack(config, options) {
+    webpack(config) {
       return config;
     }
   })
