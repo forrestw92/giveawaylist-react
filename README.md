@@ -1,22 +1,22 @@
-#Giveawaylist  
+# Giveawaylist  
 This is the front end for my main project giveawaylist.com
 
 
-#Installation
+# Installation
 > npm install
 
-#How to run
+# How to run
 
-####Development
+#### Development
 > npm run dev
-####Production
+#### Production
 > npm run build
 
 > npm run start
 
-#Contributing
+# Contributing
 Pull request are welcome. For any major change, open an issue and we can discuss.
 
-#License
-Please the the [LICENSE](https://github.com/forrestw92/giveawaylist-react/blob/master/LICENSE)
+# License
+Please read the [LICENSE](https://github.com/forrestw92/giveawaylist-react/blob/master/LICENSE)
 
