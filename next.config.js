@@ -5,6 +5,18 @@ module.exports = withOffline(
   withCSS({
     cssModules: true,
     plugins: [require("autoprefixer")({})],
+    workboxOpts: {
+      runtimeCaching: [
+        {
+          urlPattern: /amazon/,
+          handler: "networkOnly"
+        },
+        {
+          urlPattern: /.svg/,
+          handler: "cacheFirst"
+        }
+      ]
+    },
     webpack(config) {
       return config;
     }
