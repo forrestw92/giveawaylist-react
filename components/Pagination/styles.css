@@ -1,12 +1,12 @@
 .pageination {
   display: flex;
   flex-flow: row nowrap;
-  padding: 0;
   width: 100%;
-  margin: 0 0 20px 0;
+  margin: 0 0 40px 0;
   justify-content: center;
   position: absolute;
-  bottom: -60px;
+  bottom: -20px;
+  padding: 0 0 40px;
 }
 .pageination > li {
   padding: 10px;
