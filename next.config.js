@@ -1,5 +1,12 @@
 const withCSS = require("@zeit/next-css");
-module.exports = withCSS({
-  cssModules: true,
-  plugins: [require("autoprefixer")({})]
-});
+const withOffline = require("next-offline");
+
+module.exports = withOffline(
+  withCSS({
+    cssModules: true,
+    plugins: [require("autoprefixer")({})],
+    webpack(config, options) {
+      return config;
+    }
+  })
+);

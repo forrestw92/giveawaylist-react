@@ -2,9 +2,9 @@
   "name": "giveaway-list",
   "author": "Forrest Walker",
   "scripts": {
-    "dev": "next",
+    "dev": "cross-env NODE_ENV=development node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -13,6 +13,7 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-inline-react-svg": "^1.0.0",
     "babel-plugin-wrap-in-js": "^1.1.1",
+    "cross-env": "^5.2.0",
     "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-plugin-prettier": "^3.0.0",
@@ -20,6 +21,7 @@
     "moment-timezone": "^0.5.21",
     "next": "7.0.2",
     "next-cookies": "^1.0.3",
+    "next-offline": "^3.0.4",
     "next-redux-wrapper": "^2.0.0",
     "postcss-cssnext": "^2.11.0",
     "postcss-easy-import": "^2.1.0",
