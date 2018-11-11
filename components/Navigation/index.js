@@ -51,14 +51,52 @@ class Navigation extends React.PureComponent {
           image: "../../static/icons/user.svg"
         },
         {
+          href: "/profile/login",
+          label: "Login",
+          shouldRender: false,
+          className: "nav--item",
+          image: "../../static/icons/log-in.svg"
+        },
+        {
           href: "/profile/register",
           label: "Register",
           shouldRender: false,
-          className: "nav--item"
+          className: "nav--item",
+          image: "../../static/icons/user-plus.svg"
         }
       ]
     };
   }
+  static getDerivedStateFromProps(prevProps, state) {
+    if (prevProps.currentPage === "/profile/login") {
+      return state.links.map(link => {
+        if (link.href === "/profile/login") {
+          link.shouldRender = true;
+        }
+        if (link.href === "/profile") {
+          link.shouldRender = false;
+        }
+        if (link.href === "/profile/register") {
+          link.shouldRender = false;
+        }
+      });
+    }
+    if (prevProps.currentPage === "/profile/register") {
+      return state.links.map(link => {
+        if (link.href === "/profile/register") {
+          link.shouldRender = true;
+        }
+        if (link.href === "/profile") {
+          link.shouldRender = false;
+        }
+        if (link.href === "/profile/login") {
+          link.shouldRender = false;
+        }
+      });
+    }
+    return null;
+  }
+
   componentDidMount() {
     if (this.props.loggedIn) {
       const links = this.state.links.map(item => {
@@ -70,23 +108,7 @@ class Navigation extends React.PureComponent {
       this.setState({ links });
     }
   }
-  componentDidUpdate(prevProps) {
-    if (prevProps.loggedIn !== this.props.loggedIn) {
-      const links = this.state.links.map(item => {
-        if (
-          item.href === "/profile" ||
-          item.href === "/profile/login" ||
-          item.href === "/saved"
-        ) {
-          item.shouldRender = !item.shouldRender;
-        }
-        return item;
-      });
 
-      console.log(links);
-      this.setState({ links });
-    }
-  }
   render() {
     const renderLinks = this.state.links.filter(link => link.shouldRender);
     const { currentPage } = this.props;
@@ -99,10 +121,7 @@ class Navigation extends React.PureComponent {
         />
         <ul className={stylesheet["navigation"]} id={"menu"} tabIndex={"-1"}>
           {renderLinks.map(({ href, label, image, className }) => (
-            <li
-              key={href}
-              className={`${stylesheet[className]}`}
-            >
+            <li key={href} className={`${stylesheet[className]}`}>
               <Link prefetch href={href}>
                 <a
                   className={
