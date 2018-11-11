@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
-import { bool } from "prop-types";
+import { bool, string } from "prop-types";
 import stylesheet from "./index.css";
 class Navigation extends React.PureComponent {
   constructor(props) {
@@ -89,6 +89,7 @@ class Navigation extends React.PureComponent {
   }
   render() {
     const renderLinks = this.state.links.filter(link => link.shouldRender);
+    const { currentPage } = this.props;
     return (
       <nav role="navigation">
         <img
@@ -100,10 +101,16 @@ class Navigation extends React.PureComponent {
           {renderLinks.map(({ href, label, image, className }) => (
             <li
               key={href}
-              className={`${stylesheet[className]} ${stylesheet["active"]}`}
+              className={`${stylesheet[className]}`}
             >
               <Link prefetch href={href}>
-                <a className={stylesheet["link"]}>
+                <a
+                  className={
+                    currentPage === href
+                      ? `${stylesheet["link"]} ${stylesheet["active"]}`
+                      : stylesheet["link"]
+                  }
+                >
                   <img src={image} className={stylesheet["link--image"]} />
                   <span>{label}</span>
                 </a>
@@ -116,11 +123,13 @@ class Navigation extends React.PureComponent {
   }
 }
 Navigation.propTypes = {
-  loggedIn: bool.isRequired
+  loggedIn: bool.isRequired,
+  currentPage: string.isRequired
 };
 function mapStateToProps(state) {
   return {
-    loggedIn: state.user.loggedIn
+    loggedIn: state.user.loggedIn,
+    currentPage: state.nav.currentPage
   };
 }
 export default connect(mapStateToProps)(Navigation);

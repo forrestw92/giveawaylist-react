@@ -36,28 +36,25 @@ nav {
   display: flex;
   align-items: center;
   font-size: 20px;
-  background: #457b9d;
+  background: #1d3557;
   justify-content: space-evenly;
   position: relative;
 }
 
 .navigation .nav--item:hover {
-  background: #a8dadc;
-}
-.navigation .nav--item:hover a {
-  color: black;
-}
-.navigation .nav--item.active {
-  background: #1d3557;
-  box-shadow: 0 2px 3px #1d3557;
-}
-.navigation .nav--item.active:hover a {
   color: #fdfefd;
 }
+.navigation .nav--item:hover a {
+  color: #a8dadc;
+}
+
 .navigation .nav--item a {
   color: #fdfefd;
   text-align: center;
   margin: auto;
+}
+.navigation .nav--item .active {
+  color: #f28a2c;
 }
 @media only screen and (min-width: 676px) and (max-width: 767px) {
   .link--image {

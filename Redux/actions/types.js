@@ -9,3 +9,5 @@ export const STICKY_FAB = "STICKY_FAB";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const USER_DETAILS = "USER_DETAILS";
+
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
