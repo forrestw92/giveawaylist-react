@@ -3,7 +3,7 @@ import Link from "next/link";
 import { connect } from "react-redux";
 import { bool, string } from "prop-types";
 import stylesheet from "./index.css";
-class Navigation extends React.PureComponent {
+export class Navigation extends React.PureComponent {
   constructor(props) {
     super(props);
 

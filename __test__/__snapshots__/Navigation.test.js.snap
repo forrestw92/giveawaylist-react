@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`With Snapshot Testing Navigation Has Logo 1`] = `
+<nav
+  role="navigation"
+>
+  <img
+    alt="Giveaway List Logo"
+    className="logo"
+    src="../../static/logo.svg"
+  />
+  <ul
+    className="navigation"
+    id="menu"
+    tabIndex="-1"
+  >
+    <li
+      className="nav--item"
+    >
+      <a
+        className="link active"
+        href="/"
+        onClick={[Function]}
+      >
+        <img
+          className="link--image"
+          src="../../static/icons/home.svg"
+        />
+        <span>
+          Home
+        </span>
+      </a>
+    </li>
+    <li
+      className="nav--item"
+    >
+      <a
+        className="link"
+        href="/ending"
+        onClick={[Function]}
+      >
+        <img
+          className="link--image"
+          src="../../static/icons/clock.svg"
+        />
+        <span>
+          Ending
+        </span>
+      </a>
+    </li>
+    <li
+      className="nav--item"
+    >
+      <a
+        className="link"
+        href="/ebooks"
+        onClick={[Function]}
+      >
+        <img
+          className="link--image"
+          src="../../static/icons/book.svg"
+        />
+        <span>
+          eBooks
+        </span>
+      </a>
+    </li>
+    <li
+      className="nav--item"
+    >
+      <a
+        className="link"
+        href="/profile"
+        onClick={[Function]}
+      >
+        <img
+          className="link--image"
+          src="../../static/icons/user.svg"
+        />
+        <span>
+          Profile
+        </span>
+      </a>
+    </li>
+  </ul>
+</nav>
+`;
