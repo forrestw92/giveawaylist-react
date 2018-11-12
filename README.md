@@ -14,6 +14,9 @@ This is the front end for my main project giveawaylist.com
 
 > npm run start
 
+#Testing
+> npm run test
+
 # Contributing
 Pull request are welcome. For any major change, open an issue and we can discuss.
 

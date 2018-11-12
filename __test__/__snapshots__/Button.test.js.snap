@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Component Snapshot Renders 1`] = `
+<a
+  className="button register"
+  href="/"
+>
+  test
+</a>
+`;
+
+exports[`With Snapshot Testing Navigation Has Logo 1`] = `
+<a
+  className="button register"
+  href="/"
+>
+  test
+</a>
+`;
