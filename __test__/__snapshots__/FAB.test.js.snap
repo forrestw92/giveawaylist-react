@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FAB Component Snapshot Renders 1`] = `
+<div
+  aria-label="Filter"
+  className="fab"
+  onClick={[Function]}
+>
+  <img
+    alt="Filter"
+    src="../../static/icons/filter.svg"
+  />
+</div>
+`;
