@@ -7,6 +7,64 @@ import {
 import axios from "axios";
 
 /**
+ * Checks if current day is DST
+ * REF: https://stackoverflow.com/a/30280636
+ * @param {date} date
+ * @returns {boolean}
+ */
+function isDST(date) {
+  let jan = new Date(date.getFullYear(), 0, 1).getTimezoneOffset();
+  let jul = new Date(date.getFullYear(), 6, 1).getTimezoneOffset();
+  return Math.min(jan, jul) === date.getTimezoneOffset();
+}
+
+/**
+ * Gets time difference in words
+ * REF: https://stackoverflow.com/a/7709819
+ * @param {string} time
+ * @param {string} serverTime
+ * @param {boolean} isStart
+ * @returns {string}
+ */
+function fromNowInWords(time, serverTime, isStart) {
+  let giveawayTime = new Date(time);
+  giveawayTime.setHours(giveawayTime.getHours() - isDST ? 8 : 7);
+  const today = new Date(serverTime);
+  today.setHours(today.getHours() - 8);
+  const diffMs = isStart ? today - giveawayTime : giveawayTime - today;
+  const days = Math.floor(diffMs / 86400000);
+  const hours = Math.floor((diffMs % 86400000) / 3600000);
+  const minutes = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+  if (isStart) {
+    if (days === 0) {
+      if (hours >= 1) {
+        if (hours === 1) {
+          return `${hours} hour ago`;
+        } else {
+          return `${hours} hours ago`;
+        }
+      }
+      return `${minutes} minutes ago`;
+    } else {
+      if (days === 1) {
+        return `${days} day ago`;
+      } else {
+        return `${days} days ago`;
+      }
+    }
+  } else {
+    if (days === 0) {
+      if (hours === 0) {
+        return `in ${minutes} minutes`;
+      } else {
+        return `in ${hours} hours`;
+      }
+    } else {
+      return `in ${days} days`;
+    }
+  }
+}
+/**
  * Fetches giveaways based on page
  * @param {number} pageId
  * @param {string} type
@@ -19,16 +77,30 @@ export const fetchGiveaways = (pageId, type = "") => dispatch => {
         type !== "" ? type + "/" : ""
       }${pageId}`
     )
+
     .then(res => {
+      const { results, totalGiveaways, serverTime } = res.data;
+      results.map(giveaway => {
+        giveaway.addedDate = fromNowInWords(
+          giveaway.addedDate,
+          serverTime,
+          true
+        );
+        giveaway.endDate = fromNowInWords(
+          giveaway.endDate,
+          serverTime,
+          false
+        );
+      });
       dispatch({
         type: FETCH_GIVEAWAYS,
-        payload: res.data.results
+        payload: results
       });
       dispatch({
         type: TOTAL_GIVEAWAYS,
-        payload: res.data.totalGiveaways
+        payload: totalGiveaways
       });
-      return res.data.results;
+      return results;
     })
     .catch(err => {
       console.log(err);
