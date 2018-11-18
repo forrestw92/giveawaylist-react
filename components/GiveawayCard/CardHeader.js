@@ -2,20 +2,11 @@ import React from "react";
 import stylesheet from "./index.css";
 import { string } from "prop-types";
 import CardImage from "./CardImage";
-import ClampLines from "react-clamp-lines";
 const CardHeader = props => {
   return (
     <div className={stylesheet["giveawayCard--header"]}>
       <CardImage picture={props.picture} />
-
-      <div className={stylesheet["giveawayCard--itemName"]}>
-        <ClampLines
-          text={props.name}
-          lines="2"
-          ellipsis="..."
-          buttons={false}
-        />
-      </div>
+      <div className={stylesheet["giveawayCard--itemName"]}>{props.name}</div>
     </div>
   );
 };
