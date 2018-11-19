@@ -1,17 +1,17 @@
 import React from "react";
 import { string, func } from "prop-types";
 import stylesheet from "./index.css";
-
+import Filter from "../../static/icons/filter.svg";
 class FAB extends React.Component {
   render() {
-    const { ariaLabel, image, className, _onClick } = this.props;
+    const { ariaLabel, className, _onClick } = this.props;
     return (
       <div
         className={stylesheet[className]}
         aria-label={ariaLabel}
         onClick={() => _onClick()}
       >
-        <img src={image} alt={ariaLabel} />
+        <Filter />
       </div>
     );
   }
@@ -19,7 +19,6 @@ class FAB extends React.Component {
 FAB.propTypes = {
   _onClick: func.isRequired,
   className: string.isRequired,
-  image: string.isRequired,
   ariaLabel: string.isRequired
 };
 

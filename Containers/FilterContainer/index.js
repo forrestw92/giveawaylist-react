@@ -106,7 +106,6 @@ class FilterContainer extends React.Component {
         <FAB
           _onClick={() => this._onClick()}
           className={"fab"}
-          image={"../../static/icons/filter.svg"}
           ariaLabel={"Filter"}
         />
         <h1 className={stylesheet["title"]}>Filter</h1>
