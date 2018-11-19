@@ -3,6 +3,15 @@ import Link from "next/link";
 import { connect } from "react-redux";
 import { bool, string } from "prop-types";
 import stylesheet from "./index.css";
+import Home from "../../static/icons/home.svg";
+import Clock from "../../static/icons/clock.svg";
+import Saved from "../../static/icons/saved.svg";
+import Book from "../../static/icons/book.svg";
+import User from "../../static/icons/user.svg";
+import UserRegister from "../../static/icons/user-plus.svg";
+import UserLogin from "../../static/icons/log-in.svg";
+import Logo from "../../static/logo.svg";
+
 export class Navigation extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -14,28 +23,28 @@ export class Navigation extends React.PureComponent {
           label: "Home",
           shouldRender: true,
           className: "nav--item",
-          image: "../../static/icons/home.svg"
+          image: <Home className={stylesheet["link--image"]} />
         },
         {
           href: "/ending",
           label: "Ending",
           shouldRender: true,
           className: "nav--item",
-          image: "../../static/icons/clock.svg"
+          image: <Clock className={stylesheet["link--image"]} />
         },
         {
           href: "/saved",
           label: "Saved",
           shouldRender: false,
           className: "nav--item",
-          image: "../../static/icons/saved.svg"
+          image: <Saved className={stylesheet["link--image"]} />
         },
         {
           href: "/ebooks",
           label: "eBooks",
           shouldRender: true,
           className: "nav--item",
-          image: "../../static/icons/book.svg"
+          image: <Book className={stylesheet["link--image"]} />
         },
         {
           href: "/sweepstakes",
@@ -48,21 +57,21 @@ export class Navigation extends React.PureComponent {
           label: "Profile",
           shouldRender: true,
           className: "nav--item",
-          image: "../../static/icons/user.svg"
+          image: <User className={stylesheet["link--image"]} />
         },
         {
           href: "/profile/login",
           label: "Login",
           shouldRender: false,
           className: "nav--item",
-          image: "../../static/icons/log-in.svg"
+          image: <UserLogin className={stylesheet["link--image"]} />
         },
         {
           href: "/profile/register",
           label: "Register",
           shouldRender: false,
           className: "nav--item",
-          image: "../../static/icons/user-plus.svg"
+          image: <UserRegister className={stylesheet["link--image"]} />
         }
       ]
     };
@@ -114,11 +123,7 @@ export class Navigation extends React.PureComponent {
     const { currentPage } = this.props;
     return (
       <nav role="navigation">
-        <img
-          src="../../static/logo.svg"
-          className={stylesheet["logo"]}
-          alt="Giveaway List Logo"
-        />
+        <Logo className={stylesheet["logo"]} />
         <ul className={stylesheet["navigation"]} id={"menu"} tabIndex={"-1"}>
           {renderLinks.map(({ href, label, image, className }) => (
             <li key={href} className={`${stylesheet[className]}`}>
@@ -130,7 +135,7 @@ export class Navigation extends React.PureComponent {
                       : stylesheet["link"]
                   }
                 >
-                  <img src={image} className={stylesheet["link--image"]} />
+                  {image}
                   <span>{label}</span>
                 </a>
               </Link>

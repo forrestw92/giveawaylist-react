@@ -1,18 +1,15 @@
 import React from "react";
 import stylesheet from "./index.css";
 import { string, number, func } from "prop-types";
-
+import Save from "../../static/icons/heart.svg";
+import Enter from "../../static/icons/play.svg";
+import Eye from "../../static/icons/eye.svg";
 const CardFooter = props => {
   return (
     <div className={stylesheet["giveawayCard--footer"]}>
-      <img
-        src={"../../static/icons/heart.svg"}
-        alt={"Save Giveaway"}
-        className={stylesheet["save--giveaway"]}
-      />
-
-      <div className={stylesheet["views--giveaway"]}>
-        <img src={"../../static/icons/eye.svg"} alt={"View Count"} />
+      <Save className={stylesheet["save--giveaway"]} />
+      <div className={stylesheet["views--giveaway"]} aria-label={"View Count"}>
+        <Eye />
         <span className={stylesheet.count}>{props.enteredCount}</span>
       </div>
       {/*TODO On enter giveaway hide from list? Flip Over? And Send to server*/}
@@ -21,12 +18,9 @@ const CardFooter = props => {
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => props.handleEnterClick(props.id)}
+        aria-label={"Enter Giveaway"}
       >
-        <img
-          src={"../../static/icons/play.svg"}
-          alt={"Enter Giveaway"}
-          className={stylesheet["enter--giveaway"]}
-        />
+        <Enter className={stylesheet["enter--giveaway"]} />
       </a>
     </div>
   );

@@ -15,7 +15,6 @@
     "babel-core": "^7.0.0-bridge",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
-    "babel-plugin-inline-react-svg": "^1.0.0",
     "babel-plugin-wrap-in-js": "^1.1.1",
     "cross-env": "^5.2.0",
     "enzyme": "3.4.3",
@@ -49,6 +48,7 @@
   "devDependencies": {
     "babel-loader": "^8.0.4",
     "babel-plugin-inline-import": "^3.0.0",
+    "babel-plugin-inline-react-svg": "^1.0.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "identity-obj-proxy": "^3.0.0",
     "styled-jsx-css-loader": "^0.3.0"
