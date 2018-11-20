@@ -14,13 +14,6 @@ class GiveawayContainer extends React.Component {
 
     return (
       <React.Fragment>
-        <div
-          className={
-            isFABOpen
-              ? stylesheet["over--lay"]
-              : `${stylesheet["over--lay"]} ${stylesheet["hide"]}`
-          }
-        />
         <FilterContainer showHideFAB={showHideFAB} isFABOpen={isFABOpen} />
         <section className={stylesheet.giveawayContainer}>
           {giveaways &&

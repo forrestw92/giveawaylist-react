@@ -86,11 +86,6 @@ class FilterContainer extends React.Component {
   };
   _onClick = () => {
     this.props.showHideFAB();
-    if (document.body.style.overflow === "hidden") {
-      document.body.style.overflow = "auto";
-    } else {
-      document.body.style.overflow = "hidden";
-    }
   };
 
   render() {

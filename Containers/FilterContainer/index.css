@@ -17,14 +17,17 @@
 
 @media only screen and (max-width: 1040px) {
   .filterContainer {
-    position: fixed;
-    left: -240px;
+    position: absolute;
+    height: 100% !important;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    left: -100%;
     top: 0;
     margin: 0;
   }
   .filterContainer.off-screen {
     left: 0;
-    position: fixed;
   }
 }
 .filterGroup {
