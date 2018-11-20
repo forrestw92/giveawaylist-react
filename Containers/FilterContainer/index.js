@@ -174,7 +174,7 @@ class FilterContainer extends React.Component {
               />
             </label>
             <label htmlFor={"oddsMin"}>
-              Max Odds
+              Min Odds
               <TextInput
                 type={"text"}
                 id={"oddsMax"}
