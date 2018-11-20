@@ -46,3 +46,6 @@
   margin-bottom: 10px;
   width: 100%;
 }
+.input--group label input {
+  width: 100%;
+}
