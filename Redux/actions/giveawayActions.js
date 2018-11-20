@@ -9,7 +9,7 @@ import axios from "axios";
 /**
  * Checks if current day is DST
  * REF: https://stackoverflow.com/a/30280636
- * @param {date} date
+ * @param {Date} date
  * @returns {boolean}
  */
 function isDST(date) {
@@ -28,8 +28,9 @@ function isDST(date) {
  */
 function fromNowInWords(time, serverTime, isStart) {
   let giveawayTime = new Date(time);
-  giveawayTime.setHours(giveawayTime.getHours() - isDST ? 8 : 7);
   const today = new Date(serverTime);
+  giveawayTime.setHours(giveawayTime.getHours() - (isDST(today) ? 8 : 7));
+
   today.setHours(today.getHours() - 8);
   const diffMs = isStart ? today - giveawayTime : giveawayTime - today;
   const days = Math.floor(diffMs / 86400000);
