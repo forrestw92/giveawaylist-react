@@ -161,26 +161,30 @@ class FilterContainer extends React.Component {
         <div className={stylesheet["filterGroup"]}>
           <h4 className={stylesheet["filterTitle"]}>Sort</h4>
           <div className={stylesheet["input--group"]}>
-            <TextInput
-              type={"text"}
-              id={"oddsMin"}
-              name={"oddsMin"}
-              autoComplete={"off"}
-              placeHolder={"Min Odds"}
-              _onChange={this._onChange}
-              value={this.state.oddsMin}
-              className={"input--number"}
-            />
-            <TextInput
-              type={"text"}
-              id={"oddsMax"}
-              name={"oddsMax"}
-              autoComplete={"off"}
-              placeHolder={"Max Odds"}
-              _onChange={this._onChange}
-              value={this.state.oddsMax}
-              className={"input--number"}
-            />
+            <label htmlFor={"oddsMin"}>
+              Min Odds
+              <TextInput
+                type={"text"}
+                id={"oddsMin"}
+                name={"oddsMin"}
+                autoComplete={"off"}
+                _onChange={this._onChange}
+                value={this.state.oddsMin}
+                className={"input--number"}
+              />
+            </label>
+            <label htmlFor={"oddsMin"}>
+              Min Odds
+              <TextInput
+                type={"text"}
+                id={"oddsMax"}
+                name={"oddsMax"}
+                autoComplete={"off"}
+                _onChange={this._onChange}
+                value={this.state.oddsMax}
+                className={"input--number"}
+              />
+            </label>
           </div>
           <CheckBox
             id={"endingSoon"}
