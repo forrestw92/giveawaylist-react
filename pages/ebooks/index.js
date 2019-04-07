@@ -15,6 +15,7 @@ import { func, number, object } from "prop-types";
 import cookies from "next-cookies";
 import { validateAccount } from "../../API";
 import { userLogin } from "../../Redux/actions/loginActions";
+import FilterContainer from "../../Containers/FilterContainer";
 
 class EBooks extends React.Component {
   static async getInitialProps({ query, req, store, isServer }) {
@@ -57,7 +58,8 @@ class EBooks extends React.Component {
       deleteSingleGiveaway,
       deleteGiveaways,
       pageId,
-      menus
+      menus,
+      showHideFAB
     } = this.props;
     const { fabOpen, fabSticky } = menus;
     const { items, totalGiveaways } = giveaways;
@@ -65,12 +67,13 @@ class EBooks extends React.Component {
       <React.Fragment>
         <Head title="eBooks Giveaways - Amazon Giveaway List" />
         <Header />
+
         <div className={stylesheet["content"]}>
+          <FilterContainer showHideFAB={showHideFAB} isFABOpen={fabOpen} />
           <GiveawayContainer
+            title={"eBook Giveaways"}
             giveaways={items}
-            isFABOpen={fabOpen}
             deleteSingleGiveaway={deleteSingleGiveaway}
-            showHideFAB={this.props.showHideFAB}
           />
           <Pagination
             totalPages={totalGiveaways / 24}

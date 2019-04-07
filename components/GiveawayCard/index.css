@@ -5,7 +5,7 @@
   min-width: 230px;
   max-width: 300px;
   height: 523px;
-  margin: 20px 10px;
+  margin: 20px;
   background: #fff;
   overflow: hidden;
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -114,7 +114,33 @@
 .groupItem--alternative .item {
   font-weight: bold;
 }
-@media only screen and (max-width: 548px) {
+
+@media only screen and (max-width: 1096px) {
+  .giveawayCard {
+    margin: 20px 10px;
+    width: auto;
+  }
+}
+@media only screen and (max-width: 916px) {
+  .giveawayCard {
+    margin: 20px;
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 816px) {
+  .giveawayCard {
+    margin: 20px 10px;
+    width: 20%;
+  }
+}
+@media only screen and (max-width: 776px) {
+  .giveawayCard {
+    margin: 20px;
+    width: auto;
+  }
+}
+@media only screen and (max-width: 560px) {
   .giveawayCard {
     max-width: 100%;
     width: 100%;

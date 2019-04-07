@@ -13,7 +13,7 @@
   top: 20px;
   left: 20px;
   height: 750px !important;
-  position: absolute;
+  position: sticky;
 }
 
 .filterGroup {
@@ -40,7 +40,7 @@
 .input--group label input {
   width: 100%;
 }
-@media only screen and (max-width: 1040px) {
+@media only screen and (max-width: 560px) {
   .filterContainer {
     position: absolute;
     height: 100% !important;

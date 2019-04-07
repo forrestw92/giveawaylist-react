@@ -67,14 +67,13 @@ class Home extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
         <Header />
-        <FilterContainer showHideFAB={showHideFAB} isFABOpen={fabOpen} />
 
         <div className={stylesheet["content"]}>
+          <FilterContainer showHideFAB={showHideFAB} isFABOpen={fabOpen} />
           <GiveawayContainer
             giveaways={items}
-            isFABOpen={fabOpen}
+            title={"All Giveaways"}
             deleteSingleGiveaway={deleteSingleGiveaway}
-            showHideFAB={showHideFAB}
           />
           <Pagination
             totalPages={totalGiveaways / 24}
