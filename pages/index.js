@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+
 import { object, func, number } from "prop-types";
 import {
   fetchGiveaways,
@@ -16,6 +17,7 @@ import Pagination from "../components/Pagination/";
 import cookies from "next-cookies";
 import { userLogin } from "../Redux/actions/loginActions";
 import { validateAccount } from "../API";
+import FilterContainer from "../Containers/FilterContainer";
 
 class Home extends React.Component {
   static async getInitialProps({ query, req, store, isServer }) {
@@ -56,7 +58,8 @@ class Home extends React.Component {
       deleteSingleGiveaway,
       deleteGiveaways,
       pageId,
-      menus
+      menus,
+      showHideFAB
     } = this.props;
     const { fabOpen, fabSticky } = menus;
     const { items, totalGiveaways } = giveaways;
@@ -64,13 +67,14 @@ class Home extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Home" />
         <Header />
+        <FilterContainer showHideFAB={showHideFAB} isFABOpen={fabOpen} />
 
-        <main className={stylesheet["content"]}>
+        <div className={stylesheet["content"]}>
           <GiveawayContainer
             giveaways={items}
             isFABOpen={fabOpen}
             deleteSingleGiveaway={deleteSingleGiveaway}
-            showHideFAB={this.props.showHideFAB}
+            showHideFAB={showHideFAB}
           />
           <Pagination
             totalPages={totalGiveaways / 24}
@@ -78,7 +82,7 @@ class Home extends React.Component {
             fabSticky={fabSticky}
             deleteGiveaways={deleteGiveaways}
           />
-        </main>
+        </div>
       </React.Fragment>
     );
   }

@@ -9,9 +9,9 @@ class Login extends React.Component {
       <React.Fragment>
         <Head title="Amazon Giveaway List - Register" />
         <Header />
-        <main className={"content"}>
+        <div className={"content"}>
           <RegisterContainer />
-        </main>
+        </div>
       </React.Fragment>
     );
   }

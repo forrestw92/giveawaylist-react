@@ -23,7 +23,6 @@ class FilterContainer extends React.Component {
       hideKeywords: []
     };
   }
-
   _onChange = (e, name) => {
     const value = e.target.value;
     const checked = e.target.checked;

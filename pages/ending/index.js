@@ -66,7 +66,7 @@ class Ending extends React.Component {
       <React.Fragment>
         <Head title="Ending Giveaways - Amazon Giveaway List" />
         <Header />
-        <main className={stylesheet["content"]}>
+        <div className={stylesheet["content"]}>
           <GiveawayContainer
             giveaways={items}
             isFABOpen={fabOpen}
@@ -79,7 +79,7 @@ class Ending extends React.Component {
             fabSticky={fabSticky}
             deleteGiveaways={deleteGiveaways}
           />
-        </main>
+        </div>
       </React.Fragment>
     );
   }

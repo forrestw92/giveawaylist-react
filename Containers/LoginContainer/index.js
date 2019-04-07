@@ -53,7 +53,7 @@ class LoginContainer extends React.Component {
       }
     ];
     return (
-      <section className={stylesheet["login"]}>
+      <main role="main" className={stylesheet["login"]}>
         <Form title={"Login"} _onChange={this._onChange} inputs={inputs}>
           <span style={{ color: "#E63946", textAlign: "center" }}>
             {this.state.error}
@@ -80,7 +80,7 @@ class LoginContainer extends React.Component {
             </Link>
           </div>
         </Form>
-      </section>
+      </main>
     );
   }
 }
