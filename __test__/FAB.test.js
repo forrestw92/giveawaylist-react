@@ -5,6 +5,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Router from "next/router";
 import FAB from "../components/FAB";
+
 const mockedRouter = { push: () => {}, prefetch: () => {} };
 Router.router = mockedRouter;
 
@@ -24,14 +25,7 @@ describe("FAB Component", () => {
     expect(app.attr("aria-label")).toEqual("Filter");
   });
   it("Has Image", () => {
-    expect(app.find("img").attr("src")).toEqual(
-      "../../static/icons/filter.svg"
-    );
-  });
-  it("Image has Alt", () => {
-    expect(app.find("img").attr("alt")).toEqual(
-      "Filter"
-    );
+    expect(app.find("svg")).toBeTruthy();
   });
 });
 

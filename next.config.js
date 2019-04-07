@@ -1,3 +1,5 @@
+const { parsed: localEnv } = require("dotenv").config();
+const webpack = require("webpack");
 const withCSS = require("@zeit/next-css");
 const withOffline = require("next-offline");
 
@@ -8,7 +10,6 @@ module.exports = withOffline(
       importLoaders: 1,
       localIdentName: "[local]___[hash:base64:5]"
     },
-    plugins: [require("autoprefixer")({})],
     workboxOpts: {
       runtimeCaching: [
         {
@@ -22,6 +23,7 @@ module.exports = withOffline(
       ]
     },
     webpack(config) {
+      config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
       return config;
     }
   })

@@ -8,12 +8,3 @@ exports[`Button Component Snapshot Renders 1`] = `
   test
 </a>
 `;
-
-exports[`With Snapshot Testing Navigation Has Logo 1`] = `
-<a
-  className="button register"
-  href="/"
->
-  test
-</a>
-`;

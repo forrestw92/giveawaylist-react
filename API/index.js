@@ -1,14 +1,18 @@
 import axios from "axios";
 
-const baseURL = "https://forrestwalker.me/api";
+const baseURL = process.env.BASE_API;
 /**
  * Fetches giveaways based on pageId and filter.
  * @param {number} pageId
+ * @param {string} type
  * @param {object} filter
  * @returns {Promise<any>}
  */
-export const fetchGiveawayPage = (pageId, filter) =>
-  axios.post(`${baseURL}/o1/giveaway/${pageId}`, filter);
+export const fetchGiveawayPage = (pageId, type, filter = {}) =>
+  axios.post(
+    `${baseURL}/o1/giveaway/${type !== "" ? type + "/" : ""}${pageId}`,
+    filter
+  );
 /**
  * Register form data
  * @param {object} REGISTER_DATA

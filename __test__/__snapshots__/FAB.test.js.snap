@@ -6,9 +6,21 @@ exports[`FAB Component Snapshot Renders 1`] = `
   className="fab"
   onClick={[Function]}
 >
-  <img
-    alt="Filter"
-    src="../../static/icons/filter.svg"
-  />
+  <svg
+    className="feather feather-filter"
+    fill="#A8DADC"
+    height="24"
+    stroke="#FDFEFD"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width="24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"
+    />
+  </svg>
 </div>
 `;

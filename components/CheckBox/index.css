@@ -1,4 +1,17 @@
 .checkbox {
   margin-right: 10px;
-  margin-bottom: 10px;
+  appearance: none;
+  display: flex;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.checkbox:checked:after {
+  content: "";
+  background: #f28a2c;
+  height: 8px;
+  width: 8px;
+  transition: all 0.33s ease;
+  margin: auto;
 }

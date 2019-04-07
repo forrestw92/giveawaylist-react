@@ -91,7 +91,7 @@ class FilterContainer extends React.Component {
   render() {
     const { isFABOpen } = this.props;
     return (
-      <section
+      <aside
         className={
           isFABOpen
             ? `${stylesheet["filterContainer"]} ${stylesheet["off-screen"]}`
@@ -238,7 +238,7 @@ class FilterContainer extends React.Component {
             _onChange={this._onChange}
           />
         </div>
-      </section>
+      </aside>
     );
   }
 }

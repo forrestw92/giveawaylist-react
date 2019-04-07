@@ -1,24 +1,21 @@
-const { createServer } = require("http");
+const express = require("express");
 const { join } = require("path");
-const { parse } = require("url");
 const next = require("next");
-
+const compression = require("compression");
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  createServer((req, res) => {
-    const parsedUrl = parse(req.url, true);
-    const { pathname } = parsedUrl;
+  const server = express();
+  server.use(compression());
 
-    if (pathname === "/service-worker.js") {
-      const filePath = join(__dirname, ".next", pathname);
-
-      app.serveStatic(req, res, filePath);
-    } else {
-      handle(req, res, parsedUrl);
-    }
-  }).listen(3000, () => {
-    console.log(`> Ready on http://localhost:${3000}`);
+  server.get("/service-worker.js", (req, res) => {
+    const filePath = join(__dirname, ".next", "/static/service-worker.js");
+    app.serveStatic(req, res, filePath);
   });
+  server.get("*", (req, res) => {
+    handle(req, res);
+  });
+
+  server.listen(3000);
 });

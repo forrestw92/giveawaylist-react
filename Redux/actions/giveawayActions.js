@@ -4,7 +4,7 @@ import {
   TOTAL_GIVEAWAYS,
   DELETE_GIVEAWAYS
 } from "./types";
-import axios from "axios";
+import { fetchGiveawayPage } from "../../API";
 
 /**
  * Checks if current day is DST
@@ -69,16 +69,11 @@ function fromNowInWords(time, serverTime, isStart) {
  * Fetches giveaways based on page
  * @param {number} pageId
  * @param {string} type
+ * @param {object} filter
  * @returns {Function}
  */
-export const fetchGiveaways = (pageId, type = "") => dispatch => {
-  return axios
-    .post(
-      `https://forrestwalker.me/api/o1/giveaway/${
-        type !== "" ? type + "/" : ""
-      }${pageId}`
-    )
-
+export const fetchGiveaways = (pageId, type = "", filter = {}) => dispatch => {
+  return fetchGiveawayPage(pageId, type, filter)
     .then(res => {
       const { results, totalGiveaways, serverTime } = res.data;
       results.map(giveaway => {

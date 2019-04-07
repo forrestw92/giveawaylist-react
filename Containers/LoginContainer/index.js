@@ -13,16 +13,18 @@ class LoginContainer extends React.Component {
     super(props);
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      error: ""
     };
   }
   _onClick = () => {
     login({ ...this.state })
-      .then(res => {
-        document.cookie = `giveawayToken=${res.token}`;
-        return this.props.userLogin(res.data);
+      .then(response => {
+        document.cookie = `giveawayToken=${response.data.token}`;
+        return this.props.userLogin(response.data);
       })
-      .then(() => Router.push("/profile"));
+      .then(() => Router.push("/profile"))
+      .catch(res => console.log({ error: res }));
   };
   _onChange = (e, state) => {
     if (state === "email") {
@@ -53,6 +55,9 @@ class LoginContainer extends React.Component {
     return (
       <section className={stylesheet["login"]}>
         <Form title={"Login"} _onChange={this._onChange} inputs={inputs}>
+          <span style={{ color: "#E63946", textAlign: "center" }}>
+            {this.state.error}
+          </span>
           <div className={stylesheet["button--group"]}>
             <Button
               _onClick={this._onClick}

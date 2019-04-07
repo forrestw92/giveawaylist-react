@@ -11,28 +11,19 @@
   transition: left 0.25s ease-in-out;
   z-index: 5;
   top: 20px;
+  left: 20px;
   height: 750px !important;
-  position: sticky;
+  position: absolute;
 }
 
-@media only screen and (max-width: 1040px) {
-  .filterContainer {
-    position: absolute;
-    height: 100% !important;
-    box-sizing: border-box;
-    max-width: 100%;
-    width: 100%;
-    left: -100%;
-    top: 0;
-    margin: 0;
-  }
-  .filterContainer.off-screen {
-    left: 0;
-  }
-}
 .filterGroup {
   display: flex;
   flex-flow: column nowrap;
+}
+.filterGroup > label {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
 }
 .filterTitle {
   border-bottom: 1px solid #1d3557;
@@ -48,4 +39,19 @@
 }
 .input--group label input {
   width: 100%;
+}
+@media only screen and (max-width: 1040px) {
+  .filterContainer {
+    position: absolute;
+    height: 100% !important;
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    margin: 0;
+  }
+  .filterContainer.off-screen {
+    left: 0;
+  }
 }

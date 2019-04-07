@@ -1,5 +1,4 @@
 /* eslint-env jest */
-
 import { render } from "enzyme";
 import React from "react";
 import renderer from "react-test-renderer";
@@ -12,7 +11,7 @@ describe("Navigation Component", () => {
   it("Has Logo", () => {
     jest.mock("next/router");
     const app = render(<Navigation currentPage={"/"} loggedIn={false} />);
-    expect(app.find("img").attr("src")).toEqual("../../static/logo.svg");
+    expect(app.find("svg")).toBeTruthy();
   });
   it("Has Default Nav items", () => {
     jest.mock("next/router");
