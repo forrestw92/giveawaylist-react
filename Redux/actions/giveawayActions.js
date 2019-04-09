@@ -7,18 +7,6 @@ import {
 import { fetchGiveawayPage } from "../../API";
 
 /**
- * Checks if current day is DST
- * REF: https://stackoverflow.com/a/30280636
- * @param {Date} date
- * @returns {boolean}
- */
-function isDST(date) {
-  let jan = new Date(date.getFullYear(), 0, 1).getTimezoneOffset();
-  let jul = new Date(date.getFullYear(), 6, 1).getTimezoneOffset();
-  return Math.min(jan, jul) === date.getTimezoneOffset();
-}
-
-/**
  * Gets time difference in words
  * REF: https://stackoverflow.com/a/7709819
  * @param {string} time

@@ -79,8 +79,8 @@ const CardBody = props => {
         isItemBold={false}
       />
       <GroupItem
-        firstItem={props.addedDate}
-        secondItem={props.endDate}
+        firstItem={addedDate}
+        secondItem={endDate}
         className={"groupItem--alternative"}
         around={true}
       />
