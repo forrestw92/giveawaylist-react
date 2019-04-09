@@ -14,33 +14,59 @@ function oddsOrdiany(n) {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
+/**
+ * Formats odds in a pretty way :)
+ * @param {number} odds
+ * @param {number} oddsType
+ * @returns {string} formatted odds
+ */
+function oddsFormat(odds, oddsType) {
+  switch (oddsType) {
+    case 1:
+    case 5:
+      return `${oddsOrdiany(odds)} entry wins`;
+    case 2:
+    case 6:
+      return ` 1 in ${odds} chance`;
+    case 3:
+    case 7:
+      return `Every ${oddsOrdiany(odds)} wins`;
+    default:
+      return ``;
+  }
+}
 const CardBody = props => {
+  const {
+    category,
+    requirement,
+    odds,
+    oddsType,
+    prize,
+    winners,
+    endDate,
+    addedDate
+  } = props;
   return (
     <div className={stylesheet["giveawayCard--body"]}>
-      <div className={stylesheet["giveawayCard--category"]}>
-        {props.category}
-      </div>
+      <div className={stylesheet["giveawayCard--category"]}>{category}</div>
       <GroupItem
         firstItem={"Req:"}
-        secondItem={props.requirement}
+        secondItem={requirement}
         className={"groupItem--alternative"}
         isItemBold={true}
       />
       <GroupItem
         firstItem={"Odds:"}
-        secondItem={
-          props.odds === 0
-            ? "Sweepstakes"
-            : (props.oddsType === 1 ? "Every " : "1 in ") +
-              oddsOrdiany(props.odds)
-        }
+        secondItem={odds === 0 ? "Sweepstakes" : oddsFormat(odds, oddsType)}
         className={"groupItem"}
-        highlighted={props.odds < 1000}
+        highlighted={oddsType === 1 || oddsType === 2 || oddsType === 3}
         isItemBold={true}
       />
       <GroupItem
         firstItem={"Prizes:"}
-        secondItem={`${props.prize - props.winners} Left`}
+        secondItem={
+          winners === 0 ? `${prize} Total` : `${prize - winners} Left`
+        }
         className={"groupItem--alternative"}
         isItemBold={true}
       />

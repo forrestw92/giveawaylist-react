@@ -28,10 +28,12 @@ function isDST(date) {
  */
 function fromNowInWords(time, serverTime, isStart) {
   let giveawayTime = new Date(time);
-  const today = new Date(serverTime);
-  giveawayTime.setHours(giveawayTime.getHours() - (isDST(today) ? 8 : 7));
+  const today = new Date(
+    new Date().toLocaleString("en-US", {
+      timeZone: "America/Los_Angeles"
+    })
+  );
 
-  today.setHours(today.getHours() - 8);
   const diffMs = isStart ? today - giveawayTime : giveawayTime - today;
   const days = Math.floor(diffMs / 86400000);
   const hours = Math.floor((diffMs % 86400000) / 3600000);
