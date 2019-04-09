@@ -20,7 +20,11 @@ class LoginContainer extends React.Component {
   _onClick = () => {
     login({ ...this.state })
       .then(response => {
-        document.cookie = `giveawayToken=${response.data.token};path=/`;
+        document.cookie = `giveawayToken=${
+          response.data.token
+        }; path=/; expires=${new Date(
+          new Date().getTime() + 15 * 24 * 60 * 60 * 1000
+        ).toUTCString()};`;
         return this.props.userLogin(response.data);
       })
       .then(() => Router.push("/profile"))
