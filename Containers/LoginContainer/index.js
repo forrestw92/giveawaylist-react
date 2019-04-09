@@ -20,11 +20,11 @@ class LoginContainer extends React.Component {
   _onClick = () => {
     login({ ...this.state })
       .then(response => {
-        document.cookie = `giveawayToken=${response.data.token}`;
+        document.cookie = `giveawayToken=${response.data.token};path=/`;
         return this.props.userLogin(response.data);
       })
       .then(() => Router.push("/profile"))
-      .catch(res => console.log({ error: res }));
+      .catch(({ response }) => this.setState({ error: response.data.err }));
   };
   _onChange = (e, state) => {
     if (state === "email") {

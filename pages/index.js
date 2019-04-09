@@ -15,7 +15,7 @@ import "./global.css";
 import stylesheet from "./global.css";
 import Pagination from "../components/Pagination/";
 import cookies from "next-cookies";
-import { userLogin } from "../Redux/actions/loginActions";
+import { userLogin, userLogout } from "../Redux/actions/loginActions";
 import { validateAccount } from "../API";
 import FilterContainer from "../Containers/FilterContainer";
 
@@ -27,7 +27,8 @@ class Home extends React.Component {
     if (isServer) {
       await store.dispatch(fetchGiveaways(parseInt(query.pageId) || 1));
     }
-    if (giveawayToken) {
+    console.log(!store.getState().user.loggedIn);
+    if (giveawayToken && !store.getState().user.loggedIn) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
           console.log(result.data);
@@ -35,8 +36,11 @@ class Home extends React.Component {
             store.dispatch(userLogin(result.data));
           }
         })
-        /** TODO:: Better Error Handling **/
-        .catch(err => console.log(err));
+        .catch(({ response }) => {
+          if (!response.data.isvalid) {
+            store.dispatch(userLogout());
+          }
+        });
     }
     return { pageId: parseInt(query.pageId) || 1 };
   }

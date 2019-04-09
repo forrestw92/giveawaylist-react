@@ -14,7 +14,7 @@ import Pagination from "../../components/Pagination";
 import { func, number, object } from "prop-types";
 import cookies from "next-cookies";
 import { validateAccount } from "../../API";
-import { userLogin } from "../../Redux/actions/loginActions";
+import { userLogin, userLogout } from "../../Redux/actions/loginActions";
 import FilterContainer from "../../Containers/FilterContainer";
 
 class Ending extends React.Component {
@@ -27,7 +27,7 @@ class Ending extends React.Component {
         fetchGiveaways(parseInt(query.pageId) || 1, "ending")
       );
     }
-    if (giveawayToken) {
+    if (giveawayToken && !store.getState().user.loggedIn) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
           console.log(result.data);
@@ -35,8 +35,11 @@ class Ending extends React.Component {
             store.dispatch(userLogin(result.data));
           }
         })
-        /** TODO:: Better Error Handling **/
-        .catch(err => console.log(err));
+        .catch(({ response }) => {
+          if (!response.data.isvalid) {
+            store.dispatch(userLogout());
+          }
+        });
     }
     return { pageId: parseInt(query.pageId) || 1 };
   }

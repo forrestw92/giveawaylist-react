@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "next/router";
 import Header from "../../components/Header";
-import { userLogin } from "../../Redux/actions/loginActions";
+import { userLogin, userLogout } from "../../Redux/actions/loginActions";
 import Head from "../../components/head";
 import { validateAccount } from "../../API";
 import cookies from "next-cookies";
@@ -26,8 +26,11 @@ class Profile extends React.Component {
               store.dispatch(userLogin(result.data));
             }
           })
-          /** TODO:: Better Error Handling **/
-          .catch(err => console.log(err));
+          .catch(({ response }) => {
+            if (!response.data.isvalid) {
+              store.dispatch(userLogout());
+            }
+          });
       }
     } else {
       if (!giveawayToken) {
