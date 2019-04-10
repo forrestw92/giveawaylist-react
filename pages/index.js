@@ -18,27 +18,38 @@ import cookies from "next-cookies";
 import { userLogin, userLogout } from "../Redux/actions/loginActions";
 import { validateAccount } from "../API";
 import FilterContainer from "../Containers/FilterContainer";
+import Router from "next/router";
 
 class Home extends React.Component {
-  static async getInitialProps({ query, req, store, isServer }) {
+  static async getInitialProps({ query, req, res, store, isServer }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
     await store.dispatch(deleteGiveaways());
     if (isServer) {
       await store.dispatch(fetchGiveaways(parseInt(query.pageId) || 1));
     }
-    console.log(!store.getState().user.loggedIn);
     if (giveawayToken && !store.getState().user.loggedIn) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
-          console.log(result.data);
           if (result.data.isvalid) {
-            store.dispatch(userLogin(result.data));
+            const user = { ...result.data, token: giveawayToken };
+            store.dispatch(userLogin(user));
           }
         })
         .catch(({ response }) => {
           if (!response.data.isvalid) {
             store.dispatch(userLogout());
+            if (res) {
+              res.clearCookie("giveawayToken");
+              res.writeHead(302, {
+                Location: "/profile/login"
+              });
+              res.end();
+            } else {
+              document.cookie =
+                "giveawayToken=; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+              Router.push("/profile/login");
+            }
           }
         });
     }

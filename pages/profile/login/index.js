@@ -6,37 +6,29 @@ import Head from "../../../components/head";
 import Header from "../../../components/Header";
 import "../../global.css";
 import LoginContainer from "../../../Containers/LoginContainer";
-import { userLogout } from "../../../Redux/actions/loginActions";
+import { userLogin, userLogout } from "../../../Redux/actions/loginActions";
 class Login extends React.Component {
   static async getInitialProps({ req, res, store }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
-    if (res) {
-      if (!giveawayToken) {
-        return {};
-      }
-
+    if (giveawayToken) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
           if (result.data.isvalid) {
-            console.log(giveawayToken);
-            res.writeHead(302, {
-              Location: "/profile",
-              "Content-Type": "text/html; charset=utf-8"
-            });
+            const user = { ...result.data, token: giveawayToken };
+            store.dispatch(userLogin(user));
           }
         })
         .catch(({ response }) => {
           if (!response.data.isvalid) {
-            store.dispatch(userLogout());
+            if (res) {
+              res.clearCookie("giveawayToken");
+            } else {
+              document.cookie =
+                "giveawayToken=; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+            }
           }
         });
-      ctx.res.end();
-    } else {
-      if (!giveawayToken) {
-        return {};
-      }
-      Router.push("/profile");
     }
     return {};
   }

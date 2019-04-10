@@ -1,10 +1,12 @@
 import { LOGIN, LOGOUT, USER_DETAILS } from "./types";
+import { setBearer } from "../../API";
 
 /**
  * Adds user details
  * @returns {Function}
  */
 export const userLogin = user => dispatch => {
+  setBearer(user.token);
   dispatch({
     type: LOGIN,
     payload: true
