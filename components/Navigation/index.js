@@ -15,7 +15,6 @@ import Logo from "../../static/logo.svg";
 export class Navigation extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       links: [
         {
@@ -35,7 +34,7 @@ export class Navigation extends React.PureComponent {
         {
           href: "/saved",
           label: "Saved",
-          shouldRender: false,
+          shouldRender: props.loggedIn === true,
           className: "nav--item",
           image: <Saved className={stylesheet["link--image"]} />
         },
@@ -76,6 +75,7 @@ export class Navigation extends React.PureComponent {
       ]
     };
   }
+
   static getDerivedStateFromProps(prevProps, state) {
     if (prevProps.currentPage === "/profile/login") {
       return state.links.map(link => {
@@ -106,19 +106,8 @@ export class Navigation extends React.PureComponent {
     return null;
   }
 
-  componentDidMount() {
-    if (this.props.loggedIn) {
-      const links = this.state.links.map(item => {
-        if (item.href === "/saved") {
-          item.shouldRender = !item.shouldRender;
-        }
-        return item;
-      });
-      this.setState({ links });
-    }
-  }
-
   render() {
+    if (this.state.links.length === 0) return "";
     const renderLinks = this.state.links.filter(link => link.shouldRender);
     const { currentPage } = this.props;
     return (
