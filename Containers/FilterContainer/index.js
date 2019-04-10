@@ -49,7 +49,7 @@ class FilterContainer extends React.Component {
         this.setState({ oddsHigh: checked });
         break;
       case "hideKeywords":
-        this.setState({ hideKeywords: value });
+        this.setState({ hideKeywords: [...this.state.hideKeywords, value] });
         break;
       case "hideEvery":
         this.setState({ hideEvery: checked });
@@ -81,7 +81,6 @@ class FilterContainer extends React.Component {
       default:
         return false;
     }
-    this.setState({ oddsMin: e.target.value });
   };
   _onClick = () => {
     this.props.showHideFAB();
@@ -226,7 +225,7 @@ class FilterContainer extends React.Component {
               autoComplete={"off"}
               _onChange={this._onChange}
               placeHolder={"Hide Keywords"}
-              className={"input--number"}
+              className={"input--md"}
               value={this.state.hideKeywords}
             />
           </div>
