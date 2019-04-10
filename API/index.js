@@ -2,6 +2,10 @@ import axios from "axios";
 
 const baseURL = process.env.BASE_API;
 
+/**
+ * Sets the authorization header
+ * @param token
+ */
 export const setBearer = token => {
   if (!token) return;
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -68,3 +72,19 @@ export const resetPassword = RESET_DATA =>
  */
 export const resendEmail = RESET_DATA =>
   axios.post(`${baseURL}/auth/reset`, RESET_DATA);
+
+/**
+ * Saves entered giveaway
+ * @param {String} giveaway
+ * @returns {AxiosPromise<any>}
+ */
+export const enterGiveaway = giveaway =>
+  axios.post(`${baseURL}/giveaway/enter`, { giveaway });
+
+/**
+ * Saves giveaway
+ * @param {String} giveaway
+ * @returns {AxiosPromise<any>}
+ */
+export const saveGiveaway = giveaway =>
+  axios.post(`${baseURL}/giveaway/save`, { giveaway });
