@@ -29,7 +29,7 @@ class Saved extends React.Component {
     }
     setBearer(giveawayToken || "");
 
-    if (giveawayToken && !store.getState().user.loggedIn) {
+    if (giveawayToken) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
           if (result.data.isvalid) {
