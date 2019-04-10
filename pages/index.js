@@ -16,7 +16,7 @@ import stylesheet from "./global.css";
 import Pagination from "../components/Pagination/";
 import cookies from "next-cookies";
 import { userLogin, userLogout } from "../Redux/actions/loginActions";
-import { validateAccount } from "../API";
+import { setBearer, validateAccount } from "../API";
 import FilterContainer from "../Containers/FilterContainer";
 import Router from "next/router";
 
@@ -28,6 +28,7 @@ class Home extends React.Component {
     if (isServer) {
       await store.dispatch(fetchGiveaways(parseInt(query.pageId) || 1));
     }
+    setBearer(giveawayToken || "");
     if (giveawayToken && !store.getState().user.loggedIn) {
       await validateAccount({ token: giveawayToken })
         .then(result => {

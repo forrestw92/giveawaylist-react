@@ -3,14 +3,14 @@ import Router from "next/router";
 import Header from "../../components/Header";
 import { userLogin, userLogout } from "../../Redux/actions/loginActions";
 import Head from "../../components/head";
-import { validateAccount } from "../../API";
+import { setBearer, validateAccount } from "../../API";
 import cookies from "next-cookies";
 
 class Profile extends React.Component {
   static async getInitialProps({ req, res, store }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
-
+    setBearer(giveawayToken || "");
     if (giveawayToken && store.getState().user.loggedIn) {
       await validateAccount({ token: giveawayToken })
         .then(result => {

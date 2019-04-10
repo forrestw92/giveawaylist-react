@@ -3,6 +3,7 @@ import axios from "axios";
 const baseURL = process.env.BASE_API;
 
 export const setBearer = token => {
+  if (!token) return;
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
 /**

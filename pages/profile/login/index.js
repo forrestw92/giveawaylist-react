@@ -1,17 +1,18 @@
 import React from "react";
-import Router from "next/router";
 import cookies from "next-cookies";
-import { validateAccount } from "../../../API";
+import { setBearer, validateAccount } from "../../../API";
 import Head from "../../../components/head";
 import Header from "../../../components/Header";
 import "../../global.css";
 import LoginContainer from "../../../Containers/LoginContainer";
-import { userLogin, userLogout } from "../../../Redux/actions/loginActions";
+import { userLogin } from "../../../Redux/actions/loginActions";
 class Login extends React.Component {
   static async getInitialProps({ req, res, store }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
     if (giveawayToken) {
+      setBearer(giveawayToken);
+
       await validateAccount({ token: giveawayToken })
         .then(result => {
           if (result.data.isvalid) {

@@ -13,7 +13,7 @@ import GiveawayContainer from "../../Containers/GiveawayContainer";
 import Pagination from "../../components/Pagination";
 import { func, number, object } from "prop-types";
 import cookies from "next-cookies";
-import { validateAccount } from "../../API";
+import { setBearer, validateAccount } from "../../API";
 import { userLogin, userLogout } from "../../Redux/actions/loginActions";
 import FilterContainer from "../../Containers/FilterContainer";
 import Router from "next/router";
@@ -28,6 +28,8 @@ class EBooks extends React.Component {
         fetchGiveaways(parseInt(query.pageId) || 1, "ebooks")
       );
     }
+    setBearer(giveawayToken || "");
+
     if (giveawayToken && !store.getState().user.loggedIn) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
