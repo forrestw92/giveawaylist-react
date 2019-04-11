@@ -65,6 +65,15 @@
 .views--giveaway .count {
   margin-left: 5px;
 }
+.giveawayCard--footer .save--giveaway--btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  background: inherit;
+  border: 0;
+  color: inherit;
+}
 .giveawayCard--footer .save--giveaway,
 .giveawayCard--footer .enter--giveaway {
   width: 40px;

@@ -4,11 +4,28 @@ import stylesheet from "./index.css";
 import CardHeader from "./CardHeader";
 import CardFooter from "./CardFooter";
 import CardBody from "./CardBody";
+import { enterGiveaway, saveGiveaway } from "../../API";
 class GiveawayCard extends React.PureComponent {
-  handleEnterClick = e => {
-    this.props.deleteSingleGiveaway(e);
+  handleEnterClick = (id, giveaway) => {
+    enterGiveaway(giveaway)
+      .then(res => {
+        if (res.data.success) {
+          this.props.deleteSingleGiveaway(id);
+        }
+      })
+      //TODO: Handle enter giveaway error
+      .catch(error => console.log(error));
   };
-
+  handleSaveClick = giveaway => {
+    saveGiveaway(giveaway)
+      .then(res => {
+        if (res.data.success) {
+          //TODO: Alert user of saved giveaway
+        }
+      })
+      //TODO: Handle enter giveaway error
+      .catch(error => console.log(error));
+  };
   render() {
     const {
       id,
@@ -20,7 +37,6 @@ class GiveawayCard extends React.PureComponent {
       addedDate,
       endDate,
       prize,
-      item,
       category,
       winners,
       enteredCount,
@@ -43,6 +59,7 @@ class GiveawayCard extends React.PureComponent {
           giveaway={giveaway}
           enteredCount={enteredCount}
           id={id}
+          handleSaveClick={this.handleSaveClick}
           handleEnterClick={this.handleEnterClick}
         />
       </div>
