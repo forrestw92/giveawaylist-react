@@ -4,7 +4,9 @@ import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
 import FAB from "../../components/FAB";
-class FilterContainer extends React.Component {
+import { connect } from "react-redux";
+import { showHideFAB } from "../../Redux/actions/menuActions";
+class FilterContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,11 +89,11 @@ class FilterContainer extends React.Component {
   };
 
   render() {
-    const { isFABOpen } = this.props;
+    const { fabOpen } = this.props;
     return (
       <aside
         className={
-          isFABOpen
+          fabOpen
             ? `${stylesheet["filterContainer"]} ${stylesheet["off-screen"]}`
             : stylesheet["filterContainer"]
         }
@@ -242,6 +244,11 @@ class FilterContainer extends React.Component {
 }
 FilterContainer.propTypes = {
   showHideFAB: func.isRequired,
-  isFABOpen: bool.isRequired
+  fabOpen: bool.isRequired
 };
-export default FilterContainer;
+export default connect(
+  ({ menus }) => ({ fabOpen: menus.fabOpen }),
+  {
+    showHideFAB
+  }
+)(FilterContainer);
