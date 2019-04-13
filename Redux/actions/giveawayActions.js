@@ -5,6 +5,7 @@ import {
   DELETE_GIVEAWAYS
 } from "./types";
 import { fetchGiveawayPage } from "../../API";
+import { distanceInWords } from "date-fns";
 
 /**
  * Gets time difference in words
@@ -21,39 +22,10 @@ function fromNowInWords(time, serverTime, isStart) {
       timeZone: "America/Los_Angeles"
     })
   );
-
-  const diffMs = isStart ? today - giveawayTime : giveawayTime - today;
-  const days = Math.floor(diffMs / 86400000);
-  const hours = Math.floor((diffMs % 86400000) / 3600000);
-  const minutes = Math.round(((diffMs % 86400000) % 3600000) / 60000);
   if (isStart) {
-    if (days === 0) {
-      if (hours >= 1) {
-        if (hours === 1) {
-          return `${hours} hour ago`;
-        } else {
-          return `${hours} hours ago`;
-        }
-      }
-      return `${minutes} minutes ago`;
-    } else {
-      if (days === 1) {
-        return `${days} day ago`;
-      } else {
-        return `${days} days ago`;
-      }
-    }
-  } else {
-    if (days === 0) {
-      if (hours === 0) {
-        return `in ${minutes} minutes`;
-      } else {
-        return `in ${hours} hours`;
-      }
-    } else {
-      return `in ${days} days`;
-    }
+    return distanceInWords(giveawayTime, today) + " ago";
   }
+  return "in " + distanceInWords(today, giveawayTime);
 }
 /**
  * Fetches giveaways based on page
