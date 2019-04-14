@@ -10,6 +10,7 @@ export const setBearer = token => {
   if (!token) return;
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 };
+
 /**
  * Fetches giveaways based on pageId and filter.
  * @param {number} pageId
@@ -19,9 +20,10 @@ export const setBearer = token => {
  */
 export const fetchGiveawayPage = (pageId, type, filter = {}) =>
   axios.post(
-    `${baseURL}/giveaway/${type !== "" ? type + "/" : ""}${pageId}`,
+    `${baseURL}/giveaway${type === "/" ? type : type + "/"}${pageId}`,
     filter
   );
+
 /**
  * Register form data
  * @param {object} REGISTER_DATA
@@ -29,6 +31,7 @@ export const fetchGiveawayPage = (pageId, type, filter = {}) =>
  */
 export const register = REGISTER_DATA =>
   axios.post(`${baseURL}/auth/register`, REGISTER_DATA);
+
 /**
  * Login form data
  * @param {object} LOGIN_DATA
@@ -44,6 +47,7 @@ export const login = LOGIN_DATA =>
  */
 export const forgotPassword = FORGOT_DATA =>
   axios.post(`${baseURL}/auth/forgot`, FORGOT_DATA);
+
 /**
  * Checks if token is valid
  * @param {object} token
@@ -51,6 +55,7 @@ export const forgotPassword = FORGOT_DATA =>
  */
 export const validateAccount = token =>
   axios.post(`${baseURL}/auth/validate`, token);
+
 /**
  * Confirms account based on key
  * @param {string} CONFIRM_KEY
@@ -58,6 +63,7 @@ export const validateAccount = token =>
  */
 export const confirmAccount = CONFIRM_KEY =>
   axios.post(`${baseURL}/auth/confirm`, CONFIRM_KEY);
+
 /**
  * Reset password form data ( key from email)
  * @param RESET_DATA
@@ -65,6 +71,7 @@ export const confirmAccount = CONFIRM_KEY =>
  */
 export const resetPassword = RESET_DATA =>
   axios.post(`${baseURL}/auth/reset`, RESET_DATA);
+
 /**
  * Resend email to confirm account
  * @param RESET_DATA
