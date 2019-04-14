@@ -140,25 +140,21 @@
 @media only screen and (max-width: 1096px) {
   .giveawayCard {
     margin: 20px 10px;
-    width: auto;
   }
 }
 @media only screen and (max-width: 916px) {
   .giveawayCard {
     margin: 20px;
-    width: 20%;
   }
 }
 
 @media only screen and (max-width: 816px) {
   .giveawayCard {
     margin: 20px 10px;
-    width: 20%;
   }
 }
 @media only screen and (max-width: 776px) {
   .giveawayCard {
     margin: 20px;
-    width: auto;
   }
 }
