@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Link from "next/link";
-import { number, func } from "prop-types";
+import { number } from "prop-types";
 import stylesheet from "./styles.css";
 export default class Pagination extends Component {
   render() {
@@ -143,6 +143,7 @@ export default class Pagination extends Component {
                 item.text
               ) : (
                 <Link
+                  shallow
                   href={`?pageId=${
                     item.text === BACK
                       ? currentlySelected - 1
@@ -151,9 +152,7 @@ export default class Pagination extends Component {
                         : item.text.toString()
                   }`}
                 >
-                  <a onClick={() => this.props.deleteGiveaways()}>
-                    {item.text.toString()}
-                  </a>
+                  <a>{item.text.toString()}</a>
                 </Link>
               )}
             </li>
@@ -164,6 +163,5 @@ export default class Pagination extends Component {
 }
 Pagination.propTypes = {
   totalPages: number.isRequired,
-  currentlySelected: number.isRequired,
-  deleteGiveaways: func.isRequired
+  currentlySelected: number.isRequired
 };
