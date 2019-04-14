@@ -10,6 +10,7 @@
   width: 100%;
   text-align: center;
 }
+
 @media only screen and (max-width: 1040px) {
   .giveawayContainer {
     width: 100%;

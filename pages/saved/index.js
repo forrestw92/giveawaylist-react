@@ -1,30 +1,29 @@
 import React from "react";
+
+import { connect } from "react-redux";
+import Router, { withRouter } from "next/router";
+import { object, func } from "prop-types";
+import cookies from "next-cookies";
+
 import Head from "../../components/head";
 import Header from "../../components/Header";
-import cookies from "next-cookies";
-import {
-  deleteGiveaways,
-  deleteSingleGiveaway,
-  fetchGiveaways
-} from "../../Redux/actions/giveawayActions";
-import { setBearer, validateAccount } from "../../API";
-import { userLogin, userLogout } from "../../Redux/actions/loginActions";
-import Router from "next/router";
-import stylesheet from "../global.css";
-import FilterContainer from "../../Containers/FilterContainer";
 import GiveawayContainer from "../../Containers/GiveawayContainer";
-import Pagination from "../../components/Pagination";
-import { func, number, object } from "prop-types";
-import { connect } from "react-redux";
-import { showHideFAB, stickyFAB } from "../../Redux/actions/menuActions";
+import FilterContainer from "../../Containers/FilterContainer";
+
+import stylesheet from "../global.css";
+import "../global.css";
+
+import { userLogin, userLogout } from "../../Redux/actions/loginActions";
+import { setBearer, validateAccount } from "../../API";
+import { fetchGiveaways } from "../../Redux/actions/giveawayActions";
+
 class Saved extends React.Component {
   static async getInitialProps({ query, req, res, store, isServer }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
-    await store.dispatch(deleteGiveaways());
     if (isServer) {
       await store.dispatch(
-        fetchGiveaways(parseInt(query.pageId) || 1, "saved")
+        fetchGiveaways(parseInt(query.pageId) || 1, "/saved")
       );
     }
     setBearer(giveawayToken || "");
@@ -54,75 +53,33 @@ class Saved extends React.Component {
           }
         });
     }
-    return { pageId: parseInt(query.pageId) || 1 };
-  }
-  componentDidMount() {
-    if (this.props.giveaways.items.length === 0) {
-      this.props.deleteGiveaways();
-      this.props.fetchGiveaways(this.props.pageId, "saved");
-    }
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.pageId !== this.props.pageId) {
-      this.props.deleteGiveaways();
-      this.props.fetchGiveaways(this.props.pageId, "saved");
-    }
+    return {};
   }
   render() {
-    const {
-      giveaways,
-      deleteSingleGiveaway,
-      deleteGiveaways,
-      pageId,
-      menus,
-      showHideFAB
-    } = this.props;
-    const { fabOpen, fabSticky } = menus;
-    const { items, totalGiveaways } = giveaways;
+    const { router } = this.props;
     return (
       <React.Fragment>
         <Head title="Saved Giveaways - Amazon Giveaway List" />
         <Header />
 
         <div className={stylesheet["content"]}>
-          <FilterContainer showHideFAB={showHideFAB} isFABOpen={fabOpen} />
-          <GiveawayContainer
-            title={"Saved Giveaways"}
-            giveaways={items}
-            deleteSingleGiveaway={deleteSingleGiveaway}
-          />
-          <Pagination
-            totalPages={totalGiveaways / 24}
-            currentlySelected={pageId}
-            fabSticky={fabSticky}
-            deleteGiveaways={deleteGiveaways}
-          />
+          <FilterContainer />
+          <GiveawayContainer title={"Saved Giveaways"} router={router} />
         </div>
       </React.Fragment>
     );
   }
 }
 Saved.propTypes = {
-  giveaways: object,
   fetchGiveaways: func.isRequired,
-  deleteSingleGiveaway: func.isRequired,
-  deleteGiveaways: func.isRequired,
-  pageId: number,
-  showHideFAB: func.isRequired,
-  menus: object.isRequired
-};
-Saved.defaultProps = {
-  giveaways: {},
-  pageId: 1
+  router: object.isRequired
 };
 
-export default connect(
-  state => state,
-  {
-    fetchGiveaways,
-    deleteSingleGiveaway,
-    deleteGiveaways,
-    showHideFAB,
-    stickyFAB
-  }
-)(Saved);
+export default withRouter(
+  connect(
+    null,
+    {
+      fetchGiveaways
+    }
+  )(Saved)
+);

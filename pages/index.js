@@ -1,34 +1,32 @@
 import React from "react";
-import { connect } from "react-redux";
 
-import { object, func, number } from "prop-types";
-import {
-  fetchGiveaways,
-  deleteSingleGiveaway,
-  deleteGiveaways
-} from "../Redux/actions/giveawayActions";
-import { showHideFAB, stickyFAB } from "../Redux/actions/menuActions";
+import { connect } from "react-redux";
+import Router, { withRouter } from "next/router";
+import { func, object } from "prop-types";
+import cookies from "next-cookies";
+
 import Head from "../components/head";
 import Header from "../components/Header";
 import GiveawayContainer from "../Containers/GiveawayContainer";
-import "./global.css";
+import FilterContainer from "../Containers/FilterContainer";
+
 import stylesheet from "./global.css";
-import Pagination from "../components/Pagination/";
-import cookies from "next-cookies";
+import "./global.css";
+
 import { userLogin, userLogout } from "../Redux/actions/loginActions";
 import { setBearer, validateAccount } from "../API";
-import FilterContainer from "../Containers/FilterContainer";
-import Router from "next/router";
+import { fetchGiveaways } from "../Redux/actions/giveawayActions";
 
-class Home extends React.Component {
+class Home extends React.PureComponent {
   static async getInitialProps({ query, req, res, store, isServer }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
-    await store.dispatch(deleteGiveaways());
     if (isServer) {
       await store.dispatch(fetchGiveaways(parseInt(query.pageId) || 1));
     }
+
     setBearer(giveawayToken || "");
+
     if (giveawayToken && !store.getState().user.loggedIn) {
       await validateAccount({ token: giveawayToken })
         .then(result => {
@@ -54,75 +52,34 @@ class Home extends React.Component {
           }
         });
     }
-    return { pageId: parseInt(query.pageId) || 1 };
+    return {};
   }
-  componentDidMount() {
-    if (this.props.giveaways.items.length === 0) {
-      this.props.deleteGiveaways();
-      this.props.fetchGiveaways(this.props.pageId);
-    }
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.pageId !== this.props.pageId) {
-      this.props.deleteGiveaways();
-      this.props.fetchGiveaways(this.props.pageId);
-    }
-  }
+
   render() {
-    const {
-      giveaways,
-      deleteSingleGiveaway,
-      deleteGiveaways,
-      pageId,
-      menus,
-      showHideFAB
-    } = this.props;
-    const { fabOpen, fabSticky } = menus;
-    const { items, totalGiveaways } = giveaways;
+    const { router } = this.props;
     return (
       <React.Fragment>
-        <Head title="Amazon Giveaway List - Home" />
+        <Head title="Home - Amazon Giveaway List" />
         <Header />
 
         <div className={stylesheet["content"]}>
-          <FilterContainer showHideFAB={showHideFAB} isFABOpen={fabOpen} />
-          <GiveawayContainer
-            giveaways={items}
-            title={"All Giveaways"}
-            deleteSingleGiveaway={deleteSingleGiveaway}
-          />
-          <Pagination
-            totalPages={totalGiveaways / 24}
-            currentlySelected={pageId}
-            fabSticky={fabSticky}
-            deleteGiveaways={deleteGiveaways}
-          />
+          <FilterContainer />
+          <GiveawayContainer title={"All Giveaways"} router={router} />
         </div>
       </React.Fragment>
     );
   }
 }
 Home.propTypes = {
-  giveaways: object,
   fetchGiveaways: func.isRequired,
-  deleteSingleGiveaway: func.isRequired,
-  deleteGiveaways: func.isRequired,
-  pageId: number,
-  showHideFAB: func.isRequired,
-  menus: object.isRequired
-};
-Home.defaultProps = {
-  giveaways: {},
-  pageId: 1
+  router: object.isRequired
 };
 
-export default connect(
-  state => state,
-  {
-    fetchGiveaways,
-    deleteSingleGiveaway,
-    deleteGiveaways,
-    showHideFAB,
-    stickyFAB
-  }
-)(Home);
+export default withRouter(
+  connect(
+    null,
+    {
+      fetchGiveaways
+    }
+  )(Home)
+);
