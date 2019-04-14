@@ -1,3 +1,4 @@
+/*eslint prettier/prettier:0*/
 import React, { Component } from "react";
 import Link from "next/link";
 import { number } from "prop-types";
