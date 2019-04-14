@@ -5,7 +5,7 @@ import {
   DELETE_GIVEAWAYS
 } from "./types";
 import { fetchGiveawayPage } from "../../API";
-import { distanceInWords } from "date-fns";
+import formatDistance from "date-fns/formatDistance";
 
 /**
  * Gets time difference in words
@@ -23,9 +23,9 @@ function fromNowInWords(time, serverTime, isStart) {
     })
   );
   if (isStart) {
-    return distanceInWords(giveawayTime, today) + " ago";
+    return formatDistance(giveawayTime, today) + " ago";
   }
-  return "in " + distanceInWords(today, giveawayTime);
+  return "in " + formatDistance(today, giveawayTime);
 }
 /**
  * Fetches giveaways based on page
