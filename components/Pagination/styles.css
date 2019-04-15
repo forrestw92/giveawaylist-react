@@ -53,8 +53,12 @@ a:hover {
   padding: 15px;
   margin: 0 -15px;
 }
-
-@media screen and (max-width: 550px) {
+@media only screen and (max-width: 785px) {
+  .pagination {
+    left: 0;
+  }
+}
+@media only screen and (max-width: 550px) {
   .separator {
     display: none !important;
   }
