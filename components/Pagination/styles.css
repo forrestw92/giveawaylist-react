@@ -1,4 +1,4 @@
-.pageination {
+.pagination {
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
@@ -6,9 +6,8 @@
   justify-content: center;
   position: absolute;
   bottom: -20px;
-  padding: 0 0 40px;
 }
-.pageination > li {
+.pagination > li {
   padding: 10px;
   height: 40px;
   list-style: none;

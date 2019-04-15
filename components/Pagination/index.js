@@ -124,7 +124,7 @@ export default class Pagination extends Component {
       return renderItems;
     };
     return (
-      <ul className={stylesheet["pageination"]}>
+      <ul className={stylesheet["pagination"]}>
         {genPages()
           .filter(item => item.render)
           .map(item => (
