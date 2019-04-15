@@ -10,20 +10,51 @@ import {
 import Pagination from "../../components/Pagination";
 import GiveawayList from "../../components/GiveawayList";
 import GiveawayHeader from "../../components/GiveawayHeader";
+import debounce from "lodash/debounce";
 class GiveawayContainer extends React.Component {
   state = {
-    search: ""
+    search: "",
+    loading: false,
+    autoLoad: false
+  };
+  handleLoadType = e => {
+    if (e.target.id === "autoLoad") {
+      this.setState({ autoLoad: true });
+    } else {
+      this.setState({ autoLoad: false });
+    }
   };
   handleSearch = e => {
     e.preventDefault();
     this.setState({ search: e.target.value });
   };
-
-  componentDidMount() {
+  loadGiveaways = async () => {
     const { query, pathname } = this.props.router;
-
+    if (this.state.loading) return;
+    this.setState({ loading: true });
+    await this.props.fetchGiveaways(query.pageId || 1, pathname).then(() => {
+      this.setState({ loading: false });
+    });
+  };
+  handleScroll = () => {
+    const { push, pathname, query } = this.props.router;
+    if (!this.state.autoLoad) return;
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      if (this.state.loading === false) {
+        push(
+          `${pathname}?pageId=${parseInt(query.pageId) + 1}`,
+          `${pathname}?pageId=${parseInt(query.pageId) + 1}`,
+          {
+            shallow: true
+          }
+        );
+      }
+    }
+  };
+  componentDidMount() {
+    window.addEventListener("scroll", debounce(this.handleScroll, 100));
     if (process.browser) {
-      this.props.fetchGiveaways(query.pageId || 1, pathname);
+      this.loadGiveaways();
     }
   }
   componentWillUnmount() {
@@ -37,9 +68,10 @@ class GiveawayContainer extends React.Component {
       pathname !== prevProps.router.pathname
     ) {
       this.props.deleteGiveaways();
-      this.props.fetchGiveaways(query.pageId || 1, pathname);
+      this.loadGiveaways();
     }
   }
+
   render() {
     const {
       giveaways,
@@ -55,6 +87,7 @@ class GiveawayContainer extends React.Component {
         <GiveawayHeader
           handleSearch={this.handleSearch}
           searchValue={this.state.search}
+          handleLoadType={this.handleLoadType}
         />
         <GiveawayList
           giveaways={giveaways}
@@ -63,6 +96,7 @@ class GiveawayContainer extends React.Component {
         <Pagination
           totalPages={totalGiveaways / 24}
           currentlySelected={parseInt(router.query.pageId) || 1}
+          hide={this.state.autoLoad}
         />
       </main>
     );

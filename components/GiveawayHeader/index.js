@@ -8,13 +8,24 @@ class GiveawayHeader extends React.Component {
   };
 
   render() {
-    const { handleSearch, searchValue } = this.props;
+    const { handleSearch, searchValue, handleLoadType } = this.props;
     return (
       <section className={stylesheet["list--header"]}>
         <div className={stylesheet.slider}>
-          <input type="radio" name="loadType" id="pagination" defaultChecked />
+          <input
+            type="radio"
+            name="loadType"
+            id="pagination"
+            defaultChecked
+            onChange={handleLoadType}
+          />
           <label htmlFor="pagination">Pagination</label>
-          <input type="radio" name="loadType" id="autoLoad" />
+          <input
+            type="radio"
+            name="loadType"
+            id="autoLoad"
+            onChange={handleLoadType}
+          />
           <label htmlFor="autoLoad">Auto Load</label>
         </div>
         <form onSubmit={this.handleForm}>
@@ -34,6 +45,7 @@ class GiveawayHeader extends React.Component {
 }
 GiveawayHeader.propTypes = {
   handleSearch: func.isRequired,
-  searchValue: string.isRequired
+  searchValue: string.isRequired,
+  handleLoadType: func.isRequired
 };
 export default GiveawayHeader;

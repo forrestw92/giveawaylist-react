@@ -1,11 +1,11 @@
 /*eslint prettier/prettier:0*/
 import React, { Component } from "react";
 import Link from "next/link";
-import { number } from "prop-types";
+import { number, bool } from "prop-types";
 import stylesheet from "./styles.css";
 export default class Pagination extends Component {
   render() {
-    const { totalPages, currentlySelected } = this.props;
+    const { totalPages, currentlySelected, hide } = this.props;
     const SEPARATOR = "...",
       NEXT = "Next",
       BACK = "Back";
@@ -124,7 +124,11 @@ export default class Pagination extends Component {
       return renderItems;
     };
     return (
-      <ul className={stylesheet["pagination"]}>
+      <ul
+        className={`${stylesheet["pagination"]} ${
+          hide ? stylesheet["hide"] : undefined
+        }`}
+      >
         {genPages()
           .filter(item => item.render)
           .map(item => (
@@ -164,5 +168,6 @@ export default class Pagination extends Component {
 }
 Pagination.propTypes = {
   totalPages: number.isRequired,
-  currentlySelected: number.isRequired
+  currentlySelected: number.isRequired,
+  hide: bool.isRequired
 };
