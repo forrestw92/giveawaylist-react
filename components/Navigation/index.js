@@ -116,7 +116,7 @@ export class Navigation extends React.PureComponent {
         <ul className={stylesheet["navigation"]} id={"menu"} tabIndex={"-1"}>
           {renderLinks.map(({ href, label, image, className }) => (
             <li key={href} className={`${stylesheet[className]}`}>
-              <Link prefetch href={href}>
+              <Link href={href}>
                 <a
                   className={
                     currentPage === href
