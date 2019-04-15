@@ -1,0 +1,22 @@
+.footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 300px;
+  align-items: center;
+  height: 50px;
+  margin: auto;
+}
+.footer:before {
+  width: 100vw;
+  background: rgba(69, 123, 157, 0.05);
+  height: 50px;
+  content: "";
+  position: absolute;
+  left: 0;
+}
+@media only screen and (max-width: 650px) {
+  .footer {
+    margin-bottom: 50px;
+  }
+}

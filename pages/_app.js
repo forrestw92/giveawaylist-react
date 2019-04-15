@@ -5,6 +5,7 @@ import { initializeStore } from "../Redux/store";
 import withRedux from "next-redux-wrapper";
 import Layout from "../components/Layout";
 import { setCurrentPage } from "../Redux/actions/navActions";
+import Footer from "../components/Footer";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -23,6 +24,7 @@ class MyApp extends App {
         <Provider store={store}>
           <Layout>
             <Component {...pageProps} />
+            <Footer />
           </Layout>
         </Provider>
         <style jsx global>
