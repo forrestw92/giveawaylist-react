@@ -38,6 +38,7 @@ nav {
   font-size: 20px;
   background: #1d3557;
   justify-content: space-evenly;
+
   position: relative;
 }
 
@@ -88,7 +89,8 @@ nav {
 
 @media only screen and (max-width: 776px) {
   .navigation .nav--item {
-    margin: 0 15px !important;
+    padding: 0 15px;
+    margin: 0;
   }
 
   .link {
@@ -116,13 +118,37 @@ nav {
   }
 }
 
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 650px) {
   .navigation {
     background: #1d3557;
     width: 100vw;
     z-index: 10;
     position: fixed;
     bottom: 0;
-    justify-content: space-around;
+    justify-content: center;
+    overflow: scroll hidden;
+  }
+  .navigation .nav--item:nth-child(1) {
+    /*margin-left: 80px;*/
+  }
+}
+@media only screen and (max-width: 460px) {
+  .navigation .nav--item {
+    padding: 0 10px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .navigation .nav--item {
+    padding: 0 5px;
+  }
+}
+@media only screen and (min-width: 331px) and (max-width: 370px) {
+  .navigation {
+    justify-content: flex-start;
+  }
+}
+@media only screen and (max-width: 330px) {
+  .navigation .nav--item {
+    padding: 0 7px;
   }
 }

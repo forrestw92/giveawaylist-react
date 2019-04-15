@@ -25,6 +25,13 @@ class MyApp extends App {
             <Component {...pageProps} />
           </Layout>
         </Provider>
+        <style jsx global>
+          {`
+            #__next {
+              overflow: hidden;
+            }
+          `}
+        </style>
       </Container>
     );
   }
