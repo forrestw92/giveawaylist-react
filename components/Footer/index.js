@@ -10,7 +10,7 @@ class Footer extends React.Component {
     return (
       <footer className={stylesheet.footer}>
         {footerLinks.map((item, idx) => (
-          <a key={idx} href={item.link}>
+          <a key={idx} href={item.link} className={stylesheet["link"]}>
             {item.text}
           </a>
         ))}
