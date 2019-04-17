@@ -30,7 +30,7 @@ class GiveawayHeader extends React.Component {
         </div>
         <form onSubmit={this.handleForm}>
           <TextInput
-            autoComplete={false}
+            autoComplete={"off"}
             type={"search"}
             id={"search"}
             name={"search"}
