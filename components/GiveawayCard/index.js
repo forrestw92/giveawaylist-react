@@ -81,20 +81,21 @@ class GiveawayCard extends React.PureComponent {
 
 GiveawayCard.propTypes = {
   deleteSingleGiveaway: func.isRequired,
-  picture: string,
-  name: string,
-  requirement: string,
-  odds: number,
-  giveaway: string,
-  isKindle: number,
-  addedDate: string,
-  endDate: string,
-  prize: number,
-  item: string,
-  category: string,
-  winners: number,
-  enteredCount: number,
-  oddsType: number,
-  id: number
+  picture: string.isRequired,
+  name: string.isRequired,
+  requirement: string.isRequired,
+  odds: number.isRequired,
+  giveaway: string.isRequired,
+  isKindle: number.isRequired,
+  addedDate: string.isRequired,
+  endDate: string.isRequired,
+  prize: number.isRequired,
+  item: string.isRequired,
+  category: string.isRequired,
+  winners: number.isRequired,
+  enteredCount: number.isRequired,
+  oddsType: number.isRequired,
+  id: number.isRequired,
+  last_winner: string.isRequired
 };
 export default GiveawayCard;
