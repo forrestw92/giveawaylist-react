@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { object } from "prop-types";
+import { node } from "prop-types";
 class Layout extends React.Component {
   render() {
     const { children } = this.props;
@@ -8,6 +8,6 @@ class Layout extends React.Component {
   }
 }
 Layout.propTypes = {
-  children: object.isRequired
+  children: node.isRequired
 };
 export default connect(state => state)(Layout);
