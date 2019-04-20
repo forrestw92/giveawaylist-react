@@ -1,3 +1,4 @@
+/*eslint prettier/prettier:0*/
 import React from "react";
 import stylesheet from "./index.css";
 import PropTypes, { string, number, bool } from "prop-types";
