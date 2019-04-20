@@ -14,15 +14,11 @@ class FilterContainer extends React.PureComponent {
       oddsHigh: false,
       oddsMin: "",
       oddsMax: "",
-      hideTwitterFollow: false,
-      hideTweet: false,
-      hidePolls: false,
       hideVideo: false,
       hideAmazon: false,
       hideSweepstakes: false,
-      hideEvery: false,
-      hideRandom: false,
-      hideKeywords: []
+      hideKeywords: [],
+      latestWinner: false
     };
   }
   _onChange = (e, name) => {
@@ -31,15 +27,6 @@ class FilterContainer extends React.PureComponent {
     switch (name) {
       case "hideTwitterFollow":
         this.setState({ hideTwitterFollow: checked });
-        break;
-      case "hideAmazon":
-        this.setState({ hideAmazon: checked });
-        break;
-      case "hideTweet":
-        this.setState({ hideTweet: checked });
-        break;
-      case "hidePolls":
-        this.setState({ hidePolls: checked });
         break;
       case "hideVideo":
         this.setState({ hideVideo: checked });
@@ -53,15 +40,6 @@ class FilterContainer extends React.PureComponent {
       case "hideKeywords":
         this.setState({ hideKeywords: [...this.state.hideKeywords, value] });
         break;
-      case "hideEvery":
-        this.setState({ hideEvery: checked });
-        break;
-      case "hideRandom":
-        this.setState({ hideRandom: checked });
-        break;
-      case "hideSweepstakes":
-        this.setState({ hideSweepstakes: checked });
-        break;
       case "hideKindle":
         this.setState({ hideKindle: checked });
         break;
@@ -73,6 +51,9 @@ class FilterContainer extends React.PureComponent {
         break;
       case "viewCount":
         this.setState({ viewCount: checked });
+        break;
+      case "latestWinner":
+        this.setState({ latestWinner: value });
         break;
       case "oddsMin":
         this.setState({ oddsMin: value });
@@ -107,21 +88,9 @@ class FilterContainer extends React.PureComponent {
         <div className={stylesheet["filterGroup"]}>
           <h4 className={stylesheet["filterTitle"]}>Requirements</h4>
           <CheckBox
-            id={"hideTwitterFollow"}
-            name={"hideTwitterFollow"}
-            label={"Twitter Follow"}
-            _onChange={this._onChange}
-          />
-          <CheckBox
             id={"hideAmazon"}
             name={"hideAmazon"}
             label={"Amazon Follow"}
-            _onChange={this._onChange}
-          />
-          <CheckBox
-            id={"hideTweet"}
-            name={"hideTweet"}
-            label={"Hide Tweet"}
             _onChange={this._onChange}
           />
           <CheckBox
@@ -130,36 +99,9 @@ class FilterContainer extends React.PureComponent {
             label={"Hide Video"}
             _onChange={this._onChange}
           />
-          <CheckBox
-            id={"hidePolls"}
-            name={"hidePolls"}
-            label={"Hide Polls"}
-            _onChange={this._onChange}
-          />
         </div>
         <div className={stylesheet["filterGroup"]}>
           <h4 className={stylesheet["filterTitle"]}>Odds</h4>
-          <CheckBox
-            id={"hideSweepstakes"}
-            name={"hideSweepstakes"}
-            label={"Hide Sweepstakes"}
-            _onChange={this._onChange}
-          />
-          <CheckBox
-            id={"hideEver"}
-            name={"hideEver"}
-            label={"Hide Every nTH"}
-            _onChange={this._onChange}
-          />
-          <CheckBox
-            id={"hideRandom"}
-            name={"hideRandom"}
-            label={"Hide 1 in nTH"}
-            _onChange={this._onChange}
-          />
-        </div>
-        <div className={stylesheet["filterGroup"]}>
-          <h4 className={stylesheet["filterTitle"]}>Sort</h4>
           <div className={stylesheet["input--group"]}>
             <label htmlFor={"oddsMin"}>
               Min Odds
@@ -186,6 +128,9 @@ class FilterContainer extends React.PureComponent {
               />
             </label>
           </div>
+        </div>
+        <div className={stylesheet["filterGroup"]}>
+          <h4 className={stylesheet["filterTitle"]}>Sort</h4>
           <CheckBox
             id={"endingSoon"}
             name={"endingSoon"}
@@ -214,6 +159,12 @@ class FilterContainer extends React.PureComponent {
             id={"viewCount"}
             name={"viewCount"}
             label={"View Count High"}
+            _onChange={this._onChange}
+          />
+          <CheckBox
+            id={"latestWinner"}
+            name={"latestWinner"}
+            label={"Latest Winners"}
             _onChange={this._onChange}
           />
         </div>
