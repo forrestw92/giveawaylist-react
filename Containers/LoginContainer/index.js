@@ -45,7 +45,7 @@ class LoginContainer extends React.Component {
         type: "text",
         id: "email",
         name: "email",
-        autoComplete: "true"
+        autoComplete: "on"
       },
       {
         label: "Password",
@@ -53,7 +53,7 @@ class LoginContainer extends React.Component {
         type: "password",
         id: "password",
         name: "password",
-        autoComplete: "true"
+        autoComplete: "on"
       }
     ];
     return (
