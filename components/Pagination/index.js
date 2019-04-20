@@ -124,45 +124,55 @@ export default class Pagination extends Component {
       return renderItems;
     };
     return (
-      <ul
-        className={`${stylesheet["pagination"]} ${
-          hide ? stylesheet["hide"] : undefined
-        }`}
-      >
-        {genPages()
-          .filter(item => item.render)
-          .map(item => (
-            <li
-              key={item.id}
-              className={
-                item.text === SEPARATOR && item.disabled
-                  ? stylesheet["separator"]
-                  : item.disabled
-                    ? stylesheet["disabled"]
-                    : item.id === 0 || item.id === 9
-                      ? stylesheet["backNext"]
-                      : stylesheet["page"]
-              }
-            >
-              {item.disabled ? (
-                item.text
-              ) : (
-                <Link
-                  shallow
-                  href={`?pageId=${
-                    item.text === BACK
-                      ? currentlySelected - 1
-                      : item.text === NEXT
-                        ? currentlySelected + 1
-                        : item.text.toString()
-                  }`}
-                >
-                  <a>{item.text.toString()}</a>
-                </Link>
-              )}
-            </li>
-          ))}
-      </ul>
+      <nav role="navigation" aria-label="Pagination Navigation">
+        <ul
+          className={`${stylesheet["pagination"]} ${
+            hide ? stylesheet["hide"] : undefined
+          }`}
+        >
+          {genPages()
+            .filter(item => item.render)
+            .map(item => (
+              <li
+                key={item.id}
+                aria-selected={item.disabled && item.text !== SEPARATOR}
+                rel={
+                  item.text === BACK
+                    ? "prev"
+                    : item.text === NEXT
+                      ? "next"
+                      : undefined
+                }
+                className={
+                  item.text === SEPARATOR && item.disabled
+                    ? stylesheet["separator"]
+                    : item.disabled
+                      ? stylesheet["disabled"]
+                      : item.id === 0 || item.id === 9
+                        ? stylesheet["backNext"]
+                        : stylesheet["page"]
+                }
+              >
+                {item.disabled ? (
+                  item.text
+                ) : (
+                  <Link
+                    shallow
+                    href={`?pageId=${
+                      item.text === BACK
+                        ? currentlySelected - 1
+                        : item.text === NEXT
+                          ? currentlySelected + 1
+                          : item.text.toString()
+                    }`}
+                  >
+                    <a>{item.text.toString()}</a>
+                  </Link>
+                )}
+              </li>
+            ))}
+        </ul>
+      </nav>
     );
   }
 }
