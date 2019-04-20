@@ -13,6 +13,8 @@
     justify-content: center;
     align-items: center;
     margin: 0 0 10px 0;
+    appearance: none;
+    -webkit-appearance: none;
 
 }
 .slider label {

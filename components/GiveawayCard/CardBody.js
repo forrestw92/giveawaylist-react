@@ -51,6 +51,7 @@ const CardBody = props => {
       <div className={stylesheet["giveawayCard--category"]}>{category}</div>
       <GroupItem
         firstItem={"Req:"}
+        firstItemAria={"Requirement"}
         secondItem={requirement}
         className={"groupItem--alternative"}
         isItemBold={true}

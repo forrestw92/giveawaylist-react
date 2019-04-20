@@ -53,12 +53,9 @@ class GiveawayContainer extends React.Component {
   };
   componentDidMount() {
     window.addEventListener("scroll", debounce(this.handleScroll, 100));
-    if (process.browser) {
+    if (process.browser && this.props.giveaways.length === 0) {
       this.loadGiveaways();
     }
-  }
-  componentWillUnmount() {
-    this.props.deleteGiveaways();
   }
 
   componentDidUpdate(prevProps) {
@@ -80,7 +77,7 @@ class GiveawayContainer extends React.Component {
       totalGiveaways,
       router
     } = this.props;
-
+    const { pageId } = router.query;
     return (
       <main role="main" className={stylesheet.giveawayContainer}>
         <h1 className={stylesheet.title}>{title}</h1>
@@ -94,9 +91,9 @@ class GiveawayContainer extends React.Component {
           deleteSingleGiveaway={deleteSingleGiveaway}
         />
         <Pagination
-          totalPages={totalGiveaways / 24}
-          currentlySelected={parseInt(router.query.pageId) || 1}
-          hide={this.state.autoLoad}
+          totalPages={totalGiveaways / 24 || 1}
+          currentlySelected={parseInt(pageId) || 1}
+          hide={this.state.autoLoad || totalGiveaways < 24}
         />
       </main>
     );

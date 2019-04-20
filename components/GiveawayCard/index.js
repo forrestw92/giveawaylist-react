@@ -5,6 +5,7 @@ import CardHeader from "./CardHeader";
 import CardFooter from "./CardFooter";
 import CardBody from "./CardBody";
 import { enterGiveaway, saveGiveaway } from "../../API";
+import CardActions from "./CardActions";
 class GiveawayCard extends React.PureComponent {
   handleEnterClick = (id, giveaway) => {
     enterGiveaway(giveaway)
@@ -16,7 +17,9 @@ class GiveawayCard extends React.PureComponent {
       //TODO: Handle enter giveaway error
       .catch(error => console.log(error));
   };
-  handleSaveClick = giveaway => {
+  handleSaveClick = (giveaway, event) => {
+    event.preventDefault();
+    event.stopPropagation();
     saveGiveaway(giveaway)
       .then(res => {
         if (res.data.success) {
@@ -24,7 +27,9 @@ class GiveawayCard extends React.PureComponent {
         }
       })
       //TODO: Handle enter giveaway error
-      .catch(error => console.log(error));
+      .catch(res => {
+        console.log(res.data);
+      });
   };
   render() {
     const {
@@ -40,10 +45,17 @@ class GiveawayCard extends React.PureComponent {
       category,
       winners,
       enteredCount,
+      last_winner,
       oddsType
     } = this.props;
     return (
-      <div className={stylesheet.giveawayCard}>
+      <a
+        className={stylesheet.giveawayCard}
+        href={giveaway}
+        rel={"nofollow"}
+        target={"_blank"}
+        onClick={() => this.handleEnterClick(id, giveaway)}
+      >
         <CardHeader name={name} picture={picture} />
         <CardBody
           endDate={endDate}
@@ -55,14 +67,14 @@ class GiveawayCard extends React.PureComponent {
           category={category || "Uncategorized"}
           oddsType={oddsType}
         />
-        <CardFooter
-          giveaway={giveaway}
-          enteredCount={enteredCount}
+        <CardFooter last_winner={last_winner} enteredCount={enteredCount} />
+        <CardActions
           id={id}
-          handleSaveClick={this.handleSaveClick}
           handleEnterClick={this.handleEnterClick}
+          handleSaveClick={this.handleSaveClick}
+          giveaway={giveaway}
         />
-      </div>
+      </a>
     );
   }
 }

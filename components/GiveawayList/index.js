@@ -7,17 +7,19 @@ class GiveawayList extends React.Component {
   render() {
     const { giveaways, deleteSingleGiveaway } = this.props;
     return (
-      <section className={stylesheet["list--giveaways"]}>
+      <ul className={stylesheet["list--giveaways"]}>
         {giveaways &&
-          giveaways.map(giveaway => (
-            <GiveawayCard
-              key={giveaway.id}
-              {...giveaway}
-              deleteSingleGiveaway={deleteSingleGiveaway}
-            />
+          giveaways.map((giveaway, idx) => (
+            <li className={stylesheet["giveaway--list--item"]} key={idx}>
+              <GiveawayCard
+                key={giveaway.id}
+                {...giveaway}
+                deleteSingleGiveaway={deleteSingleGiveaway}
+              />
+            </li>
           ))}
         {giveaways.length === 0 && <h1>Loading</h1>}
-      </section>
+      </ul>
     );
   }
 }

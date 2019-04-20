@@ -1,5 +1,55 @@
 .list--giveaways {
-    display:flex;
-    flex-flow:row wrap;
-    justify-content: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+.giveaway--list--item {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: auto;
+}
+
+.giveaway--list--item {
+  display: flex;
+  flex-grow: 1;
+  flex-flow: column nowrap;
+  width: 20%;
+  min-width: 250px;
+  max-width: 300px;
+  height: auto;
+  margin: 20px;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.giveaway--list--item:hover,
+.giveaway--list--item:focus {
+  box-shadow: 0 2px 14px 1px rgba(0, 0, 0, 0.3);
+}
+
+@media only screen and (max-width: 1096px) {
+  .giveaway--list--item {
+    margin: 20px 10px;
+  }
+}
+@media only screen and (max-width: 916px) {
+  .giveaway--list--item {
+    margin: 20px;
+  }
+}
+
+@media only screen and (max-width: 816px) {
+  .giveaway--list--item {
+    margin: 20px 10px;
+  }
+}
+@media only screen and (max-width: 776px) {
+  .giveaway--list--item {
+    margin: 20px;
+  }
 }

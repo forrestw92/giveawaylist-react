@@ -3,29 +3,40 @@ import stylesheet from "./index.css";
 import PropTypes, { string, number, bool } from "prop-types";
 
 const GroupItem = props => {
+  const {
+    firstItem,
+    firstItemAria,
+    secondItem,
+    className,
+    around,
+    bold,
+    highlighted,
+    isItemBold
+  } = props;
   return (
     <div
       className={
-        props.around
-          ? stylesheet[props.className] + " " + stylesheet["around"]
-          : stylesheet[props.className]
+        around
+          ? stylesheet[className] + " " + stylesheet["around"]
+          : stylesheet[className]
       }
     >
       <p
+        aria-label={firstItemAria || undefined}
         className={
-          props.highlighted && props.isItemBold
+          highlighted && isItemBold
             ? stylesheet["highlighted"] + " " + stylesheet["item"]
-            : props.isItemBold
+            : isItemBold
               ? stylesheet["item"]
-              : props.highlighted
+              : highlighted
                 ? stylesheet["highlighted"]
                 : undefined
         }
       >
-        {props.bold ? <strong>{props.firstItem}</strong> : props.firstItem}
+        {bold ? <strong>{firstItem}</strong> : firstItem}
       </p>
-      <p className={props.highlighted ? stylesheet["highlighted"] : undefined}>
-        {props.bold ? <strong>{props.secondItem}</strong> : props.secondItem}
+      <p className={highlighted ? stylesheet["highlighted"] : undefined}>
+        {bold ? <strong>{secondItem}</strong> : secondItem}
       </p>
     </div>
   );
@@ -38,6 +49,7 @@ GroupItem.defaultProps = {
 };
 GroupItem.propTypes = {
   firstItem: PropTypes.oneOfType([string, number]).isRequired,
+  firstItemAria: string,
   secondItem: PropTypes.oneOfType([string, number]).isRequired,
   className: string.isRequired,
   around: bool,
