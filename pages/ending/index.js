@@ -15,7 +15,10 @@ import "../global.css";
 
 import { userLogin, userLogout } from "../../Redux/actions/loginActions";
 import { setBearer, validateAccount } from "../../API";
-import { fetchGiveaways } from "../../Redux/actions/giveawayActions";
+import {
+  deleteGiveaways,
+  fetchGiveaways
+} from "../../Redux/actions/giveawayActions";
 
 class Ending extends React.Component {
   static async getInitialProps({ query, req, res, store, isServer }) {
@@ -25,6 +28,8 @@ class Ending extends React.Component {
       await store.dispatch(
         fetchGiveaways(parseInt(query.pageId) || 1, "/ending")
       );
+    } else {
+      await store.dispatch(deleteGiveaways());
     }
     setBearer(giveawayToken || "");
 

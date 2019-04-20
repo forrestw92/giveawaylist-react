@@ -15,7 +15,10 @@ import "./global.css";
 
 import { userLogin, userLogout } from "../Redux/actions/loginActions";
 import { setBearer, validateAccount } from "../API";
-import { fetchGiveaways } from "../Redux/actions/giveawayActions";
+import {
+  fetchGiveaways,
+  deleteGiveaways
+} from "../Redux/actions/giveawayActions";
 
 class Home extends React.PureComponent {
   static async getInitialProps({ query, req, res, store, isServer }) {
@@ -23,6 +26,8 @@ class Home extends React.PureComponent {
     const { giveawayToken } = cookies(ctx);
     if (isServer) {
       await store.dispatch(fetchGiveaways(parseInt(query.pageId) || 1));
+    } else {
+      await store.dispatch(deleteGiveaways());
     }
 
     setBearer(giveawayToken || "");
@@ -79,7 +84,8 @@ export default withRouter(
   connect(
     null,
     {
-      fetchGiveaways
+      fetchGiveaways,
+      deleteGiveaways
     }
   )(Home)
 );
