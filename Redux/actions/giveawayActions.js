@@ -17,11 +17,12 @@ import formatDistance from "date-fns/formatDistance";
  */
 function fromNowInWords(time, serverTime, isStart) {
   let giveawayTime = new Date(time);
-  const today = new Date(
+  let today = new Date(
     new Date().toLocaleString("en-US", {
       timeZone: "America/Los_Angeles"
     })
   );
+
   if (isStart) {
     return formatDistance(giveawayTime, today) + " ago";
   }
@@ -45,6 +46,15 @@ export const fetchGiveaways = (pageId, type = "", filter = {}) => dispatch => {
           true
         );
         giveaway.endDate = fromNowInWords(giveaway.endDate, serverTime, false);
+        if (giveaway.last_winner === null) {
+          giveaway.last_winner = "No Winners";
+        } else {
+          giveaway.last_winner = fromNowInWords(
+            giveaway.last_winner,
+            serverTime,
+            true
+          );
+        }
       });
       dispatch({
         type: FETCH_GIVEAWAYS,
