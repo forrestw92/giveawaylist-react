@@ -1,5 +1,5 @@
 import React from "react";
-import { func, bool } from "prop-types";
+import { func, bool, string } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
@@ -82,7 +82,7 @@ class FilterContainer extends React.PureComponent {
   };
 
   render() {
-    const { fabOpen } = this.props;
+    const { fabOpen, currentPage } = this.props;
     return (
       <aside
         className={
@@ -145,13 +145,15 @@ class FilterContainer extends React.PureComponent {
         </div>
         <div className={stylesheet["filterGroup"]}>
           <h4 className={stylesheet["filterTitle"]}>Sort</h4>
-          <CheckBox
-            id={"endingSoon"}
-            name={"endingSoon"}
-            label={"Ending Soon"}
-            checked={this.state.endingSoon}
-            _onChange={this._onChange}
-          />
+          {currentPage !== "/ending" && (
+            <CheckBox
+              id={"endingSoon"}
+              name={"endingSoon"}
+              label={"Ending Soon"}
+              checked={this.state.endingSoon}
+              _onChange={this._onChange}
+            />
+          )}
           <CheckBox
             id={"prizeHigh"}
             name={"prizeHigh"}
@@ -202,13 +204,15 @@ class FilterContainer extends React.PureComponent {
               value={this.state.hideKeywords}
             />
           </div>
-          <CheckBox
-            id={"hideKindle"}
-            name={"hideKindle"}
-            label={"Hide Kindle Books"}
-            checked={this.state.hideKindle}
-            _onChange={this._onChange}
-          />
+          {currentPage !== "/ebooks" && (
+            <CheckBox
+              id={"hideKindle"}
+              name={"hideKindle"}
+              label={"Hide Kindle Books"}
+              checked={this.state.hideKindle}
+              _onChange={this._onChange}
+            />
+          )}
         </div>
         <Button
           _onClick={this.changeFilter}
@@ -224,13 +228,14 @@ FilterContainer.propTypes = {
   showHideFAB: func.isRequired,
   fabOpen: bool.isRequired,
   setFilter: func.isRequired,
-  fetchGiveaways: func.isRequired
+  fetchGiveaways: func.isRequired,
+  currentPage: string.isRequired
 };
 export default connect(
   ({ menus, giveaways, nav }) => ({
     fabOpen: menus.fabOpen,
     filter: giveaways.filter,
-    currentPage: nav
+    currentPage: nav.currentPage
   }),
   {
     showHideFAB,
