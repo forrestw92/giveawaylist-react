@@ -3,6 +3,30 @@ import axios from "axios";
 const baseURL = process.env.BASE_API;
 
 /**
+ * Removes false/empty object entries
+ * @author https://flaviocopes.com/how-to-remove-object-property-javascript/#remove-a-property-without-mutating-the-object
+ * @param {object} obj
+ * @returns {{}} new object
+ */
+const cleanObj = obj =>
+  Object.keys(obj).reduce((object, key) => {
+    if (obj[key] !== false && obj[key].length !== 0 && obj[key] !== "") {
+      object[key] = obj[key];
+    }
+    return object;
+  }, {});
+
+/**
+ * Converts object to query string
+ * @param {object} obj
+ * @returns {string} query string
+ */
+const objToPrams = obj =>
+  Object.keys(cleanObj(obj))
+    .map(key => `${key}=${obj[key]}`)
+    .join("&");
+
+/**
  * Sets the authorization header
  * @param token
  */
@@ -19,8 +43,10 @@ export const setBearer = token => {
  * @returns {Promise<any>}
  */
 export const fetchGiveawayPage = (pageId, type, filter = {}) =>
-  axios.post(
-    `${baseURL}/giveaway${type === "/" ? type : type + "/"}${pageId}`,
+  axios.get(
+    `${baseURL}/giveaway${type === "/" ? type : type + "/"}${pageId}${
+      Object.keys(filter).length >= 1 ? "/?" + objToPrams(filter) : ""
+    }`,
     filter
   );
 
