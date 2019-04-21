@@ -38,8 +38,8 @@ class GiveawayContainer extends React.Component {
   replacePageID = () => {
     const { push, pathname, query } = this.props.router;
     push(
-      `${pathname}?pageId=${parseInt(query.pageId) + 1}`,
-      `${pathname}?pageId=${parseInt(query.pageId) + 1}`,
+      `${pathname}?pageId=${(parseInt(query.pageId) || 1) + 1}`,
+      `${pathname}?pageId=${(parseInt(query.pageId) || 1) + 1}`,
       {
         shallow: true
       }
@@ -58,6 +58,9 @@ class GiveawayContainer extends React.Component {
     if (process.browser && this.props.giveaways.length === 0) {
       this.loadGiveaways();
     }
+  }
+  componentWillUnmount() {
+    this.props.deleteGiveaways();
   }
 
   componentDidUpdate(prevProps) {
@@ -85,6 +88,7 @@ class GiveawayContainer extends React.Component {
         <h1 className={stylesheet.title}>{title}</h1>
         <GiveawayHeader
           handleSearch={this.handleSearch}
+          autoLoad={this.state.autoLoad}
           searchValue={this.state.search}
           handleLoadType={this.handleLoadType}
         />

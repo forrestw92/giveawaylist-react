@@ -6,11 +6,12 @@ import { setPageId } from "../Redux/actions/navActions";
 class Layout extends React.Component {
   componentDidUpdate(prevProps) {
     const { query, pathname } = this.props.router;
+
     if (
       query.pageId !== prevProps.router.query.pageId ||
       pathname !== prevProps.router.pathname
     ) {
-      this.props.setPageId(query.pageId || 1);
+      this.props.setPageId(parseInt(query.pageId) || 1);
     }
   }
 
