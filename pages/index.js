@@ -21,11 +21,12 @@ import {
 } from "../Redux/actions/giveawayActions";
 
 class Home extends React.PureComponent {
-  static async getInitialProps({ query, req, res, store, isServer }) {
+  static async getInitialProps({ req, res, store, isServer }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
     if (isServer) {
-      await store.dispatch(fetchGiveaways(parseInt(query.pageId) || 1));
+      await store.dispatch(fetchGiveaways());
+      console.log("Server");
     } else {
       await store.dispatch(deleteGiveaways());
     }

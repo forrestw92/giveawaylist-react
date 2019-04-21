@@ -6,7 +6,8 @@ import TextInput from "../../components/TextInput";
 import FAB from "../../components/FAB";
 import { connect } from "react-redux";
 import { showHideFAB } from "../../Redux/actions/menuActions";
-import { setFilter } from "../../Redux/actions/giveawayActions";
+import { setFilter, fetchGiveaways } from "../../Redux/actions/giveawayActions";
+
 import Button from "../../components/Button";
 class FilterContainer extends React.PureComponent {
   constructor(props) {
@@ -29,6 +30,7 @@ class FilterContainer extends React.PureComponent {
   }
   changeFilter = () => {
     this.props.setFilter(this.state);
+    this.props.fetchGiveaways();
   };
   _onChange = (e, name) => {
     const value = e.target.value;
@@ -221,16 +223,18 @@ class FilterContainer extends React.PureComponent {
 FilterContainer.propTypes = {
   showHideFAB: func.isRequired,
   fabOpen: bool.isRequired,
-  setFilter: func.isRequired
+  setFilter: func.isRequired,
+  fetchGiveaways: func.isRequired
 };
 export default connect(
   ({ menus, giveaways, nav }) => ({
     fabOpen: menus.fabOpen,
     filter: giveaways.filter,
-    currentPage: nav.currentPage
+    currentPage: nav
   }),
   {
     showHideFAB,
-    setFilter
+    setFilter,
+    fetchGiveaways
   }
 )(FilterContainer);

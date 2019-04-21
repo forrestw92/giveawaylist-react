@@ -29,25 +29,27 @@ class GiveawayContainer extends React.Component {
     this.setState({ search: e.target.value });
   };
   loadGiveaways = async () => {
-    const { query, pathname } = this.props.router;
     if (this.state.loading) return;
     this.setState({ loading: true });
-    await this.props.fetchGiveaways(query.pageId || 1, pathname).then(() => {
+    await this.props.fetchGiveaways().then(() => {
       this.setState({ loading: false });
     });
   };
-  handleScroll = () => {
+  replacePageID = () => {
     const { push, pathname, query } = this.props.router;
+    push(
+      `${pathname}?pageId=${parseInt(query.pageId) + 1}`,
+      `${pathname}?pageId=${parseInt(query.pageId) + 1}`,
+      {
+        shallow: true
+      }
+    );
+  };
+  handleScroll = () => {
     if (!this.state.autoLoad) return;
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       if (this.state.loading === false) {
-        push(
-          `${pathname}?pageId=${parseInt(query.pageId) + 1}`,
-          `${pathname}?pageId=${parseInt(query.pageId) + 1}`,
-          {
-            shallow: true
-          }
-        );
+        this.replacePageID();
       }
     }
   };

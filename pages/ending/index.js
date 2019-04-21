@@ -21,13 +21,11 @@ import {
 } from "../../Redux/actions/giveawayActions";
 
 class Ending extends React.Component {
-  static async getInitialProps({ query, req, res, store, isServer }) {
+  static async getInitialProps({ req, res, store, isServer }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
     if (isServer) {
-      await store.dispatch(
-        fetchGiveaways(parseInt(query.pageId) || 1, "/ending")
-      );
+      await store.dispatch(fetchGiveaways());
     } else {
       await store.dispatch(deleteGiveaways());
     }

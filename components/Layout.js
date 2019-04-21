@@ -1,13 +1,32 @@
 import React from "react";
+import { withRouter } from "next/router";
 import { connect } from "react-redux";
-import { node } from "prop-types";
+import { node, func, object } from "prop-types";
+import { setPageId } from "../Redux/actions/navActions";
 class Layout extends React.Component {
+  componentDidUpdate(prevProps) {
+    const { query, pathname } = this.props.router;
+    if (
+      query.pageId !== prevProps.router.query.pageId ||
+      pathname !== prevProps.router.pathname
+    ) {
+      this.props.setPageId(query.pageId || 1);
+    }
+  }
+
   render() {
     const { children } = this.props;
     return <React.Fragment>{children}</React.Fragment>;
   }
 }
 Layout.propTypes = {
-  children: node.isRequired
+  children: node.isRequired,
+  setPageId: func.isRequired,
+  router: object.isRequired
 };
-export default connect(state => state)(Layout);
+export default withRouter(
+  connect(
+    state => state,
+    { setPageId }
+  )(Layout)
+);

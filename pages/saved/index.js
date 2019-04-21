@@ -18,13 +18,11 @@ import { setBearer, validateAccount } from "../../API";
 import { fetchGiveaways } from "../../Redux/actions/giveawayActions";
 
 class Saved extends React.Component {
-  static async getInitialProps({ query, req, res, store, isServer }) {
+  static async getInitialProps({ req, res, store, isServer }) {
     const ctx = { req };
     const { giveawayToken } = cookies(ctx);
     if (isServer) {
-      await store.dispatch(
-        fetchGiveaways(parseInt(query.pageId) || 1, "/saved")
-      );
+      await store.dispatch(fetchGiveaways());
     }
     setBearer(giveawayToken || "");
 
