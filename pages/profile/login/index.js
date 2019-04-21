@@ -41,6 +41,16 @@ class Login extends React.Component {
         <div className={"content"}>
           <LoginContainer />
         </div>
+        <style jsx scoped>
+          {`
+            .content {
+              margin: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+          `}
+        </style>
       </React.Fragment>
     );
   }
