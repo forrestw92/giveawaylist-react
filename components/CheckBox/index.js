@@ -12,7 +12,7 @@ class CheckBox extends React.Component {
           name={name}
           id={id}
           className={stylesheet["checkbox"]}
-          onChange={e => _onChange(e)}
+          onChange={e => _onChange(e, name)}
         />
         {label}
       </label>
