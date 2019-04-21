@@ -27,13 +27,6 @@ class MyApp extends App {
             <Footer />
           </Layout>
         </Provider>
-        <style jsx global>
-          {`
-            #__next {
-              overflow: hidden;
-            }
-          `}
-        </style>
       </Container>
     );
   }

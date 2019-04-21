@@ -7,6 +7,7 @@
   position: absolute;
   bottom: -20px;
   padding: 0;
+  left: 0;
 }
 .pagination > li {
   padding: 10px;
