@@ -1,5 +1,5 @@
 import React from "react";
-import { func, string } from "prop-types";
+import { func, string, bool } from "prop-types";
 import stylesheet from "./index.css";
 import TextInput from "../TextInput";
 class GiveawayHeader extends React.Component {
@@ -8,7 +8,7 @@ class GiveawayHeader extends React.Component {
   };
 
   render() {
-    const { handleSearch, searchValue, handleLoadType } = this.props;
+    const { handleSearch, searchValue, handleLoadType, autoLoad } = this.props;
     return (
       <section className={stylesheet["list--header"]}>
         <div className={stylesheet.slider}>
@@ -16,7 +16,7 @@ class GiveawayHeader extends React.Component {
             type="radio"
             name="loadType"
             id="pagination"
-            defaultChecked
+            checked={!autoLoad}
             onChange={handleLoadType}
           />
           <label htmlFor="pagination">Pagination</label>
@@ -24,6 +24,7 @@ class GiveawayHeader extends React.Component {
             type="radio"
             name="loadType"
             id="autoLoad"
+            checked={autoLoad}
             onChange={handleLoadType}
           />
           <label htmlFor="autoLoad">Auto Load</label>
@@ -46,6 +47,7 @@ class GiveawayHeader extends React.Component {
 GiveawayHeader.propTypes = {
   handleSearch: func.isRequired,
   searchValue: string.isRequired,
-  handleLoadType: func.isRequired
+  handleLoadType: func.isRequired,
+  autoLoad: bool.isRequired
 };
 export default GiveawayHeader;
