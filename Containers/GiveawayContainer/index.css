@@ -5,6 +5,7 @@
   width: 75%;
   padding: 10px 10px 60px;
   margin-bottom: 60px;
+  overflow: hidden;
 }
 .title {
   width: 100%;

@@ -8,7 +8,7 @@
   margin: auto;
 }
 .footer:before {
-  width: 100vw;
+  width: 100%;
   background: rgba(69, 123, 157, 0.05);
   height: 50px;
   content: "";
