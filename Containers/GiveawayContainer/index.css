@@ -3,8 +3,7 @@
   flex-flow: row wrap;
   justify-content: center;
   width: 75%;
-  padding: 10px 10px 60px;
-  margin-bottom: 60px;
+  padding: 10px;
   overflow: hidden;
 }
 .title {
