@@ -2,7 +2,8 @@ import {
   FETCH_GIVEAWAYS,
   DELETE_SINGLE_GIVEAWAY,
   TOTAL_GIVEAWAYS,
-  DELETE_GIVEAWAYS
+  DELETE_GIVEAWAYS,
+  SET_FILTERS
 } from "./types";
 import { fetchGiveawayPage } from "../../API";
 import formatDistance from "date-fns/formatDistance";
@@ -28,15 +29,15 @@ function fromNowInWords(time, serverTime, isStart) {
   }
   return "in " + formatDistance(today, giveawayTime);
 }
+
 /**
  * Fetches giveaways based on page
  * @param {number} pageId
  * @param {string} type
- * @param {object} filter
  * @returns {Function}
  */
-export const fetchGiveaways = (pageId, type = "", filter = {}) => dispatch => {
-  return fetchGiveawayPage(pageId, type, filter)
+export const fetchGiveaways = (pageId, type = "") => (dispatch, getState) => {
+  return fetchGiveawayPage(pageId, type, getState().giveaways.filter)
     .then(res => {
       const { results, totalGiveaways, serverTime } = res.data;
       results.map(giveaway => {
@@ -45,6 +46,7 @@ export const fetchGiveaways = (pageId, type = "", filter = {}) => dispatch => {
           serverTime,
           true
         );
+
         giveaway.endDate = fromNowInWords(giveaway.endDate, serverTime, false);
         if (giveaway.last_winner === null) {
           giveaway.last_winner = "No Winners";
@@ -90,5 +92,17 @@ export const deleteGiveaways = () => dispatch => {
   dispatch({
     type: DELETE_GIVEAWAYS,
     payload: []
+  });
+};
+
+/**
+ * Set giveaway filters
+ * @param {object} filters
+ * @returns {Function}
+ */
+export const setFilter = filters => dispatch => {
+  dispatch({
+    type: SET_FILTERS,
+    payload: filters
   });
 };

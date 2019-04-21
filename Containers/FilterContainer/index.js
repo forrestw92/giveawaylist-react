@@ -6,6 +6,8 @@ import TextInput from "../../components/TextInput";
 import FAB from "../../components/FAB";
 import { connect } from "react-redux";
 import { showHideFAB } from "../../Redux/actions/menuActions";
+import { setFilter } from "../../Redux/actions/giveawayActions";
+import Button from "../../components/Button";
 class FilterContainer extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -18,15 +20,23 @@ class FilterContainer extends React.PureComponent {
       hideAmazon: false,
       hideSweepstakes: false,
       hideKeywords: [],
-      latestWinner: false
+      latestWinner: false,
+      hideKindle: false,
+      endingSoon: false,
+      prizeHigh: false,
+      viewCount: false
     };
   }
+  changeFilter = () => {
+    this.props.setFilter(this.state);
+  };
   _onChange = (e, name) => {
     const value = e.target.value;
     const checked = e.target.checked;
+
     switch (name) {
-      case "hideTwitterFollow":
-        this.setState({ hideTwitterFollow: checked });
+      case "hideAmazon":
+        this.setState({ hideAmazon: checked });
         break;
       case "hideVideo":
         this.setState({ hideVideo: checked });
@@ -53,7 +63,7 @@ class FilterContainer extends React.PureComponent {
         this.setState({ viewCount: checked });
         break;
       case "latestWinner":
-        this.setState({ latestWinner: value });
+        this.setState({ latestWinner: checked });
         break;
       case "oddsMin":
         this.setState({ oddsMin: value });
@@ -91,12 +101,14 @@ class FilterContainer extends React.PureComponent {
             id={"hideAmazon"}
             name={"hideAmazon"}
             label={"Amazon Follow"}
+            checked={this.state.hideAmazon}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"hideVideo"}
             name={"hideVideo"}
             label={"Hide Video"}
+            checked={this.state.hideVideo}
             _onChange={this._onChange}
           />
         </div>
@@ -135,36 +147,42 @@ class FilterContainer extends React.PureComponent {
             id={"endingSoon"}
             name={"endingSoon"}
             label={"Ending Soon"}
+            checked={this.state.endingSoon}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"prizeHigh"}
             name={"prizeHigh"}
             label={"Prize High"}
+            checked={this.state.prizeHigh}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"oddsHigh"}
             name={"oddsHigh"}
             label={"Odds High"}
+            checked={this.state.oddsHigh}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"oddsLow"}
             name={"oddsLow"}
             label={"Odds Low"}
+            checked={this.state.oddsLow}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"viewCount"}
             name={"viewCount"}
             label={"View Count High"}
+            checked={this.state.viewCount}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"latestWinner"}
             name={"latestWinner"}
             label={"Latest Winners"}
+            checked={this.state.latestWinner}
             _onChange={this._onChange}
           />
         </div>
@@ -186,20 +204,33 @@ class FilterContainer extends React.PureComponent {
             id={"hideKindle"}
             name={"hideKindle"}
             label={"Hide Kindle Books"}
+            checked={this.state.hideKindle}
             _onChange={this._onChange}
           />
         </div>
+        <Button
+          _onClick={this.changeFilter}
+          className={"login"}
+          label={"Apply"}
+          type={"button"}
+        />
       </aside>
     );
   }
 }
 FilterContainer.propTypes = {
   showHideFAB: func.isRequired,
-  fabOpen: bool.isRequired
+  fabOpen: bool.isRequired,
+  setFilter: func.isRequired
 };
 export default connect(
-  ({ menus }) => ({ fabOpen: menus.fabOpen }),
+  ({ menus, giveaways, nav }) => ({
+    fabOpen: menus.fabOpen,
+    filter: giveaways.filter,
+    currentPage: nav.currentPage
+  }),
   {
-    showHideFAB
+    showHideFAB,
+    setFilter
   }
 )(FilterContainer);

@@ -2,12 +2,28 @@ import {
   FETCH_GIVEAWAYS,
   DELETE_SINGLE_GIVEAWAY,
   DELETE_GIVEAWAYS,
-  TOTAL_GIVEAWAYS
+  TOTAL_GIVEAWAYS,
+  SET_FILTERS
 } from "../actions/types";
 
 const initialState = {
   items: [],
-  totalGiveaways: 0
+  totalGiveaways: 0,
+  filter: {
+    oddsLow: false,
+    oddsHigh: false,
+    oddsMin: "",
+    oddsMax: "",
+    hideVideo: false,
+    hideAmazon: false,
+    hideSweepstakes: false,
+    hideKeywords: [],
+    latestWinner: false,
+    hideKindle: false,
+    endingSoon: false,
+    prizeHigh: false,
+    viewCount: false
+  }
 };
 
 export default function(state = initialState, action) {
@@ -31,6 +47,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         totalGiveaways: action.payload
+      };
+    case SET_FILTERS:
+      return {
+        ...state,
+        filter: Object.assign(state.filter, action.payload)
       };
     default:
       return state;
