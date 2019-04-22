@@ -12,7 +12,7 @@ import UserRegister from "../../static/icons/user-plus.svg";
 import UserLogin from "../../static/icons/log-in.svg";
 import Logo from "../../static/logo.svg";
 
-export class Navigation extends React.PureComponent {
+export class Navigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,21 +54,23 @@ export class Navigation extends React.PureComponent {
         {
           href: "/profile",
           label: "Profile",
-          shouldRender: true,
+          shouldRender: props.loggedIn === true,
           className: "nav--item",
           image: <User className={stylesheet["link--image"]} />
         },
         {
           href: "/profile/login",
           label: "Login",
-          shouldRender: false,
+          shouldRender:
+            props.loggedIn === false || props.currentPage === "/profile/login",
           className: "nav--item",
           image: <UserLogin className={stylesheet["link--image"]} />
         },
         {
           href: "/profile/register",
           label: "Register",
-          shouldRender: false,
+          shouldRender:
+            props.loggedIn === false || props.currentPage === "/profile/login",
           className: "nav--item",
           image: <UserRegister className={stylesheet["link--image"]} />
         }
@@ -76,34 +78,28 @@ export class Navigation extends React.PureComponent {
     };
   }
 
-  static getDerivedStateFromProps(prevProps, state) {
-    if (prevProps.currentPage === "/profile/login") {
-      return state.links.map(link => {
+  componentDidUpdate(prevProps) {
+    if (!prevProps.loggedIn && this.props.loggedIn) {
+      let newLinks = this.state.links.map(link => {
         if (link.href === "/profile/login") {
-          link.shouldRender = true;
-        }
-        if (link.href === "/profile") {
           link.shouldRender = false;
         }
         if (link.href === "/profile/register") {
           link.shouldRender = false;
         }
-      });
-    }
-    if (prevProps.currentPage === "/profile/register") {
-      return state.links.map(link => {
-        if (link.href === "/profile/register") {
+
+        if (link.href === "/profile") {
           link.shouldRender = true;
         }
-        if (link.href === "/profile") {
-          link.shouldRender = false;
-        }
-        if (link.href === "/profile/login") {
-          link.shouldRender = false;
+        if (link.href === "/saved") {
+          link.shouldRender = true;
         }
       });
+
+      this.setState({
+        links: Object.assign(this.state.links, ...newLinks)
+      });
     }
-    return null;
   }
 
   render() {
