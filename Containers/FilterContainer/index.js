@@ -1,5 +1,5 @@
 import React from "react";
-import { func, bool, string } from "prop-types";
+import { func, bool, string, object } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
@@ -83,6 +83,20 @@ class FilterContainer extends React.PureComponent {
 
   render() {
     const { fabOpen, currentPage } = this.props;
+    const {
+      oddsLow,
+      oddsHigh,
+      oddsMin,
+      oddsMax,
+      hideVideo,
+      hideAmazon,
+      hideKeywords,
+      latestWinner,
+      hideKindle,
+      endingSoon,
+      prizeHigh,
+      viewCount
+    } = this.props.filter;
     return (
       <aside
         className={
@@ -103,14 +117,14 @@ class FilterContainer extends React.PureComponent {
             id={"hideAmazon"}
             name={"hideAmazon"}
             label={"Amazon Follow"}
-            checked={this.state.hideAmazon}
+            checked={hideAmazon}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"hideVideo"}
             name={"hideVideo"}
             label={"Hide Video"}
-            checked={this.state.hideVideo}
+            checked={hideVideo}
             _onChange={this._onChange}
           />
         </div>
@@ -125,7 +139,7 @@ class FilterContainer extends React.PureComponent {
                 name={"oddsMin"}
                 autoComplete={"off"}
                 _onChange={this._onChange}
-                value={this.state.oddsMin}
+                value={oddsMin}
                 className={"input--number"}
               />
             </label>
@@ -137,7 +151,7 @@ class FilterContainer extends React.PureComponent {
                 name={"oddsMax"}
                 autoComplete={"off"}
                 _onChange={this._onChange}
-                value={this.state.oddsMax}
+                value={oddsMax}
                 className={"input--number"}
               />
             </label>
@@ -150,7 +164,7 @@ class FilterContainer extends React.PureComponent {
               id={"endingSoon"}
               name={"endingSoon"}
               label={"Ending Soon"}
-              checked={this.state.endingSoon}
+              checked={endingSoon}
               _onChange={this._onChange}
             />
           )}
@@ -158,35 +172,35 @@ class FilterContainer extends React.PureComponent {
             id={"prizeHigh"}
             name={"prizeHigh"}
             label={"Prize High"}
-            checked={this.state.prizeHigh}
+            checked={prizeHigh}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"oddsHigh"}
             name={"oddsHigh"}
             label={"Odds High"}
-            checked={this.state.oddsHigh}
+            checked={oddsHigh}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"oddsLow"}
             name={"oddsLow"}
             label={"Odds Low"}
-            checked={this.state.oddsLow}
+            checked={oddsLow}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"viewCount"}
             name={"viewCount"}
             label={"View Count High"}
-            checked={this.state.viewCount}
+            checked={viewCount}
             _onChange={this._onChange}
           />
           <CheckBox
             id={"latestWinner"}
             name={"latestWinner"}
             label={"Latest Winners"}
-            checked={this.state.latestWinner}
+            checked={latestWinner}
             _onChange={this._onChange}
           />
         </div>
@@ -201,7 +215,7 @@ class FilterContainer extends React.PureComponent {
               _onChange={this._onChange}
               placeHolder={"Hide Keywords"}
               className={"input--md"}
-              value={this.state.hideKeywords}
+              value={hideKeywords}
             />
           </div>
           {currentPage !== "/ebooks" && (
@@ -209,7 +223,7 @@ class FilterContainer extends React.PureComponent {
               id={"hideKindle"}
               name={"hideKindle"}
               label={"Hide Kindle Books"}
-              checked={this.state.hideKindle}
+              checked={hideKindle}
               _onChange={this._onChange}
             />
           )}
@@ -229,7 +243,8 @@ FilterContainer.propTypes = {
   fabOpen: bool.isRequired,
   setFilter: func.isRequired,
   fetchGiveaways: func.isRequired,
-  currentPage: string.isRequired
+  currentPage: string.isRequired,
+  filter: object.isRequired
 };
 export default connect(
   ({ menus, giveaways, nav }) => ({
