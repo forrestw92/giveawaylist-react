@@ -1,86 +1,76 @@
 import React from "react";
-import { func, bool, string, object } from "prop-types";
+import { func, bool, string, object, array, number } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
 import FAB from "../../components/FAB";
 import { connect } from "react-redux";
 import { showHideFAB } from "../../Redux/actions/menuActions";
-import { setFilter, fetchGiveaways } from "../../Redux/actions/giveawayActions";
+import {
+  setFilter,
+  fetchGiveaways,
+  deleteGiveaways
+} from "../../Redux/actions/giveawayActions";
 
 import Button from "../../components/Button";
 class FilterContainer extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      oddsLow: false,
-      oddsHigh: false,
-      oddsMin: "",
-      oddsMax: "",
-      hideVideo: false,
-      hideAmazon: false,
-      hideSweepstakes: false,
-      hideKeywords: [],
-      latestWinner: false,
-      hideKindle: false,
-      endingSoon: false,
-      prizeHigh: false,
-      viewCount: false
-    };
   }
-  changeFilter = () => {
-    this.props.setFilter(this.state);
-    this.props.fetchGiveaways();
-  };
+  changeFilter = () => {};
   _onChange = (e, name) => {
     const value = e.target.value;
     const checked = e.target.checked;
 
     switch (name) {
       case "hideAmazon":
-        this.setState({ hideAmazon: checked });
+        this.props.setFilter({ hideAmazon: checked });
         break;
       case "hideVideo":
-        this.setState({ hideVideo: checked });
+        this.props.setFilter({ hideVideo: checked });
         break;
       case "oddsLow":
-        this.setState({ oddsLow: checked });
+        this.props.setFilter({ oddsLow: checked });
         break;
       case "oddsHigh":
-        this.setState({ oddsHigh: checked });
+        this.props.setFilter({ oddsHigh: checked });
         break;
       case "hideKeywords":
-        this.setState({ hideKeywords: [...this.state.hideKeywords, value] });
+        this.props.setFilter({
+          hideKeywords: [...this.state.hideKeywords, value]
+        });
         break;
       case "hideKindle":
-        this.setState({ hideKindle: checked });
+        this.props.setFilter({ hideKindle: checked });
         break;
       case "endingSoon":
-        this.setState({ endingSoon: checked });
+        this.props.setFilter({ endingSoon: checked });
         break;
       case "prizeHigh":
-        this.setState({ prizeHigh: checked });
+        this.props.setFilter({ prizeHigh: checked });
         break;
       case "viewCount":
-        this.setState({ viewCount: checked });
+        this.props.setFilter({ viewCount: checked });
         break;
       case "latestWinner":
-        this.setState({ latestWinner: checked });
+        this.props.setFilter({ latestWinner: checked });
         break;
       case "oddsMin":
-        this.setState({ oddsMin: value });
+        this.props.setFilter({ oddsMin: value });
         break;
       case "oddsMax":
-        this.setState({ oddsMax: value });
+        this.props.setFilter({ oddsMax: value });
         break;
       default:
         return false;
     }
+    this.props.deleteGiveaways();
+    this.props.fetchGiveaways();
   };
+
   _onClick = () => {
     this.props.showHideFAB();
   };
-
   render() {
     const { fabOpen, currentPage } = this.props;
     const {
@@ -96,7 +86,8 @@ class FilterContainer extends React.PureComponent {
       endingSoon,
       prizeHigh,
       viewCount
-    } = this.props.filter;
+    } = this.props;
+
     return (
       <aside
         className={
@@ -243,18 +234,32 @@ FilterContainer.propTypes = {
   fabOpen: bool.isRequired,
   setFilter: func.isRequired,
   fetchGiveaways: func.isRequired,
+  deleteGiveaways: func.isRequired,
   currentPage: string.isRequired,
-  filter: object.isRequired
+  filter: object.isRequired,
+  oddsLow: bool.isRequired,
+  oddsHigh: bool.isRequired,
+  oddsMin: number.isRequired,
+  oddsMax: number.isRequired,
+  hideVideo: bool.isRequired,
+  hideAmazon: bool.isRequired,
+  hideKeywords: array.isRequired,
+  latestWinner: bool.isRequired,
+  hideKindle: bool.isRequired,
+  endingSoon: bool.isRequired,
+  prizeHigh: bool.isRequired,
+  viewCount: bool.isRequired
 };
 export default connect(
   ({ menus, giveaways, nav }) => ({
     fabOpen: menus.fabOpen,
-    filter: giveaways.filter,
+    ...giveaways.filter,
     currentPage: nav.currentPage
   }),
   {
     showHideFAB,
     setFilter,
-    fetchGiveaways
+    fetchGiveaways,
+    deleteGiveaways
   }
 )(FilterContainer);
