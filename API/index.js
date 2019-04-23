@@ -75,12 +75,10 @@ export const forgotPassword = FORGOT_DATA =>
   axios.post(`${baseURL}/auth/forgot`, FORGOT_DATA);
 
 /**
- * Checks if token is valid
- * @param {object} token
+ * Gets user details
  * @returns {Promise<any>}
  */
-export const validateAccount = token =>
-  axios.post(`${baseURL}/auth/validate`, token);
+export const userDetails = () => axios.get(`${baseURL}/auth/details`);
 
 /**
  * Confirms account based on key

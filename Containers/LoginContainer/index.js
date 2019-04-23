@@ -31,6 +31,9 @@ class LoginContainer extends React.Component {
       .catch(({ response }) => this.setState({ error: response.data.err }));
   };
   _onChange = (e, state) => {
+    if (this.state.error) {
+      this.setState({ error: "" });
+    }
     if (state === "email") {
       this.setState({ email: e.target.value });
     } else if (state === "password") {
@@ -59,9 +62,16 @@ class LoginContainer extends React.Component {
     return (
       <main role="main" className={stylesheet["login"]}>
         <Form title={"Login"} _onChange={this._onChange} inputs={inputs}>
-          <span style={{ color: "#E63946", textAlign: "center" }}>
-            {this.state.error}
-          </span>
+          <Link href={"/profile/forgot"}>
+            <a className={stylesheet["forgot--password"]}> Forgot password</a>
+          </Link>
+          <p
+            className={stylesheet["login--error"]}
+            role={"alert"}
+            aria-atomic="true"
+          >
+            <span>{this.state.error}</span>
+          </p>
           <div className={stylesheet["button--group"]}>
             <Button
               _onClick={this._onClick}
