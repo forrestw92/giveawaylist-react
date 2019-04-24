@@ -9,19 +9,7 @@ nav {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-}
-.link--image {
-  margin-right: 10px;
-}
-.logo {
-  display: flex;
-  height: 50px;
-}
-
-@media only screen and (max-width: 425px) {
-  .logo {
-    left: 5px;
-  }
+  text-decoration: none;
 }
 
 .navigation {
@@ -58,9 +46,6 @@ nav {
   color: #f28a2c;
 }
 @media only screen and (min-width: 676px) and (max-width: 767px) {
-  .link--image {
-    margin: 0;
-  }
   .link {
     flex-flow: column wrap;
   }
@@ -70,9 +55,6 @@ nav {
 }
 
 @media only screen and (max-width: 548px) {
-  .link--image {
-    margin: 0;
-  }
   .link {
     flex-flow: column wrap;
   }
@@ -100,10 +82,6 @@ nav {
     margin: 0;
     padding: 0;
     align-items: center;
-  }
-
-  .link--image {
-    margin: 0;
   }
 }
 

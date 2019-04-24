@@ -18,6 +18,7 @@ import Layout from "../components/Layout";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
+import stylesheet from "../static/global.css";
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const { giveawayToken } = parseCookies(ctx);
@@ -70,6 +71,7 @@ class MyApp extends App {
             <Component {...pageProps} />
             <Footer />
           </Layout>
+          <style jsx>{stylesheet}</style>
         </Provider>
       </Container>
     );

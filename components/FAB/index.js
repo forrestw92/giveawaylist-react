@@ -7,11 +7,12 @@ class FAB extends React.Component {
     const { ariaLabel, className, _onClick } = this.props;
     return (
       <div
-        className={stylesheet[className]}
+        className={className}
         aria-label={ariaLabel}
         onClick={() => _onClick()}
       >
         <Filter />
+        <style jsx>{stylesheet}</style>
       </div>
     );
   }

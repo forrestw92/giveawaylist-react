@@ -1,30 +1,39 @@
 const { parsed: localEnv } = require("dotenv").config();
 const webpack = require("webpack");
-const withCSS = require("@zeit/next-css");
 const withOffline = require("next-offline");
 
-module.exports = withOffline(
-  withCSS({
-    cssModules: true,
-    cssLoaderOptions: {
-      importLoaders: 1,
-      localIdentName: "[local]___[hash:base64:5]"
-    },
-    workboxOpts: {
-      runtimeCaching: [
+module.exports = withOffline({
+  cssModules: true,
+  cssLoaderOptions: {
+    importLoaders: 1,
+    localIdentName: "[local]___[hash:base64:5]"
+  },
+  workboxOpts: {
+    runtimeCaching: [
+      {
+        urlPattern: /amazon/,
+        handler: "networkOnly"
+      },
+      {
+        urlPattern: /.svg/,
+        handler: "cacheFirst"
+      }
+    ]
+  },
+  webpack(config, { defaultLoaders }) {
+    config.module.rules.push({
+      test: /\.css$/,
+      use: [
+        defaultLoaders.babel,
         {
-          urlPattern: /amazon/,
-          handler: "networkOnly"
-        },
-        {
-          urlPattern: /.svg/,
-          handler: "cacheFirst"
+          loader: require("styled-jsx/webpack").loader,
+          options: {
+            type: "scoped"
+          }
         }
       ]
-    },
-    webpack(config) {
-      config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
-      return config;
-    }
-  })
-);
+    });
+    config.plugins.push(new webpack.EnvironmentPlugin(localEnv));
+    return config;
+  }
+});

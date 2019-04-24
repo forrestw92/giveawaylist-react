@@ -8,7 +8,6 @@
     "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
-    "@zeit/next-css": "^1.0.1",
     "acorn": "^6.0.4",
     "autoprefixer": "^9.5.0",
     "axios": "^0.18.0",
@@ -34,7 +33,8 @@
     "react-sticky-box": "^0.8.0",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-jsx": "^3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",

@@ -6,7 +6,7 @@ const FACEBOOK_LOGIN = "https://forrestwalker.me/api/o1/auth/facebook";
 const TWITTER_LOGIN = "https://forrestwalker.me/api/o1/auth/twitter";
 const SocialIcons = () => {
   return (
-    <div className={stylesheet["social--icons"]}>
+    <div className={"social--icons"}>
       <a href={FACEBOOK_LOGIN}>
         <img alt="Facebook Login" src={"../../static/icons/facebook.svg"} />
       </a>
@@ -16,6 +16,8 @@ const SocialIcons = () => {
       <a href={GOOGLE_LOGIN}>
         <img alt="Google Login" src={"../../static/icons/google.svg"} />
       </a>
+      {/*language=CSS*/}
+      <style jsx>{stylesheet}</style>
     </div>
   );
 };

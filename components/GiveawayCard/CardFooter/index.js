@@ -1,20 +1,21 @@
 import React from "react";
-import stylesheet from "./index.css";
 import { string, number } from "prop-types";
-import Eye from "../../static/icons/eye.svg";
+import stylesheet from "./index.css";
+import Eye from "../../../static/icons/eye.svg";
 class CardFooter extends React.Component {
   render() {
     const { enteredCount, last_winner } = this.props;
     return (
-      <div className={stylesheet["giveawayCard--footer"]}>
+      <div className={"giveawayCard--footer"}>
         <div
-          className={stylesheet["views--giveaway"]}
+          className={"views--giveaway"}
           aria-label={`View Count is ${enteredCount}`}
         >
           <Eye />
-          <p className={stylesheet.count}>{enteredCount}</p>
+          <p className={"count"}>{enteredCount}</p>
         </div>
-        <p className={stylesheet["last--winner"]}>{last_winner}</p>
+        <p className={"last--winner"}>{last_winner}</p>
+        <style jsx>{stylesheet}</style>
       </div>
     );
   }

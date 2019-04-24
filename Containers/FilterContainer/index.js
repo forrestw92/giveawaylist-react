@@ -90,20 +90,16 @@ class FilterContainer extends React.PureComponent {
 
     return (
       <aside
-        className={
-          fabOpen
-            ? `${stylesheet["filterContainer"]} ${stylesheet["off-screen"]}`
-            : stylesheet["filterContainer"]
-        }
+        className={fabOpen ? `filterContainer off-screen` : "filterContainer"}
       >
         <FAB
           _onClick={() => this._onClick()}
           className={"fab"}
           ariaLabel={"Filter"}
         />
-        <h1 className={stylesheet["title"]}>Filter</h1>
-        <div className={stylesheet["filterGroup"]}>
-          <h4 className={stylesheet["filterTitle"]}>Requirements</h4>
+        <h1 className={"title"}>Filter</h1>
+        <div className={"filterGroup"}>
+          <h4 className={"filterTitle"}>Requirements</h4>
           <CheckBox
             id={"hideAmazon"}
             name={"hideAmazon"}
@@ -119,13 +115,13 @@ class FilterContainer extends React.PureComponent {
             _onChange={this._onChange}
           />
         </div>
-        <div className={stylesheet["filterGroup"]}>
-          <h4 className={stylesheet["filterTitle"]}>Odds</h4>
-          <div className={stylesheet["input--group"]}>
+        <div className={"filterGroup"}>
+          <h4 className={"filterTitle"}>Odds</h4>
+          <div className={"input--group"}>
             <label htmlFor={"oddsMin"}>
               Min Odds
               <TextInput
-                type={"text"}
+                type={"number"}
                 id={"oddsMin"}
                 name={"oddsMin"}
                 autoComplete={"off"}
@@ -137,7 +133,7 @@ class FilterContainer extends React.PureComponent {
             <label htmlFor={"oddsMax"}>
               Max Odds
               <TextInput
-                type={"text"}
+                type={"number"}
                 id={"oddsMax"}
                 name={"oddsMax"}
                 autoComplete={"off"}
@@ -148,8 +144,8 @@ class FilterContainer extends React.PureComponent {
             </label>
           </div>
         </div>
-        <div className={stylesheet["filterGroup"]}>
-          <h4 className={stylesheet["filterTitle"]}>Sort</h4>
+        <div className={"filterGroup"}>
+          <h4 className={"filterTitle"}>Sort</h4>
           {currentPage !== "/ending" && (
             <CheckBox
               id={"endingSoon"}
@@ -195,9 +191,9 @@ class FilterContainer extends React.PureComponent {
             _onChange={this._onChange}
           />
         </div>
-        <div className={stylesheet["filterGroup"]}>
-          <h4 className={stylesheet["filterTitle"]}>Giveaways</h4>
-          <div className={stylesheet["input--group"]}>
+        <div className={"filterGroup"}>
+          <h4 className={"filterTitle"}>Giveaways</h4>
+          <div className={"input--group"}>
             <TextInput
               type={"text"}
               id={"hideKeywords"}
@@ -225,6 +221,8 @@ class FilterContainer extends React.PureComponent {
           label={"Apply"}
           type={"button"}
         />
+        {/*language=CSS*/}
+        <style jsx>{stylesheet}</style>
       </aside>
     );
   }

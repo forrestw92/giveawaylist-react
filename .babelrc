@@ -2,7 +2,7 @@
   "env": {
     "development": {
       "presets": [["next/babel"]],
-      "plugins": ["inline-react-svg"]
+      "plugins": [["inline-react-svg"]]
     },
     "production": {
       "presets": [["next/babel"]],

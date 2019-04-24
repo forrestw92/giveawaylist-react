@@ -7,16 +7,13 @@ import Head from "../components/head";
 import GiveawayContainer from "../Containers/GiveawayContainer";
 import FilterContainer from "../Containers/FilterContainer";
 
-import stylesheet from "./global.css";
-import "./global.css";
-
 class Home extends React.PureComponent {
   render() {
     const { router } = this.props;
     return (
       <React.Fragment>
         <Head title="Home - Amazon Giveaway List" />
-        <div className={stylesheet["content"]}>
+        <div className={"content"}>
           <FilterContainer />
           <GiveawayContainer title={"All Giveaways"} router={router} />
         </div>

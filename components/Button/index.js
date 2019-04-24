@@ -7,20 +7,15 @@ class Button extends React.Component {
     return (
       <React.Fragment>
         {type === "button" ? (
-          <button
-            className={`${stylesheet["button"]} ${stylesheet[className]}`}
-            onClick={e => _onClick(e)}
-          >
+          <button className={`button ${className}`} onClick={e => _onClick(e)}>
             {label}
           </button>
         ) : (
-          <a
-            href={href}
-            className={`${stylesheet["button"]} ${stylesheet[className]}`}
-          >
+          <a href={href} className={`button ${className}`}>
             {label}
           </a>
         )}
+        <style jsx>{stylesheet}</style>
       </React.Fragment>
     );
   }

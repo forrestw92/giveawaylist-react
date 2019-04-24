@@ -8,12 +8,14 @@ const footerLinks = [
 class Footer extends React.Component {
   render() {
     return (
-      <footer className={stylesheet.footer}>
+      <footer className={"footer"}>
         {footerLinks.map((item, idx) => (
-          <a key={idx} href={item.link} className={stylesheet["link"]}>
+          <a key={idx} href={item.link} className={"link"}>
             {item.text}
           </a>
         ))}
+        {/*language=CSS*/}
+        <style jsx>{stylesheet}</style>
       </footer>
     );
   }

@@ -2,7 +2,6 @@ import React from "react";
 import LoginContainer from "../../../Containers/LoginContainer";
 import Head from "../../../components/head";
 
-import "../../global.css";
 class Login extends React.Component {
   render() {
     return (

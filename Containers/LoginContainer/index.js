@@ -60,19 +60,15 @@ class LoginContainer extends React.Component {
       }
     ];
     return (
-      <main role="main" className={stylesheet["login"]}>
+      <main role="main" className={"login"}>
         <Form title={"Login"} _onChange={this._onChange} inputs={inputs}>
           <Link href={"/profile/forgot"}>
-            <a className={stylesheet["forgot--password"]}> Forgot password</a>
+            <a className={"forgot--password"}> Forgot password</a>
           </Link>
-          <p
-            className={stylesheet["login--error"]}
-            role={"alert"}
-            aria-atomic="true"
-          >
+          <p className={"login--error"} role={"alert"} aria-atomic="true">
             <span>{this.state.error}</span>
           </p>
-          <div className={stylesheet["button--group"]}>
+          <div className={"button--group"}>
             <Button
               _onClick={this._onClick}
               label={"Login"}
@@ -94,6 +90,8 @@ class LoginContainer extends React.Component {
             </Link>
           </div>
         </Form>
+        {/*language=CSS*/}
+        <style jsx>{stylesheet}</style>
       </main>
     );
   }

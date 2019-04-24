@@ -5,7 +5,7 @@ import TextInput from "../TextInput";
 
 const InputGroup = props => {
   return (
-    <div className={stylesheet["input--group"]}>
+    <div className={"input--group"}>
       <TextInput
         type={props.type}
         id={props.id}
@@ -16,10 +16,12 @@ const InputGroup = props => {
       />
       <label
         htmlFor={props.name}
-        className={props.value ? stylesheet["input--filled"] : undefined}
+        className={props.value ? "input--filled" : undefined}
       >
         {props.label}
       </label>
+      {/*language=CSS*/}
+      <style jsx>{stylesheet}</style>
     </div>
   );
 };

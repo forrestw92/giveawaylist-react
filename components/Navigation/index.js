@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { bool, string } from "prop-types";
-import stylesheet from "./index.css";
 import Home from "../../static/icons/home.svg";
 import Clock from "../../static/icons/clock.svg";
 import Saved from "../../static/icons/saved.svg";
@@ -12,6 +11,7 @@ import UserRegister from "../../static/icons/user-plus.svg";
 import UserLogin from "../../static/icons/log-in.svg";
 import Logo from "../../static/logo.svg";
 
+import stylesheet from "./index.css";
 export class Navigation extends React.Component {
   constructor(props) {
     super(props);
@@ -22,28 +22,28 @@ export class Navigation extends React.Component {
           label: "Home",
           shouldRender: true,
           className: "nav--item",
-          image: <Home className={stylesheet["link--image"]} />
+          image: <Home className={"link--image"} />
         },
         {
           href: "/ending",
           label: "Ending",
           shouldRender: true,
           className: "nav--item",
-          image: <Clock className={stylesheet["link--image"]} />
+          image: <Clock className={"link--image"} />
         },
         {
           href: "/saved",
           label: "Saved",
           shouldRender: props.loggedIn === true,
           className: "nav--item",
-          image: <Saved className={stylesheet["link--image"]} />
+          image: <Saved className={"link--image"} />
         },
         {
           href: "/ebooks",
           label: "eBooks",
           shouldRender: true,
           className: "nav--item",
-          image: <Book className={stylesheet["link--image"]} />
+          image: <Book className={"link--image"} />
         },
         {
           href: "/sweepstakes",
@@ -56,7 +56,7 @@ export class Navigation extends React.Component {
           label: "Profile",
           shouldRender: props.loggedIn === true,
           className: "nav--item",
-          image: <User className={stylesheet["link--image"]} />
+          image: <User className={"link--image"} />
         },
         {
           href: "/profile/login",
@@ -64,7 +64,7 @@ export class Navigation extends React.Component {
           shouldRender:
             props.loggedIn === false || props.currentPage === "/profile/login",
           className: "nav--item",
-          image: <UserLogin className={stylesheet["link--image"]} />
+          image: <UserLogin className={"link--image"} />
         },
         {
           href: "/profile/register",
@@ -72,7 +72,7 @@ export class Navigation extends React.Component {
           shouldRender:
             props.loggedIn === false || props.currentPage === "/profile/login",
           className: "nav--item",
-          image: <UserRegister className={stylesheet["link--image"]} />
+          image: <UserRegister className={"link--image"} />
         }
       ]
     };
@@ -108,18 +108,12 @@ export class Navigation extends React.Component {
     const { currentPage } = this.props;
     return (
       <nav role="navigation">
-        <Logo className={stylesheet["logo"]} />
-        <ul className={stylesheet["navigation"]} id={"menu"} tabIndex={"-1"}>
+        <Logo className={"logo"} />
+        <ul className={"navigation"} id={"menu"} tabIndex={"-1"}>
           {renderLinks.map(({ href, label, image, className }) => (
-            <li key={href} className={`${stylesheet[className]}`}>
+            <li key={href} className={`${className}`}>
               <Link href={href}>
-                <a
-                  className={
-                    currentPage === href
-                      ? `${stylesheet["link"]} ${stylesheet["active"]}`
-                      : stylesheet["link"]
-                  }
-                >
+                <a className={currentPage === href ? `link active` : "link"}>
                   {image}
                   <span>{label}</span>
                 </a>
@@ -127,6 +121,8 @@ export class Navigation extends React.Component {
             </li>
           ))}
         </ul>
+        {/*language=CSS*/}
+        <style jsx>{stylesheet}</style>
       </nav>
     );
   }

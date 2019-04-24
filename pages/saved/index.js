@@ -7,9 +7,6 @@ import Head from "../../components/head";
 import GiveawayContainer from "../../Containers/GiveawayContainer";
 import FilterContainer from "../../Containers/FilterContainer";
 
-import stylesheet from "../global.css";
-import "../global.css";
-
 class Saved extends React.Component {
   render() {
     const { router } = this.props;
@@ -17,7 +14,7 @@ class Saved extends React.Component {
       <React.Fragment>
         <Head title="Saved Giveaways - Amazon Giveaway List" />
 
-        <div className={stylesheet["content"]}>
+        <div className={"content"}>
           <FilterContainer />
           <GiveawayContainer title={"Saved Giveaways"} router={router} />
         </div>

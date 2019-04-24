@@ -5,8 +5,6 @@ import { parseCookies } from "nookies";
 import Head from "../../../components/head";
 import RegisterContainer from "../../../Containers/RegisterContainer";
 
-import "../../global.css";
-
 class Login extends React.Component {
   static async getInitialProps({ req, res, store }) {
     const ctx = { req };

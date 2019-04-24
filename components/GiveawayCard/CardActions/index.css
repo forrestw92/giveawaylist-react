@@ -1,0 +1,22 @@
+.giveawayCard--actions {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.save--giveaway--btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  background: inherit;
+  border: 0;
+  color: inherit;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  display: flex;
+  cursor: pointer;
+}

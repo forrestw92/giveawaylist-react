@@ -1,48 +1,15 @@
 .giveawayCard {
   display: flex;
   flex-flow: column nowrap;
-  text-decoration: none !important;
+  text-decoration: none;
+  color: inherit;
 }
 
-.giveawayCard--header {
-  display: flex;
-  flex-flow: column nowrap;
-  position: relative;
-  height: 265px;
-}
-.giveawayCard--header .image {
-  margin: 20px auto;
-  height: 160px;
-  width: 160px;
-}
+/*.giveawayCard--body {
+  !* border-top: 1px solid #457b9d; *!
+}*/
 
-.giveawayCard--itemName {
-  background: #1d3557;
-  color: white;
-  height: 45px;
-  font-size: 17px;
-  padding: 10px 14px;
-  line-height: 1.5;
-  text-align: center;
-  letter-spacing: 1px;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  overflow-wrap: break-word;
-  display: block;
-  display: -webkit-box;
-}
-
-.giveawayCard--body {
-  /* border-top: 1px solid #457b9d; */
-}
-.giveawayCard--category {
-  text-align: center;
-  color: black;
-  padding: 6px 2px 8px 2px;
-}
-.giveawayCard--footer {
+/*.giveawayCard--footer {
   display: flex;
   align-items: center;
   flex-flow: row nowrap;
@@ -62,8 +29,8 @@
 .giveawayCard--footer .views--giveaway .count {
   margin: 0 0 0 5px;
   padding: 0;
-}
-.giveawayCard--actions {
+}*/
+/*.giveawayCard--actions {
   width: 100%;
   position: absolute;
   top: 0;
@@ -95,8 +62,9 @@
 }
 .giveawayCard--actions .save--giveaway:hover {
   filter: drop-shadow(0px 0px 10px rgba(230, 57, 70, 0.7));
-}
+}*/
 
+/*
 .groupItem {
   display: flex;
   justify-content: space-between;
@@ -138,3 +106,4 @@
 .groupItem--alternative .item {
   font-weight: bold;
 }
+*/

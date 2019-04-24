@@ -14,18 +14,19 @@ class TextInput extends React.Component {
       placeHolder
     } = this.props;
     return (
-      <input
-        type={type}
-        className={`${stylesheet["input"]} ${
-          className ? stylesheet[className] : ""
-        }`}
-        id={id}
-        name={name}
-        placeholder={placeHolder ? placeHolder : ""}
-        autoComplete={autoComplete}
-        onChange={e => _onChange(e, name)}
-        value={value}
-      />
+      <React.Fragment>
+        <input
+          type={type}
+          className={`input ${className ? className : ""}`}
+          id={id}
+          name={name}
+          placeholder={placeHolder ? placeHolder : ""}
+          autoComplete={autoComplete}
+          onChange={e => _onChange(e, name)}
+          value={value}
+        />
+        <style jsx>{stylesheet}</style>
+      </React.Fragment>
     );
   }
 }

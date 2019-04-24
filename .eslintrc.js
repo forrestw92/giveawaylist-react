@@ -22,8 +22,9 @@ module.exports = {
     "plugin:prettier/recommended"
   ],
   settings: {
+    "import/core-modules": ["styled-jsx/css"],
     react: {
-      "version": "detect"
+      version: "detect"
     }
   }
 };

@@ -47,8 +47,8 @@ const CardBody = props => {
     addedDate
   } = props;
   return (
-    <div className={stylesheet["giveawayCard--body"]}>
-      <div className={stylesheet["giveawayCard--category"]}>{category}</div>
+    <div className={"giveawayCard--body"}>
+      <div className={"giveawayCard--category"}>{category}</div>
       <GroupItem
         firstItem={"Req:"}
         firstItemAria={"Requirement"}
@@ -85,6 +85,7 @@ const CardBody = props => {
         className={"groupItem--alternative"}
         around={true}
       />
+      <style jsx>{stylesheet}</style>
     </div>
   );
 };

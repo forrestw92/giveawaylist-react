@@ -1,8 +1,7 @@
 /*eslint prettier/prettier:0*/
 import React from "react";
-import stylesheet from "./index.css";
 import PropTypes, { string, number, bool } from "prop-types";
-
+import stylesheet from "./index.css";
 const GroupItem = props => {
   const {
     firstItem,
@@ -15,30 +14,25 @@ const GroupItem = props => {
     isItemBold
   } = props;
   return (
-    <div
-      className={
-        around
-          ? stylesheet[className] + " " + stylesheet["around"]
-          : stylesheet[className]
-      }
-    >
+    <div className={around ? className + " " + "around" : className}>
       <p
         aria-label={firstItemAria || undefined}
         className={
           highlighted && isItemBold
-            ? stylesheet["highlighted"] + " " + stylesheet["item"]
+            ? "highlighted" + " " + "item"
             : isItemBold
-              ? stylesheet["item"]
+              ? "item"
               : highlighted
-                ? stylesheet["highlighted"]
+                ? "highlighted"
                 : undefined
         }
       >
         {bold ? <strong>{firstItem}</strong> : firstItem}
       </p>
-      <p className={highlighted ? stylesheet["highlighted"] : undefined}>
+      <p className={highlighted ? "highlighted" : undefined}>
         {bold ? <strong>{secondItem}</strong> : secondItem}
       </p>
+      <style jsx>{stylesheet}</style>
     </div>
   );
 };

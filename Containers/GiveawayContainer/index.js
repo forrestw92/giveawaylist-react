@@ -84,8 +84,8 @@ class GiveawayContainer extends React.Component {
     } = this.props;
     const { pageId } = router.query;
     return (
-      <main role="main" className={stylesheet.giveawayContainer}>
-        <h1 className={stylesheet.title}>{title}</h1>
+      <main role="main" className={"giveawayContainer"}>
+        <h1 className={"title"}>{title}</h1>
         <GiveawayHeader
           handleSearch={this.handleSearch}
           autoLoad={this.state.autoLoad}
@@ -101,6 +101,7 @@ class GiveawayContainer extends React.Component {
           currentlySelected={parseInt(pageId) || 1}
           hide={this.state.autoLoad || totalGiveaways < 24}
         />
+        <style jsx>{stylesheet}</style>
       </main>
     );
   }

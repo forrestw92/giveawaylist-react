@@ -1,0 +1,9 @@
+.giveawayCard--body {
+  /* border-top: 1px solid #457b9d; */
+}
+
+.giveawayCard--category {
+  text-align: center;
+  color: black;
+  padding: 6px 2px 8px 2px;
+}

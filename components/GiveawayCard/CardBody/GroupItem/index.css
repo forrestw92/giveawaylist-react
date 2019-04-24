@@ -1,0 +1,41 @@
+.groupItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+.groupItem--alternative {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  line-height: 1.5;
+  position: relative;
+}
+.groupItem--alternative::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  background: rgba(69, 123, 157, 0.05);
+  width: 105%;
+  overflow: hidden;
+  height: 100%;
+  left: -2%;
+}
+.groupItem--alternative p {
+  margin: 0;
+  padding: 0;
+}
+
+.highlighted {
+  color: rgb(69, 123, 157);
+}
+.around {
+  justify-content: space-around;
+}
+.groupItem p {
+  margin: 0;
+  padding: 0;
+}
+.groupItem .item,
+.groupItem--alternative .item {
+  font-weight: bold;
+}

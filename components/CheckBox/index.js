@@ -11,11 +11,13 @@ class CheckBox extends React.Component {
           type={"checkbox"}
           name={name}
           id={id}
-          className={stylesheet["checkbox"]}
+          className={"checkbox"}
           onChange={e => _onChange(e, name)}
           checked={checked}
         />
         {label}
+        {/*language=CSS*/}
+        <style jsx>{stylesheet}</style>
       </label>
     );
   }

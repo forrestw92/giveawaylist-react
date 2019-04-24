@@ -88,7 +88,7 @@ class RegisterContainer extends React.Component {
       }
     ];
     return (
-      <main role="main" className={stylesheet["register"]}>
+      <main role="main" className={"register"}>
         <Form
           title={"Register"}
           {...this.state}
@@ -104,6 +104,8 @@ class RegisterContainer extends React.Component {
             type={"button"}
           />
         </Form>
+        {/*language=CSS*/}
+        <style jsx>{stylesheet}</style>
       </main>
     );
   }

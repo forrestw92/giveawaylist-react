@@ -9,12 +9,9 @@ class Form extends React.PureComponent {
     const { title, _onChange, inputs, children } = this.props;
     return (
       <React.Fragment>
-        <h1 className={stylesheet["title"]}>{title}</h1>
+        <h1 className={"title"}>{title}</h1>
         <SocialIcons />
-        <form
-          className={stylesheet["register--form"]}
-          onSubmit={e => e.preventDefault()}
-        >
+        <form className={"register--form"} onSubmit={e => e.preventDefault()}>
           {inputs &&
             inputs.map((input, key) => (
               <InputGroup
@@ -30,6 +27,8 @@ class Form extends React.PureComponent {
             ))}
           {children}
         </form>
+        {/*language=CSS*/}
+        <style jsx>{stylesheet}</style>
       </React.Fragment>
     );
   }

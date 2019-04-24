@@ -21,6 +21,7 @@ const Head = props => (
         href="https://fonts.googleapis.com/css?family=Open+Sans"
         rel="stylesheet"
       />
+      <link href="/static/global.css" rel="stylesheet" />
       <meta property="og:url" content={props.url || defaultOGURL} />
       <meta property="og:title" content={props.title || ""} />
       <meta

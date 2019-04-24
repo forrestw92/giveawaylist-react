@@ -1,18 +1,16 @@
 import React from "react";
-import stylesheet from "./index.css";
 import LazyLoad from "react-lazyload";
 import { string } from "prop-types";
-const PlaceHolder = () => {
-  return <div className={stylesheet.image} />;
-};
+import stylesheet from "./index.css";
 const CardImage = props => {
   return (
-    <LazyLoad height={160} placeholder={<PlaceHolder />} once>
+    <LazyLoad height={160} once>
       <img
         src={props.picture.replace(".jpg", ".SR160,160.jpg")}
         alt={"Giveaway Picture"}
-        className={stylesheet.image}
+        className={"giveawayCard--image"}
       />
+      <style jsx>{stylesheet}</style>
     </LazyLoad>
   );
 };
