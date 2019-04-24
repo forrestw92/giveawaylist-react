@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import Link from "next/link";
 import { number, bool } from "prop-types";
+import stylesheet from "./index.css";
 export default class Pagination extends Component {
   render() {
     const { totalPages, currentlySelected, hide } = this.props;
@@ -168,106 +169,7 @@ export default class Pagination extends Component {
             ))}
         </ul>
         {/*language=CSS*/}
-        <style jsx>{`
-          .pagination {
-            display: flex;
-            flex-flow: row nowrap;
-            width: 100%;
-            justify-content: center;
-            position: relative;
-            bottom: -20px;
-            padding: 0;
-            left: 0;
-          }
-          .pagination > li {
-            padding: 10px;
-            height: 40px;
-            list-style: none;
-            font-size: 20px;
-            min-width: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-          .hide {
-            display: none;
-          }
-          .disabled {
-            background-color: #1d3557;
-            color: white;
-            border-radius: 15px;
-            margin: 0 8px;
-            display: block;
-          }
-          .page {
-            background: none;
-            display: block;
-            margin: 0 -10px;
-          }
-          a {
-            color: black;
-            text-decoration: none;
-          }
-          a:hover {
-            text-decoration: underline;
-          }
-          .page a {
-            padding: 15px;
-          }
-          .separator {
-            background: none;
-            display: block;
-          }
-          .backNext {
-            background: none;
-          }
-          .backNext a {
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 15px;
-            margin: 0 -15px;
-          }
-          @media only screen and (max-width: 785px) {
-            .pagination {
-              left: 0;
-            }
-          }
-          @media only screen and (max-width: 550px) {
-            .separator {
-              display: none !important;
-            }
-            .page {
-              display: none !important;
-            }
-            .disabled {
-              display: none !important;
-              color: white;
-            }
-            .backNext {
-              background-color: #1d3557;
-              margin: 0 15px;
-              width: 90px;
-              text-align: center;
-              border: 2px solid #1d3557;
-              font-weight: 900;
-              text-transform: uppercase;
-              transition: all 0.25s ease;
-            }
-            .backNext a {
-              color: white;
-              padding: 10px 25px;
-              letter-spacing: 2px;
-            }
-            .backNext:hover {
-              background-color: rgb(255, 166, 0);
-              border: 2px solid black;
-            }
-            .backNext:hover > a {
-              color: black;
-              text-decoration: none;
-            }
-          }
-        `}</style>
+        <style jsx>{stylesheet}</style>
       </nav>
     );
   }

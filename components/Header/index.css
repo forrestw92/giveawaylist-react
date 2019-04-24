@@ -8,24 +8,3 @@
   justify-content: center;
   position: relative;
 }
-
-.menu {
-  width: 45px;
-  height: 45px;
-  background: inherit;
-  border: 0;
-  right: 5px;
-  position: absolute;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-.menu img {
-  height: 100%;
-  width: 100%;
-}
-@media only screen and (min-width: 977px) {
-  .menu {
-    display: none;
-  }
-}

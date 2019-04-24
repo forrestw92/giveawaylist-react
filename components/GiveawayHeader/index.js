@@ -1,6 +1,7 @@
 import React from "react";
 import { func, string, bool } from "prop-types";
 import TextInput from "../TextInput";
+import stylesheet from "./index.css";
 class GiveawayHeader extends React.Component {
   handleForm = e => {
     e.preventDefault();
@@ -40,55 +41,7 @@ class GiveawayHeader extends React.Component {
           />
         </form>
         {/*language=CSS*/}
-        <style jsx>{`
-          .list--header {
-            width: 100%;
-            display: flex;
-            flex-flow: column;
-            justify-content: center;
-            align-items: center;
-          }
-          .slider {
-            display: flex;
-            flex-flow: row nowrap;
-            width: auto;
-            height: 40px;
-            justify-content: center;
-            align-items: center;
-            margin: 0 0 10px 0;
-            appearance: none;
-            -webkit-appearance: none;
-          }
-          .slider label {
-            padding: 10px 10px;
-          }
-
-          .slider input {
-            -webkit-appearance: none;
-            apperance: none;
-            padding: 0;
-            margin: 0;
-          }
-          .slider label:hover {
-            cursor: pointer;
-          }
-          .slider input + label {
-            transition: 0.3s linear;
-            background: rgba(69, 123, 157, 0.2);
-            color: black;
-            border: 1px solid rgba(0, 0, 0, 0.25);
-          }
-          .slider input:nth-child(1) + label {
-            border-right: none;
-          }
-          .slider input:nth-child(3) + label {
-            border-left: none;
-          }
-          .slider input:checked + label {
-            background: rgb(69, 123, 157);
-            color: white;
-          }
-        `}</style>
+        <style jsx>{stylesheet}</style>
       </section>
     );
   }

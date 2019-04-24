@@ -1,7 +1,7 @@
 import React from "react";
 import { string } from "prop-types";
 import CardImage from "./CardImage";
-import stylsheet from "./index.css";
+import stylesheet from "./index.css";
 class CardHeader extends React.Component {
   render() {
     const { name, picture } = this.props;
@@ -9,7 +9,7 @@ class CardHeader extends React.Component {
       <div className={"giveawayCard--header"}>
         <CardImage picture={picture} />
         <div className={"giveawayCard--itemName"}>{name}</div>
-        <style jsx>{stylsheet}</style>
+        <style jsx>{stylesheet}</style>
       </div>
     );
   }
