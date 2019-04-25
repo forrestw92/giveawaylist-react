@@ -11,12 +11,19 @@ import {
   fetchGiveaways,
   deleteGiveaways
 } from "../../Redux/actions/giveawayActions";
-
-class FilterContainer extends React.PureComponent {
+import throttle from "lodash/throttle";
+class FilterContainer extends React.Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    this.delayfetchGiveaways = throttle(function() {
+      this.props.fetchGiveaways();
+    }, 2000);
+  }
+
   _onChange = (e, name) => {
+    console.log(this);
     const value = e.target.value;
     const checked = e.target.checked;
 
@@ -63,7 +70,7 @@ class FilterContainer extends React.PureComponent {
         return false;
     }
     this.props.deleteGiveaways();
-    this.props.fetchGiveaways();
+    this.delayfetchGiveaways();
   };
 
   _onClick = () => {
@@ -244,12 +251,14 @@ FilterContainer.propTypes = {
   prizeHigh: bool.isRequired,
   viewCount: bool.isRequired
 };
+
 export default connect(
   ({ menus, giveaways, nav }) => ({
     fabOpen: menus.fabOpen,
     ...giveaways.filter,
     currentPage: nav.currentPage
   }),
+
   {
     showHideFAB,
     setFilter,
