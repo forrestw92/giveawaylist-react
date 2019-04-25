@@ -12,12 +12,10 @@ import {
   deleteGiveaways
 } from "../../Redux/actions/giveawayActions";
 
-import Button from "../../components/Button";
 class FilterContainer extends React.PureComponent {
   constructor(props) {
     super(props);
   }
-  changeFilter = () => {};
   _onChange = (e, name) => {
     const value = e.target.value;
     const checked = e.target.checked;
@@ -121,6 +119,8 @@ class FilterContainer extends React.PureComponent {
             <label htmlFor={"oddsMin"}>
               Min Odds
               <TextInput
+                min={1}
+                max={1000000}
                 type={"number"}
                 id={"oddsMin"}
                 name={"oddsMin"}
@@ -133,6 +133,8 @@ class FilterContainer extends React.PureComponent {
             <label htmlFor={"oddsMax"}>
               Max Odds
               <TextInput
+                min={parseInt(oddsMin) + 1}
+                max={1000000}
                 type={"number"}
                 id={"oddsMax"}
                 name={"oddsMax"}
@@ -215,12 +217,6 @@ class FilterContainer extends React.PureComponent {
             />
           )}
         </div>
-        <Button
-          _onClick={this.changeFilter}
-          className={"login"}
-          label={"Apply"}
-          type={"button"}
-        />
         {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </aside>

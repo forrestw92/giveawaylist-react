@@ -14,7 +14,8 @@ class LoginContainer extends React.Component {
     this.state = {
       email: "",
       password: "",
-      error: ""
+      error: "",
+      socialLogin: true
     };
   }
   _onClick = () => {
@@ -61,7 +62,12 @@ class LoginContainer extends React.Component {
     ];
     return (
       <main role="main" className={"login"}>
-        <Form title={"Login"} _onChange={this._onChange} inputs={inputs}>
+        <Form
+          title={"Login"}
+          _onChange={this._onChange}
+          inputs={inputs}
+          socialLogin={this.state.socialLogin}
+        >
           <Link href={"/profile/forgot"}>
             <a className={"forgot--password"}> Forgot password</a>
           </Link>
@@ -90,6 +96,15 @@ class LoginContainer extends React.Component {
             </Link>
           </div>
         </Form>
+        <a
+          href={"#"}
+          onClick={() =>
+            this.setState({ socialLogin: !this.state.socialLogin })
+          }
+          className={"switch--type"}
+        >
+          <h2>{this.state.socialLogin ? "Use Email" : "Use Social"}</h2>
+        </a>
         {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </main>

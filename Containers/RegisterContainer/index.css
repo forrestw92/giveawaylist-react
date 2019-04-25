@@ -14,3 +14,8 @@
   padding: 10px;
   border-bottom: #1d3557 1px solid;
 }
+.switch--type {
+  display: flex;
+  align-self: center;
+  width: 120px;
+}

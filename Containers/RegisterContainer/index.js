@@ -12,7 +12,8 @@ class RegisterContainer extends React.Component {
       email2: "",
       password: "",
       password2: "",
-      message: {}
+      message: {},
+      socialLogin: true
     };
   }
   _onSubmit = e => {
@@ -104,6 +105,15 @@ class RegisterContainer extends React.Component {
             type={"button"}
           />
         </Form>
+        <a
+          href={"#"}
+          onClick={() =>
+            this.setState({ socialLogin: !this.state.socialLogin })
+          }
+          className={"switch--type"}
+        >
+          <h2>{this.state.socialLogin ? "Use Email" : "Use Social"}</h2>
+        </a>
         {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </main>

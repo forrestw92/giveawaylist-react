@@ -4,21 +4,21 @@ import stylesheet from "./index.css";
 const GOOGLE_LOGIN = "https://forrestwalker.me/api/o1/auth/google";
 const FACEBOOK_LOGIN = "https://forrestwalker.me/api/o1/auth/facebook";
 const TWITTER_LOGIN = "https://forrestwalker.me/api/o1/auth/twitter";
-const SocialIcons = () => {
+const SocialButtons = () => {
   return (
     <div className={"social--icons"}>
-      <a href={FACEBOOK_LOGIN}>
-        <img alt="Facebook Login" src={"../../static/icons/facebook.svg"} />
+      <a href={FACEBOOK_LOGIN} id="facebook" className="social--btn">
+        Connect with Facebook
       </a>
-      <a href={TWITTER_LOGIN}>
-        <img alt="Twitter Login" src={"../../static/icons/twitter.svg"} />
+      <a href={TWITTER_LOGIN} id="twitter" className="social--btn">
+        Connect with Twitter
       </a>
-      <a href={GOOGLE_LOGIN}>
-        <img alt="Google Login" src={"../../static/icons/google.svg"} />
+      <a href={GOOGLE_LOGIN} id="google" className="social--btn">
+        Connect with Google
       </a>
       {/*language=CSS*/}
       <style jsx>{stylesheet}</style>
     </div>
   );
 };
-export default SocialIcons;
+export default SocialButtons;

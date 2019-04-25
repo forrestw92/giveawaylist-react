@@ -1,11 +1,11 @@
 import React from "react";
-import { array, func } from "prop-types";
+import { array, func, number } from "prop-types";
 import GiveawayCard from "../GiveawayCard";
 
 import stylesheet from "./index.css";
 class GiveawayList extends React.Component {
   render() {
-    const { giveaways, deleteSingleGiveaway } = this.props;
+    const { giveaways, deleteSingleGiveaway, totalGiveaways } = this.props;
     return (
       <ul className={"list--giveaways"}>
         {giveaways &&
@@ -18,7 +18,13 @@ class GiveawayList extends React.Component {
               />
             </li>
           ))}
-        {giveaways.length === 0 && <h1>Loading</h1>}
+        {totalGiveaways === undefined ? (
+          <h1>Loading</h1>
+        ) : totalGiveaways === 0 ? (
+          <h1>No Giveaways. Reset Filter</h1>
+        ) : (
+          ""
+        )}
 
         <style jsx>{stylesheet}</style>
       </ul>
@@ -28,6 +34,7 @@ class GiveawayList extends React.Component {
 
 GiveawayList.propTypes = {
   giveaways: array.isRequired,
-  deleteSingleGiveaway: func.isRequired
+  deleteSingleGiveaway: func.isRequired,
+  totalGiveaways: number.isRequired
 };
 export default GiveawayList;

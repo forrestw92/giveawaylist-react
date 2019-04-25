@@ -94,6 +94,7 @@ class GiveawayContainer extends React.Component {
         />
         <GiveawayList
           giveaways={giveaways}
+          totalGiveaways={totalGiveaways}
           deleteSingleGiveaway={deleteSingleGiveaway}
         />
         <Pagination

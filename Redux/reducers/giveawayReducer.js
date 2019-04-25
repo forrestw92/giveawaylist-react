@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   items: [],
-  totalGiveaways: 0,
+  totalGiveaways: undefined,
   filter: {
     oddsLow: false,
     oddsHigh: false,
@@ -41,7 +41,8 @@ export default function(state = initialState, action) {
     case DELETE_GIVEAWAYS:
       return {
         ...state,
-        items: action.payload
+        items: action.payload,
+        totalGiveaways: undefined
       };
     case TOTAL_GIVEAWAYS:
       return {

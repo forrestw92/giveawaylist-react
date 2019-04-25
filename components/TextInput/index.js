@@ -1,5 +1,5 @@
 import React from "react";
-import { string, func } from "prop-types";
+import { string, func, number } from "prop-types";
 import stylesheet from "./index.css";
 class TextInput extends React.Component {
   render() {
@@ -11,7 +11,9 @@ class TextInput extends React.Component {
       _onChange,
       value,
       className,
-      placeHolder
+      placeHolder,
+      min,
+      max
     } = this.props;
     return (
       <React.Fragment>
@@ -20,6 +22,8 @@ class TextInput extends React.Component {
           className={`input ${className ? className : ""}`}
           id={id}
           name={name}
+          min={type === "number" ? min : undefined}
+          max={type === "number" ? max : undefined}
           placeholder={placeHolder ? placeHolder : ""}
           autoComplete={autoComplete}
           onChange={e => _onChange(e, name)}
@@ -38,7 +42,9 @@ TextInput.propTypes = {
   _onChange: func.isRequired,
   value: string.isRequired,
   className: string,
-  placeHolder: string
+  placeHolder: string,
+  min: number,
+  max: number
 };
 
 export default TextInput;

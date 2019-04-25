@@ -125,8 +125,3 @@ nav {
     justify-content: flex-start;
   }
 }
-@media only screen and (max-width: 330px) {
-  .navigation .nav--item {
-    padding: 0 7px;
-  }
-}
