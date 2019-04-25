@@ -15,7 +15,9 @@ class LoginContainer extends React.Component {
       email: "",
       password: "",
       error: "",
-      socialLogin: true
+      socialLogin: true,
+      errorEmail: false,
+      errorPassword: false
     };
   }
   _onClick = () => {
@@ -29,15 +31,30 @@ class LoginContainer extends React.Component {
         return this.props.userLogin(response.data);
       })
       .then(() => Router.push("/profile"))
-      .catch(({ response }) => this.setState({ error: response.data.err }));
+      .catch(({ response }) => {
+        if (response.data.err === "INVALID_ACCOUNT") {
+          this.setState({ errorEmail: true });
+        }
+        if (response.data.err === "PASSWORD_INCORRECT") {
+          this.setState({ errorPassword: true });
+        }
+
+        this.setState({ error: response.data.msg });
+      });
   };
   _onChange = (e, state) => {
     if (this.state.error) {
       this.setState({ error: "" });
     }
     if (state === "email") {
+      if (this.state.errorEmail) {
+        this.setState({ errorEmail: false });
+      }
       this.setState({ email: e.target.value });
     } else if (state === "password") {
+      if (this.state.password) {
+        this.setState({ errorPassword: false });
+      }
       this.setState({ password: e.target.value });
     }
   };
@@ -49,7 +66,8 @@ class LoginContainer extends React.Component {
         type: "text",
         id: "email",
         name: "email",
-        autoComplete: "on"
+        autoComplete: "on",
+        hasError: this.state.errorEmail
       },
       {
         label: "Password",
@@ -57,7 +75,8 @@ class LoginContainer extends React.Component {
         type: "password",
         id: "password",
         name: "password",
-        autoComplete: "on"
+        autoComplete: "on",
+        hasError: this.state.errorPassword
       }
     ];
     return (

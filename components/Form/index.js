@@ -25,6 +25,7 @@ class Form extends React.PureComponent {
                   id={input.id}
                   name={input.name}
                   autoComplete={input.autoComplete}
+                  hasError={input.hasError}
                 />
               ))}
             {children}

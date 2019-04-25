@@ -1,5 +1,5 @@
 import React from "react";
-import { string, func } from "prop-types";
+import { string, func, bool } from "prop-types";
 import stylesheet from "./index.css";
 import TextInput from "../TextInput";
 
@@ -13,6 +13,7 @@ const InputGroup = props => {
         autoComplete={props.autoComplete}
         _onChange={props._onChange}
         value={props.value}
+        hasError={props.hasError}
       />
       <label
         htmlFor={props.name}
@@ -32,6 +33,7 @@ InputGroup.propTypes = {
   type: string.isRequired,
   id: string.isRequired,
   name: string.isRequired,
-  autoComplete: string.isRequired
+  autoComplete: string.isRequired,
+  hasError: bool
 };
 export default InputGroup;
