@@ -1,0 +1,83 @@
+.content {
+  display: flex;
+  flex-flow: row wrap;
+  width: auto;
+  max-width: 960px;
+  position: relative;
+  margin: 40px 15px;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
+  justify-content: flex-start;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  left: 0;
+  height: 100%;
+  width: auto;
+}
+.profile {
+  display: flex;
+  width: 100vw;
+  height: 100%;
+  justify-content: center;
+}
+.profile--nav {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  justify-content: center;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.nav--items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav--item {
+  padding: 10px;
+}
+.nav--item a {
+  list-style: none;
+  color: inherit;
+  text-decoration: none !important;
+}
+.nav--item a:hover {
+  color: #a8dadc;
+}
+.nav--item.active {
+  font-size: 18px;
+  color: #f28a2c;
+}
+.section {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+}
+.stats {
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
+  padding: 10px;
+  margin: 10px;
+}
+.title {
+  text-align: center;
+  padding: 10px;
+  border-bottom: #1d3557 1px solid;
+}
+#deleteAccount {
+  margin-bottom: 10px;
+}
+@media only screen and (max-width: 485px) {
+  .profile {
+    flex-flow: row wrap;
+  }
+  .sticky {
+    position: relative;
+  }
+  .profile--nav {
+    border: none;
+  }
+}
