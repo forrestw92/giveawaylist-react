@@ -26,6 +26,7 @@ class Form extends React.PureComponent {
                   name={input.name}
                   autoComplete={input.autoComplete}
                   hasError={input.hasError}
+                  onBlur={input.onBlur}
                 />
               ))}
             {children}

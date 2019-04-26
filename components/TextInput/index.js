@@ -14,7 +14,8 @@ class TextInput extends React.Component {
       placeHolder,
       min,
       max,
-      hasError
+      hasError,
+      onBlur
     } = this.props;
     return (
       <React.Fragment>
@@ -29,7 +30,8 @@ class TextInput extends React.Component {
           max={type === "number" ? max : undefined}
           placeholder={placeHolder ? placeHolder : ""}
           autoComplete={autoComplete}
-          onChange={e => _onChange(e, name)}
+          onChange={_onChange ? e => _onChange(e, name) : undefined}
+          onBlur={onBlur ? () => onBlur(name) : undefined}
           value={value}
         />
         <style jsx>{stylesheet}</style>
@@ -48,7 +50,8 @@ TextInput.propTypes = {
   placeHolder: string,
   min: number,
   max: number,
-  hasError: bool
+  hasError: bool,
+  onBlur: func
 };
 
 export default TextInput;

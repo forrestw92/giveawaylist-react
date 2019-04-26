@@ -14,6 +14,7 @@ const InputGroup = props => {
         _onChange={props._onChange}
         value={props.value}
         hasError={props.hasError}
+        onBlur={props.onBlur}
       />
       <label
         htmlFor={props.name}
@@ -34,6 +35,7 @@ InputGroup.propTypes = {
   id: string.isRequired,
   name: string.isRequired,
   autoComplete: string.isRequired,
-  hasError: bool
+  hasError: bool,
+  onBlur: func
 };
 export default InputGroup;

@@ -1,8 +1,15 @@
 import React from "react";
-import stylesheet from "./index.css";
+import { connect } from "react-redux";
+import { func } from "prop-types";
+
 import Form from "../../components/Form";
 import Button from "../../components/Button";
+
 import { register } from "../../API";
+import { userLogin } from "../../Redux/actions/loginActions";
+
+import stylesheet from "./index.css";
+
 class RegisterContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -12,37 +19,77 @@ class RegisterContainer extends React.Component {
       email2: "",
       password: "",
       password2: "",
-      message: {},
-      socialLogin: true
+      message: "",
+      socialLogin: true,
+      errorUsername: false,
+      errorEmail: false,
+      errorEmail2: false,
+      errorPassword: false,
+      errorPassword2: false
     };
   }
+  compareInputs = (a, b) => a !== "" && b !== "" && a === b;
+  validateInputs = () => {
+    if (!this.compareInputs(this.state.password, this.state.password2)) {
+      this.setState({ errorPassword2: true, message: "Passwords must match." });
+    } else {
+      this.setState({ errorPassword2: false, message: "" });
+    }
+    if (!this.compareInputs(this.state.email, this.state.email2)) {
+      this.setState({ errorEmail2: true, message: "Emails must match." });
+    } else {
+      this.setState({ errorEmail2: false, message: "" });
+    }
+  };
   _onSubmit = e => {
     e.preventDefault();
-    const sendData = this.state;
-    delete sendData.message;
-    register({ ...sendData })
-      .then(res => this.setState({ message: res.response.data }))
-      .catch(err => this.setState({ message: err.response.data }));
+    const { username, email, email2, password, password2 } = this.state;
+    register({ username, email, email2, password, password2 })
+      .then(({ data }) => {
+        this.setState({ message: data.msg });
+        this.props.userLogin(data);
+      })
+      .catch(({ response }) => {
+        const { err, msg } = response.data;
+        if (err === "INVALID_EMAIL") {
+          this.setState({ errorEmail: true, email2: "", message: msg });
+        }
+        if (err === "EMAIL_TAKEN") {
+          this.setState({
+            errorEmail: true,
+            email: "",
+            email2: "",
+            message: msg
+          });
+        }
+        if (err === "USERNAME_TAKEN") {
+          this.setState({
+            errorUsername: true,
+            username: "",
+            message: msg
+          });
+        }
+      });
   };
   _onChange = (e, state) => {
     switch (state) {
       case "username":
         this.setState({ username: e.target.value });
-        return true;
+        break;
       case "password":
         this.setState({ password: e.target.value });
-        return true;
+        break;
       case "password2":
         this.setState({ password2: e.target.value });
-        return true;
+        break;
       case "email":
         this.setState({ email: e.target.value });
-        return true;
+        break;
       case "email2":
         this.setState({ email2: e.target.value });
-        return true;
+        break;
       default:
-        return false;
+        break;
     }
   };
   render() {
@@ -53,7 +100,9 @@ class RegisterContainer extends React.Component {
         type: "text",
         id: "username",
         name: "username",
-        autoComplete: "off"
+        autoComplete: "off",
+        hasError: this.state.errorUsername,
+        onBlur: this.validateInputs
       },
       {
         label: "Email",
@@ -61,7 +110,9 @@ class RegisterContainer extends React.Component {
         type: "email",
         id: "email",
         name: "email",
-        autoComplete: "off"
+        autoComplete: "off",
+        hasError: this.state.errorEmail,
+        onBlur: this.validateInputs
       },
       {
         label: "Repeat Email",
@@ -69,7 +120,9 @@ class RegisterContainer extends React.Component {
         type: "email",
         id: "email2",
         name: "email2",
-        autoComplete: "off"
+        autoComplete: "off",
+        hasError: this.state.errorEmail2,
+        onBlur: this.validateInputs
       },
       {
         label: "Password",
@@ -77,7 +130,9 @@ class RegisterContainer extends React.Component {
         type: "password",
         id: "password",
         name: "password",
-        autoComplete: "off"
+        autoComplete: "off",
+        hasError: this.state.errorPassword,
+        onBlur: this.validateInputs
       },
       {
         label: "Repeat Password",
@@ -85,7 +140,9 @@ class RegisterContainer extends React.Component {
         type: "password",
         id: "password2",
         name: "password2",
-        autoComplete: "off"
+        autoComplete: "off",
+        hasError: this.state.errorPassword2,
+        onBlur: this.validateInputs
       }
     ];
     return (
@@ -97,7 +154,9 @@ class RegisterContainer extends React.Component {
           inputs={inputs}
           _onSubmit={this._onSubmit}
         >
-          {this.state.message && <p>{this.state.message.err}</p>}
+          <p className={"register--error"} role={"alert"} aria-atomic="true">
+            <span>{this.state.message}</span>
+          </p>
           <Button
             _onClick={this._onSubmit}
             label={"Register"}
@@ -120,5 +179,10 @@ class RegisterContainer extends React.Component {
     );
   }
 }
-
-export default RegisterContainer;
+RegisterContainer.propTypes = {
+  userLogin: func.isRequired
+};
+export default connect(
+  null,
+  { userLogin }
+)(RegisterContainer);

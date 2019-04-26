@@ -22,24 +22,23 @@ class LoginContainer extends React.Component {
   }
   _onClick = () => {
     login({ ...this.state })
-      .then(response => {
+      .then(({ data }) => {
         document.cookie = `giveawayToken=${
-          response.data.token
+          data.token
         }; path=/; expires=${new Date(
           new Date().getTime() + 15 * 24 * 60 * 60 * 1000
         ).toUTCString()};`;
-        return this.props.userLogin(response.data);
+        return this.props.userLogin(data);
       })
       .then(() => Router.push("/profile"))
       .catch(({ response }) => {
-        if (response.data.err === "INVALID_ACCOUNT") {
-          this.setState({ errorEmail: true });
+        const { err, msg } = response.data;
+        if (err === "INVALID_ACCOUNT") {
+          this.setState({ errorEmail: true, error: msg });
         }
-        if (response.data.err === "PASSWORD_INCORRECT") {
-          this.setState({ errorPassword: true });
+        if (err === "PASSWORD_INCORRECT") {
+          this.setState({ errorPassword: true, error: msg, password: "" });
         }
-
-        this.setState({ error: response.data.msg });
       });
   };
   _onChange = (e, state) => {
