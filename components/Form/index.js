@@ -1,5 +1,5 @@
 import React from "react";
-import { string, array, func, bool } from "prop-types";
+import { string, array, func, bool, node } from "prop-types";
 import stylesheet from "./index.css";
 import SocialButtons from "./SocialButtons";
 import InputGroup from "./InputGroup";
@@ -41,8 +41,8 @@ class Form extends React.PureComponent {
 Form.propTypes = {
   _onChange: func.isRequired,
   title: string.isRequired,
-  inputs: array.isRequired,
-  socialLogin: bool.isRequired,
-  children: array
+  inputs: array,
+  socialLogin: bool,
+  children: node
 };
 export default Form;
