@@ -113,7 +113,7 @@ GiveawayContainer.propTypes = {
   title: string.isRequired,
   fetchGiveaways: func.isRequired,
   deleteGiveaways: func.isRequired,
-  totalGiveaways: number.isRequired,
+  totalGiveaways: number,
   router: object.isRequired
 };
 export default connect(
