@@ -1,10 +1,14 @@
 import React from "react";
-import Head from "../../components/head";
+import { string } from "prop-types";
+import Router from "next/router";
 
-import stylesheet from "./index.css";
+import Head from "../../components/head";
 import Form from "../../components/Form";
 import CheckBox from "../../components/CheckBox";
 import Button from "../../components/Button";
+import Alert from "../../components/Alert";
+import stylesheet from "./index.css";
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -13,14 +17,42 @@ class Profile extends React.Component {
       newPassword: "",
       errorPassword: false,
       errorNewPassword: false,
-      endingGiveaways: false
+      endingGiveaways: false,
+      alert: undefined
     };
   }
 
-  static async getInitialProps() {
+  static async getInitialProps({ query }) {
     //TODO Handle query.message from confirm link
+    if (query.message) {
+      const { err, msg } = query.message;
+      console.log(query.message);
+      return { message: msg, error: err };
+    }
     return {};
   }
+  componentDidMount() {
+    const { message, error } = this.props;
+    if (message) {
+      this.setState({
+        alert: (
+          <Alert
+            show={true}
+            onDeath={() => {
+              this.setState({ alert: undefined }, () => {
+                Router.replace("/profile", "/profile", { shallow: true });
+              });
+            }}
+            alertType={error ? "danger" : "info"}
+            ttl={3}
+          >
+            <p>{message}</p>
+          </Alert>
+        )
+      });
+    }
+  }
+
   _onChange = (e, name) => {
     const inputVal = e.target.value;
     if (name === "password") {
@@ -68,6 +100,7 @@ class Profile extends React.Component {
     return (
       <React.Fragment>
         <Head title="Amazon Giveaway List - Profile" />
+        {this.state.alert}
         <div className={"profile"}>
           <aside className={"sticky"}>
             <nav role={"navigation"} className={"profile--nav"}>
@@ -143,5 +176,8 @@ class Profile extends React.Component {
     );
   }
 }
-
+Profile.propTypes = {
+  message: string,
+  error: string
+};
 export default Profile;
