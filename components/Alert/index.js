@@ -9,11 +9,22 @@ class Alert extends React.Component {
     };
   }
 
-  componentDidMount() {
+  _startTimer = () => {
     const { ttl, onDeath } = this.props;
     setTimeout(() => {
       this.setState({ forceHide: true }, () => onDeath());
     }, ttl * 1000);
+  };
+  componentDidMount() {
+    const { show } = this.props;
+    if (!show) return;
+    this._startTimer();
+  }
+  componentDidUpdate(prevProps) {
+    const { show } = this.props;
+    if (show !== prevProps.show) {
+      this._startTimer();
+    }
   }
 
   render() {
