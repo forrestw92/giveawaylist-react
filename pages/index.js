@@ -1,7 +1,7 @@
 import React from "react";
 
 import { withRouter } from "next/router";
-import { func, object } from "prop-types";
+import { object } from "prop-types";
 
 import Head from "../components/head";
 import GiveawayContainer from "../Containers/GiveawayContainer";
@@ -22,7 +22,6 @@ class Home extends React.PureComponent {
   }
 }
 Home.propTypes = {
-  fetchGiveaways: func.isRequired,
   router: object.isRequired
 };
 
