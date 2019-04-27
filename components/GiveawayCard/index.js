@@ -93,7 +93,7 @@ GiveawayCard.propTypes = {
   endDate: string.isRequired,
   prize: number.isRequired,
   item: string.isRequired,
-  category: string.isRequired,
+  category: string,
   winners: number.isRequired,
   enteredCount: number.isRequired,
   oddsType: number.isRequired,
