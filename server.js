@@ -18,13 +18,10 @@ app.prepare().then(() => {
     axios
       .get(`${process.env.BASE_API}/auth/confirm/${req.params.slug}`)
       .then(({ data }) => {
-        if (data.msg === "CONFIRMED_ACCOUNT") {
-          return res.redirect("/profile");
-        }
+        return app.render(req, res, "/profile", { message: data });
       })
       .catch(({ response }) => {
-        const { msg } = response.data;
-        return app.render(req, res, "/profile", { message: msg });
+        return app.render(req, res, "/profile", { message: response.data });
       });
   });
   server.get("*", (req, res) => {
