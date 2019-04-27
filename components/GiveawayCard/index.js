@@ -94,7 +94,11 @@ class GiveawayCard extends React.PureComponent {
         onClick={() => this.handleEnterClick(id, giveaway)}
       >
         {this.state.alert}
-        <CardHeader name={name} picture={picture} />
+        <CardHeader
+          name={name}
+          picture={picture}
+          giveawayID={giveaway.replace("https://www.amazon.com/ga/p/", "")}
+        />
         <CardBody
           endDate={endDate}
           addedDate={addedDate}

@@ -4,10 +4,10 @@ import CardImage from "./CardImage";
 import stylesheet from "./index.css";
 class CardHeader extends React.Component {
   render() {
-    const { name, picture } = this.props;
+    const { name, picture, giveawayID } = this.props;
     return (
       <div className={"giveawayCard--header"}>
-        <CardImage picture={picture} />
+        <CardImage picture={picture} giveawayID={giveawayID} />
         <div className={"giveawayCard--itemName"}>{name}</div>
         <style jsx>{stylesheet}</style>
       </div>
@@ -16,6 +16,7 @@ class CardHeader extends React.Component {
 }
 CardHeader.propTypes = {
   name: string.isRequired,
-  picture: string.isRequired
+  picture: string.isRequired,
+  giveawayID: string.isRequired
 };
 export default CardHeader;

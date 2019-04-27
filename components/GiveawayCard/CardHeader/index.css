@@ -2,7 +2,7 @@
   display: flex;
   flex-flow: column nowrap;
   position: relative;
-  height: 265px;
+  height: 265px !important;
 }
 
 .giveawayCard--itemName {
