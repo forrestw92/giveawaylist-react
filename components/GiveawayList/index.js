@@ -19,9 +19,9 @@ class GiveawayList extends React.Component {
             </li>
           ))}
         {totalGiveaways === undefined ? (
-          <h1>Loading</h1>
+          <h1 className={"loading"}>Loading</h1>
         ) : totalGiveaways === 0 ? (
-          <h1>No Giveaways. Reset Filter</h1>
+          <h1 className={"loading"}>No Giveaways. Reset Filter</h1>
         ) : (
           ""
         )}

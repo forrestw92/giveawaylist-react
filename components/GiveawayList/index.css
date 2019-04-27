@@ -11,7 +11,12 @@
   margin: 0;
   width: auto;
 }
-
+.loading {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
 .giveaway--list--item {
   display: flex;
   flex-grow: 1;
