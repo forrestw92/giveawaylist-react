@@ -5,6 +5,7 @@
   padding: 5px 15px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.25);
   z-index: 11;
+  opacity: 1;
 }
 .primary {
   background: #1d3557;
@@ -19,5 +20,5 @@
   background: #a8dadc;
 }
 .hide {
-  display: none;
+  opacity: 0;
 }
