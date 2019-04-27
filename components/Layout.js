@@ -3,10 +3,15 @@ import { withRouter } from "next/router";
 import { connect } from "react-redux";
 import { node, func, object } from "prop-types";
 import { setPageId } from "../Redux/actions/navActions";
+import { parseCookies } from "nookies";
+import { setBearer } from "../API";
 class Layout extends React.Component {
+  componentDidMount() {
+    const { giveawayToken } = parseCookies();
+    setBearer(giveawayToken);
+  }
   componentDidUpdate(prevProps) {
     const { query, pathname } = this.props.router;
-
     if (
       query.pageId !== prevProps.router.query.pageId ||
       pathname !== prevProps.router.pathname
