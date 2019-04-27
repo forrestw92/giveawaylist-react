@@ -20,8 +20,10 @@ class GiveawayContainer extends React.Component {
   handleLoadType = e => {
     if (e.target.id === "autoLoad") {
       this.setState({ autoLoad: true });
+      document.getElementsByTagName("html")[0].className = "height";
     } else {
       this.setState({ autoLoad: false });
+      document.getElementsByTagName("html")[0].className = "";
     }
   };
   handleSearch = e => {
