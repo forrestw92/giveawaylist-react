@@ -26,8 +26,8 @@ class TextInput extends React.Component {
           }`}
           id={id}
           name={name}
-          min={type === "number" ? min : undefined}
-          max={type === "number" ? max : undefined}
+          min={type === "number" ? min.toString() : undefined}
+          max={type === "number" ? max.toString() : undefined}
           placeholder={placeHolder ? placeHolder : ""}
           autoComplete={autoComplete}
           onChange={_onChange ? e => _onChange(e, name) : undefined}

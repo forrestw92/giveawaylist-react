@@ -124,7 +124,7 @@ export default class Pagination extends Component {
       return renderItems;
     };
     return (
-      <nav role="navigation" aria-label="Pagination Navigation">
+      <nav role="navigation" aria-label="Pagination Navigation" className={"nav"}>
         <ul className={`${"pagination"} ${hide ? "hide" : undefined}`}>
           {genPages()
             .filter(item => item.render)
