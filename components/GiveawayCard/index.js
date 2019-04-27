@@ -6,7 +6,15 @@ import CardFooter from "./CardFooter";
 import CardBody from "./CardBody";
 import { enterGiveaway, saveGiveaway } from "../../API";
 import CardActions from "./CardActions";
+import Alert from "../Alert";
 class GiveawayCard extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      alert: undefined
+    };
+  }
+
   handleEnterClick = (id, giveaway) => {
     enterGiveaway(giveaway)
       .then(res => {
@@ -23,12 +31,41 @@ class GiveawayCard extends React.PureComponent {
     saveGiveaway(giveaway)
       .then(res => {
         if (res.data.success) {
-          //TODO: Alert user of saved giveaway
+          this.setState({
+            alert: (
+              <Alert
+                show={true}
+                onDeath={() => this.setState({ alert: undefined })}
+                ttl={2}
+              >
+                <p>Giveaway Saved!</p>
+              </Alert>
+            )
+          });
         }
       })
       //TODO: Handle enter giveaway error
-      .catch(res => {
-        console.log(res.data);
+      .catch(({ response }) => {
+        const { err, msg } = response.data;
+        let alertType = "";
+        if (err === "INVALID_AUTHORIZATION") {
+          alertType = "danger";
+        }
+        if (err === "ENTERED_ALREADY") {
+          alertType = "info";
+        }
+        this.setState({
+          alert: (
+            <Alert
+              show={true}
+              onDeath={() => this.setState({ alert: undefined })}
+              ttl={3}
+              alertType={alertType}
+            >
+              <p>{msg}</p>
+            </Alert>
+          )
+        });
       });
   };
   render() {
@@ -56,6 +93,7 @@ class GiveawayCard extends React.PureComponent {
         target={"_blank"}
         onClick={() => this.handleEnterClick(id, giveaway)}
       >
+        {this.state.alert}
         <CardHeader name={name} picture={picture} />
         <CardBody
           endDate={endDate}
