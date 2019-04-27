@@ -1,5 +1,5 @@
 import React from "react";
-import { func, bool, string, object, array, number } from "prop-types";
+import { func, bool, string, array, number } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
@@ -237,7 +237,6 @@ FilterContainer.propTypes = {
   fetchGiveaways: func.isRequired,
   deleteGiveaways: func.isRequired,
   currentPage: string.isRequired,
-  filter: object.isRequired,
   oddsLow: bool.isRequired,
   oddsHigh: bool.isRequired,
   oddsMin: number.isRequired,
