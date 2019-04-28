@@ -2,7 +2,7 @@
   max-width: 640px;
   display: flex;
   flex-flow: column nowrap;
-  width: auto;
+  width: 100%;
   justify-content: center;
   background: #fff;
   margin: 20px auto 145px;
