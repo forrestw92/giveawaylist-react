@@ -105,6 +105,14 @@ export const resendEmail = RESET_DATA =>
   axios.post(`${baseURL}/auth/reset`, RESET_DATA);
 
 /**
+ * Change password
+ * @param {object} FORM_DATA
+ * @returns {AxiosPromise<any>}
+ */
+export const changePassword = FORM_DATA =>
+  axios.post(`${baseURL}/auth/change`, FORM_DATA);
+
+/**
  * Saves entered giveaway
  * @param {String} giveaway
  * @returns {AxiosPromise<any>}

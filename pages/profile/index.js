@@ -1,5 +1,5 @@
 import React from "react";
-import { string } from "prop-types";
+import { string, object } from "prop-types";
 import Router from "next/router";
 
 import Head from "../../components/head";
@@ -8,7 +8,14 @@ import CheckBox from "../../components/CheckBox";
 import Button from "../../components/Button";
 import Alert from "../../components/Alert";
 import stylesheet from "./index.css";
-
+import { changePassword } from "../../API";
+import { connect } from "react-redux";
+const validateMessages = {
+  min: "New password much contain at least 8 characters.",
+  max: "New password can not contain more than 100 characters.",
+  uppercase: "New Password must contain uppercase characters.",
+  lowercase: "New Password must contain lowercase characters"
+};
 class Profile extends React.Component {
   constructor(props) {
     super(props);
@@ -18,15 +25,14 @@ class Profile extends React.Component {
       errorPassword: false,
       errorNewPassword: false,
       endingGiveaways: false,
-      alert: undefined
+      alert: undefined,
+      message: ""
     };
   }
 
   static async getInitialProps({ query }) {
-    //TODO Handle query.message from confirm link
     if (query.message) {
       const { err, msg } = query.message;
-      console.log(query.message);
       return { message: msg, error: err };
     }
     return {};
@@ -52,14 +58,13 @@ class Profile extends React.Component {
       });
     }
   }
-
   _onChange = (e, name) => {
     const inputVal = e.target.value;
     if (name === "password") {
-      this.setState({ password: inputVal });
+      this.setState({ password: inputVal, errorPassword: false });
     }
     if (name === "newPassword") {
-      this.setState({ newPassword: inputVal });
+      this.setState({ newPassword: inputVal, errorNewPassword: false });
     }
     if (name === "endingGiveaways") {
       this.setState({ endingGiveaways: !this.state.endingGiveaways }, () => {
@@ -67,8 +72,44 @@ class Profile extends React.Component {
       });
     }
   };
+
   handlePasswordChange = () => {
-    //TODO Change password
+    const { password, newPassword } = this.state;
+    changePassword({ password, newPassword })
+      .then(() => {
+        const alert = (
+          <Alert
+            show={true}
+            onDeath={() => this.setState({ alert: undefined })}
+            ttl={3}
+          >
+            <p>Password changed!</p>
+          </Alert>
+        );
+        this.setState({ alert });
+      })
+      .catch(({ response }) => {
+        const { msg, err, validate } = response.data;
+        const message = validate ? validateMessages[validate[0]] : msg;
+        let errorPassword = false;
+        let errorNewPassword = false;
+
+        if (err === "INCORRECT_PASSWORD") {
+          errorPassword = true;
+        }
+        if (err === "EMPTY_FIELDS") {
+          errorPassword = true;
+          errorNewPassword = true;
+        }
+        if (validate) {
+          errorNewPassword = true;
+        }
+        this.setState({
+          message,
+          errorPassword,
+          errorNewPassword
+        });
+      });
   };
   handleDeleteAccount = () => {
     //TODO Handle delete account
@@ -76,7 +117,9 @@ class Profile extends React.Component {
   handleSubscriptions = () => {
     //TODO Handle email subscriptions.
   };
+
   render() {
+    const { userDetails } = this.props;
     const inputs = [
       {
         label: "Current Password",
@@ -124,13 +167,8 @@ class Profile extends React.Component {
             <div className="section" id={"stats"}>
               <h1 className="title">Stats</h1>
               <div className="stats">
-                You have been a member since {new Date().toLocaleString()}
-              </div>
-              <div className="stats">
-                You have views 900 giveaways in past 7 days
-              </div>
-              <div className="stats">
-                You have saved 9 giveaways in past 7 days
+                You have been a member since{" "}
+                {new Date(userDetails.register_date).toDateString()}
               </div>
             </div>
             <div className="section" id="changePassword">
@@ -140,6 +178,13 @@ class Profile extends React.Component {
                 inputs={inputs}
                 socialLogin={false}
               >
+                <p
+                  className={"password--error"}
+                  role={"alert"}
+                  aria-atomic="true"
+                >
+                  <span>{this.state.message}</span>
+                </p>
                 <Button
                   _onClick={this.handlePasswordChange}
                   label={"Confirm"}
@@ -178,6 +223,12 @@ class Profile extends React.Component {
 }
 Profile.propTypes = {
   message: string,
-  error: string
+  error: string,
+  userDetails: object.isRequired
 };
-export default Profile;
+function mapStateToProps(state) {
+  return {
+    userDetails: state.user.userDetails
+  };
+}
+export default connect(mapStateToProps)(Profile);
