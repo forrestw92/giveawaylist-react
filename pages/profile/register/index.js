@@ -5,6 +5,7 @@ import { parseCookies } from "nookies";
 import Head from "../../../components/head";
 import RegisterContainer from "../../../Containers/RegisterContainer";
 
+import stylesheet from "./index.css";
 class Login extends React.Component {
   static async getInitialProps({ req, res, store }) {
     const ctx = { req };
@@ -29,6 +30,7 @@ class Login extends React.Component {
         <div className={"content"}>
           <RegisterContainer />
         </div>
+        <style jsx>{stylesheet}</style>
       </React.Fragment>
     );
   }
