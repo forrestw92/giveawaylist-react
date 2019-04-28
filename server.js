@@ -11,7 +11,7 @@ app.prepare().then(() => {
   server.use(compression());
 
   server.get("/service-worker.js", (req, res) => {
-    const filePath = join(__dirname, ".next", "/static/service-worker.js");
+    const filePath = join(__dirname, ".next", "/service-worker.js");
     app.serveStatic(req, res, filePath);
   });
   server.get("/profile/confirm/:slug", (req, res) => {
@@ -28,5 +28,5 @@ app.prepare().then(() => {
     handle(req, res);
   });
 
-  server.listen(3000);
+  server.listen(3007);
 });
