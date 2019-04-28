@@ -2,6 +2,7 @@ import React from "react";
 import LazyLoad from "react-lazyload";
 import { string } from "prop-types";
 import stylesheet from "./index.css";
+
 const CardImage = props => {
   return (
     <LazyLoad
@@ -9,8 +10,8 @@ const CardImage = props => {
       once
       placeholder={
         <img
-          alt={"Giveaway Picture"}
-          src={`/static/images/giveaways/${props.giveawayID}.jpg`}
+          alt={"Loading Giveaway Picture"}
+          src={`/static/box.jpg`}
           className={"giveawayCard--image"}
           height={160}
           width={160}
