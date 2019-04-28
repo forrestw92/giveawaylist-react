@@ -8,6 +8,10 @@ class Alert extends React.Component {
       forceHide: false
     };
   }
+  _onClick = e => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
   _startDeathTimer = () => {
     const { onDeath, transitionTime } = this.props;
     setTimeout(() => {
@@ -36,6 +40,7 @@ class Alert extends React.Component {
     const { alertType, children, show, transitionTime } = this.props;
     return (
       <div
+        onClick={this._onClick}
         className={`alert ${alertType ? alertType : "primary"} ${
           show && !this.state.forceHide ? "" : "hide"
         }`}
