@@ -3,11 +3,6 @@ const webpack = require("webpack");
 const withOffline = require("next-offline");
 
 module.exports = withOffline({
-  cssModules: true,
-  cssLoaderOptions: {
-    importLoaders: 1,
-    localIdentName: "[local]___[hash:base64:5]"
-  },
   workboxOpts: {
     runtimeCaching: [
       {
@@ -28,7 +23,7 @@ module.exports = withOffline({
         {
           loader: require("styled-jsx/webpack").loader,
           options: {
-            type: "scoped"
+            type: "global"
           }
         }
       ]

@@ -18,7 +18,7 @@ import Layout from "../components/Layout";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-import stylesheet from "../static/global.css";
+import stylesheet from "./global.css";
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const { giveawayToken } = parseCookies(ctx);
@@ -33,6 +33,7 @@ class MyApp extends App {
     } else {
       await ctx.store.dispatch(deleteGiveaways());
     }
+
     if (giveawayToken && !ctx.store.getState().user.loggedIn) {
       setBearer(giveawayToken);
       await userDetails()
@@ -58,6 +59,12 @@ class MyApp extends App {
           }
         });
     }
+    if (!giveawayToken && ctx.pathname === "/profile") {
+      ctx.res.writeHead(301, {
+        Location: "/profile/login"
+      });
+      ctx.res.end();
+    }
     return { pageProps };
   }
 
@@ -71,7 +78,9 @@ class MyApp extends App {
             <Component {...pageProps} />
             <Footer />
           </Layout>
-          <style jsx>{stylesheet}</style>
+          <style jsx global>
+            {stylesheet}
+          </style>
         </Provider>
       </Container>
     );
