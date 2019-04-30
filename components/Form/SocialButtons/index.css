@@ -3,6 +3,7 @@
   flex-flow: column nowrap;
   align-items: center;
   margin: auto;
+  width: 100%;
 }
 .social--icons img {
   height: 30px;
