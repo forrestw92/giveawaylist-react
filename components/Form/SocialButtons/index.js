@@ -1,7 +1,9 @@
 import React from "react";
 import stylesheet from "./index.css";
 
-const { GOOGLE_LOGIN, FACEBOOK_LOGIN, TWITTER_LOGIN } = process.env;
+const GOOGLE_LOGIN = process.env.GOOGLE_LOGIN;
+const FACEBOOK_LOGIN = process.env.FACEBOOK_LOGIN;
+const TWITTER_LOGIN = process.env.TWITTER_LOGIN;
 const SocialButtons = () => {
   return (
     <div className={"social--icons"}>
