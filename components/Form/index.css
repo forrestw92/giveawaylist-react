@@ -18,17 +18,7 @@
   padding: 10px;
   border-bottom: #1d3557 1px solid;
 }
-.social--icons {
-  display: flex;
-  flex-flow: row nowrap;
-  width: 275px;
-  justify-content: space-between;
-  align-content: center;
-  margin: auto;
-}
-.social--icons img {
-  cursor: pointer;
-}
+
 .input--group {
   display: flex;
   flex-flow: column nowrap;
@@ -51,10 +41,6 @@
   top: -25%;
   color: #1d3557;
 }
-.title {
-  text-align: center;
-  padding: 10px;
-  border-bottom: #1d3557 1px solid;
-}
+
 
 
