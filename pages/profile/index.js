@@ -8,6 +8,7 @@ import CheckBox from "../../components/CheckBox";
 import Button from "../../components/Button";
 import Alert from "../../components/Alert";
 import stylesheet from "./index.css";
+
 import { changePassword } from "../../API";
 import { connect } from "react-redux";
 const validateMessages = {
@@ -151,9 +152,11 @@ class Profile extends React.Component {
                 <li className={"nav--item active"}>
                   <a href="#stats">Profile</a>
                 </li>
-                <li className={"nav--item"}>
-                  <a href="#changePassword">Change Password</a>
-                </li>
+                {!userDetails.social && (
+                  <li className={"nav--item"}>
+                    <a href="#changePassword">Change Password</a>
+                  </li>
+                )}
                 <li className={"nav--item"}>
                   <a href="#subscriptions">Subscriptions</a>
                 </li>
@@ -171,28 +174,30 @@ class Profile extends React.Component {
                 {new Date(userDetails.register_date).toDateString()}
               </div>
             </div>
-            <div className="section" id="changePassword">
-              <Form
-                _onChange={this._onChange}
-                title={"Change Password"}
-                inputs={inputs}
-                socialLogin={false}
-              >
-                <p
-                  className={"password--error"}
-                  role={"alert"}
-                  aria-atomic="true"
+            {!userDetails.social && (
+              <div className="section" id="changePassword">
+                <Form
+                  _onChange={this._onChange}
+                  title={"Change Password"}
+                  inputs={inputs}
+                  socialLogin={false}
                 >
-                  <span>{this.state.message}</span>
-                </p>
-                <Button
-                  _onClick={this.handlePasswordChange}
-                  label={"Confirm"}
-                  className={"login"}
-                  type={"button"}
-                />
-              </Form>
-            </div>
+                  <p
+                    className={"password--error"}
+                    role={"alert"}
+                    aria-atomic="true"
+                  >
+                    <span>{this.state.message}</span>
+                  </p>
+                  <Button
+                    _onClick={this.handlePasswordChange}
+                    label={"Confirm"}
+                    className={"login"}
+                    type={"button"}
+                  />
+                </Form>
+              </div>
+            )}
             <div className="section" id="subscriptions">
               <Form _onChange={this._onChange} title={"Subscriptions"}>
                 <CheckBox
