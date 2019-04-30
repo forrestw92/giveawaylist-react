@@ -18,7 +18,7 @@ import Layout from "../components/Layout";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-import stylesheet from "./global.css";
+import global from "./global.js";
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const { giveawayToken } = parseCookies(ctx);
@@ -59,7 +59,10 @@ class MyApp extends App {
           }
         });
     }
-    if (!giveawayToken && ctx.pathname === "/profile") {
+    if (
+      (!giveawayToken && ctx.pathname === "/profile") ||
+      ctx.pathname === "/saved"
+    ) {
       ctx.res.writeHead(301, {
         Location: "/profile/login"
       });
@@ -78,9 +81,7 @@ class MyApp extends App {
             <Component {...pageProps} />
             <Footer />
           </Layout>
-          <style jsx global>
-            {stylesheet}
-          </style>
+          <style jsx>{global}</style>
         </Provider>
       </Container>
     );

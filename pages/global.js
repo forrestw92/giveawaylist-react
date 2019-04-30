@@ -1,4 +1,8 @@
-html {
+import { global } from "styled-jsx/css";
+{
+  /*language=CSS*/
+}
+export default global`html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
@@ -228,4 +232,4 @@ template {
   .logo {
     left: 5px;
   }
-}
+}`;

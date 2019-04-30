@@ -23,7 +23,7 @@ module.exports = withOffline({
         {
           loader: require("styled-jsx/webpack").loader,
           options: {
-            type: "global"
+            type: "scoped"
           }
         }
       ]
