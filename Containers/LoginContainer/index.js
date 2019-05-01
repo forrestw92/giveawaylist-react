@@ -33,6 +33,9 @@ class LoginContainer extends React.Component {
       .then(() => Router.push("/profile"))
       .catch(({ response }) => {
         const { err, msg } = response.data;
+        if (err === "MAX_LOGIN_ATTEMPTS") {
+          this.setState({ error: msg, password: "" });
+        }
         if (err === "INVALID_ACCOUNT") {
           this.setState({ errorEmail: true, error: msg });
         }
