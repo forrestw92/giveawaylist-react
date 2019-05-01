@@ -11,6 +11,8 @@ import Pagination from "../../components/Pagination";
 import GiveawayList from "../../components/GiveawayList";
 import GiveawayHeader from "../../components/GiveawayHeader";
 import debounce from "lodash/debounce";
+import FAB from "../../components/FAB";
+import { showHideFAB } from "../../Redux/actions/menuActions";
 class GiveawayContainer extends React.Component {
   state = {
     search: "",
@@ -75,7 +77,9 @@ class GiveawayContainer extends React.Component {
       this.loadGiveaways();
     }
   }
-
+  _onClick = () => {
+    this.props.showHideFAB();
+  };
   render() {
     const {
       giveaways,
@@ -87,6 +91,11 @@ class GiveawayContainer extends React.Component {
     const { pageId } = router.query;
     return (
       <main role="main" className={"giveawayContainer"}>
+        <FAB
+          _onClick={() => this._onClick()}
+          className={"fab"}
+          ariaLabel={"Filter"}
+        />
         <h1 className={"title"}>{title}</h1>
         <GiveawayHeader
           handleSearch={this.handleSearch}
@@ -116,7 +125,8 @@ GiveawayContainer.propTypes = {
   fetchGiveaways: func.isRequired,
   deleteGiveaways: func.isRequired,
   totalGiveaways: number,
-  router: object.isRequired
+  router: object.isRequired,
+  showHideFAB: func.isRequired
 };
 export default connect(
   ({ giveaways }) => ({
@@ -124,6 +134,7 @@ export default connect(
     totalGiveaways: giveaways.totalGiveaways
   }),
   {
+    showHideFAB,
     fetchGiveaways,
     deleteSingleGiveaway,
     deleteGiveaways

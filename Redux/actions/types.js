@@ -6,6 +6,7 @@ export const DELETE_SINGLE_GIVEAWAY = "DELETE_SINGLE_GIVEAWAY";
 export const TOTAL_GIVEAWAYS = "TOTAL_GIVEAWAYS";
 export const DELETE_GIVEAWAYS = "DELETE_GIVEAWAYS";
 export const SET_FILTERS = "SET_FILTERS";
+export const RESET_FILTER = "RESET_FILTER";
 
 /*
   Floating action button types

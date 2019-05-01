@@ -3,7 +3,8 @@ import {
   DELETE_SINGLE_GIVEAWAY,
   TOTAL_GIVEAWAYS,
   DELETE_GIVEAWAYS,
-  SET_FILTERS
+  SET_FILTERS,
+  RESET_FILTER
 } from "./types";
 import { fetchGiveawayPage } from "../../API";
 import { userLogout } from "./loginActions";
@@ -72,4 +73,16 @@ export const setFilter = filters => dispatch => {
     type: SET_FILTERS,
     payload: filters
   });
+};
+
+/**
+ * Resets all giveaway filters
+ * @returns {Function}
+ */
+export const resetFilter = () => dispatch => {
+  dispatch({
+    type: RESET_FILTER
+  });
+  dispatch(deleteGiveaways());
+  dispatch(fetchGiveaways());
 };

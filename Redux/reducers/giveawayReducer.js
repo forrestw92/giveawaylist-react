@@ -3,7 +3,8 @@ import {
   DELETE_SINGLE_GIVEAWAY,
   DELETE_GIVEAWAYS,
   TOTAL_GIVEAWAYS,
-  SET_FILTERS
+  SET_FILTERS,
+  RESET_FILTER
 } from "../actions/types";
 
 const initialState = {
@@ -48,6 +49,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         totalGiveaways: action.payload
+      };
+    case RESET_FILTER:
+      return {
+        ...state,
+        filter: Object.assign({}, initialState.filter)
       };
     case SET_FILTERS:
       return {
