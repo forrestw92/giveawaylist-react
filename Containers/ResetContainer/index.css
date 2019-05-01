@@ -24,4 +24,5 @@
 .button--group {
   display: flex;
   flex-flow: row nowrap;
+  padding-bottom: 30px;
 }
