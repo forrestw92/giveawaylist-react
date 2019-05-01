@@ -14,6 +14,11 @@ app.prepare().then(() => {
     const filePath = join(__dirname, ".next", "/service-worker.js");
     app.serveStatic(req, res, filePath);
   });
+  server.get("/profile/reset/:slug", (req, res) => {
+    return app.render(req, res, "/profile/reset", {
+      reset_key: req.params.slug
+    });
+  });
   server.get("/profile/confirm/:slug", (req, res) => {
     axios
       .get(`${process.env.BASE_API}/auth/confirm/${req.params.slug}`)
