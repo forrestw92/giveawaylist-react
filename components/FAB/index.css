@@ -10,6 +10,7 @@
   width: 50px;
   border-radius: 50px;
   z-index: 5;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.25);
   background: #a8dadc;
 }
 @media only screen and (max-width: 560px) {
