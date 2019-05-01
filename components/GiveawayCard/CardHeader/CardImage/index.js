@@ -4,20 +4,15 @@ import { string } from "prop-types";
 import stylesheet from "./index.css";
 
 const CardImage = props => {
+  const Placeholder = (
+    <img
+      alt={"Loading Giveaway Picture"}
+      src={`/static/box.jpg`}
+      style={{ margin: "20px auto", "min-height": "160px" }}
+    />
+  );
   return (
-    <LazyLoad
-      height={160}
-      once
-      placeholder={
-        <img
-          alt={"Loading Giveaway Picture"}
-          src={`/static/box.jpg`}
-          className={"giveawayCard--image"}
-          height={160}
-          width={160}
-        />
-      }
-    >
+    <LazyLoad height={160} once placeholder={Placeholder}>
       <img
         src={props.picture}
         alt={"Giveaway Picture"}
