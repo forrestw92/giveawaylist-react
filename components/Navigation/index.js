@@ -107,7 +107,7 @@ export class Navigation extends React.Component {
     const renderLinks = this.state.links.filter(link => link.shouldRender);
     const { currentPage } = this.props;
     return (
-      <nav role="navigation">
+      <nav role="navigation" className={"nav"}>
         <Logo className={"logo"} />
         <ul className={"navigation"} id={"menu"} tabIndex={"-1"}>
           {renderLinks.map(({ href, label, image, className }) => (
@@ -121,7 +121,6 @@ export class Navigation extends React.Component {
             </li>
           ))}
         </ul>
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </nav>
     );

@@ -13,26 +13,22 @@
   transition: box-shadow 0.25s ease;
   align-items: center;
 }
-.button.login,
-.button.register {
+.button:hover,
+.button:focus {
+  box-shadow: 0 3px 1px 1px rgba(0, 0, 0, 0.8);
+}
+.primary {
   display: flex;
   margin: auto;
   color: white;
   text-decoration: none;
   background: #1d3557;
 }
-.button.login:hover,
-.button.register:hover {
-  box-shadow: 0 3px 1px 1px rgba(0, 0, 0, 0.8);
-}
 
-.button.danger {
+.danger {
   display: flex;
   margin: auto;
   text-decoration: none;
   color: #111111;
   background: rgb(230, 57, 70);
-}
-.button.danger:hover {
-  box-shadow: 0 3px 1px 1px rgba(0, 0, 0, 0.8);
 }

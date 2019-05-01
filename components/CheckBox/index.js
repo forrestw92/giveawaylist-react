@@ -6,7 +6,7 @@ class CheckBox extends React.Component {
   render() {
     const { id, label, name, checked, _onChange } = this.props;
     return (
-      <label htmlFor={id}>
+      <label htmlFor={id} className={"label"}>
         <input
           type={"checkbox"}
           name={name}
@@ -16,7 +16,6 @@ class CheckBox extends React.Component {
           checked={checked}
         />
         {label}
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </label>
     );

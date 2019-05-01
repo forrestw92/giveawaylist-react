@@ -14,7 +14,7 @@
   right: 20px;
   cursor: pointer;
 }
-.login--error {
+.message {
   color: #e63946;
   text-align: center;
   display: flex;
@@ -26,9 +26,7 @@
   padding: 10px;
   border-bottom: #1d3557 1px solid;
 }
-.login--form {
-  margin-top: 30px;
-}
+
 .button--group {
   display: flex;
   flex-flow: row nowrap;

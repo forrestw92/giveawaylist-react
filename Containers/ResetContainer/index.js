@@ -140,7 +140,7 @@ class ResetContainer extends React.Component {
             <Button
               _onClick={!this.state.reset_key ? this.noResetKey : this._onClick}
               label={"Reset"}
-              className={"login"}
+              className={"primary"}
               type={"button"}
             />
           </div>

@@ -17,7 +17,7 @@
   transition: all 0.33s ease;
   margin: auto;
 }
-label {
+.label {
   margin-bottom: 10px;
   display: flex;
   align-items: center;

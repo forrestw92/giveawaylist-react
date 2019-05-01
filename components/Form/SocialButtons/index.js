@@ -16,7 +16,6 @@ const SocialButtons = () => {
       <a href={GOOGLE_LOGIN} id="google" className="social--btn">
         Connect with Google
       </a>
-      {/*language=CSS*/}
       <style jsx>{stylesheet}</style>
     </div>
   );

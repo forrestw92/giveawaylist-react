@@ -14,7 +14,7 @@ class LoginContainer extends React.Component {
     this.state = {
       email: "",
       password: "",
-      error: "",
+      message: "",
       socialLogin: true,
       errorEmail: false,
       errorPassword: false
@@ -34,19 +34,19 @@ class LoginContainer extends React.Component {
       .catch(({ response }) => {
         const { err, msg } = response.data;
         if (err === "MAX_LOGIN_ATTEMPTS") {
-          this.setState({ error: msg, password: "" });
+          this.setState({ message: msg, password: "" });
         }
         if (err === "INVALID_ACCOUNT") {
-          this.setState({ errorEmail: true, error: msg });
+          this.setState({ errorEmail: true, message: msg });
         }
         if (err === "PASSWORD_INCORRECT") {
-          this.setState({ errorPassword: true, error: msg, password: "" });
+          this.setState({ errorPassword: true, message: msg, password: "" });
         }
       });
   };
   _onChange = (e, state) => {
-    if (this.state.error) {
-      this.setState({ error: "" });
+    if (this.state.message) {
+      this.setState({ message: "" });
     }
     if (state === "email") {
       if (this.state.errorEmail) {
@@ -92,14 +92,14 @@ class LoginContainer extends React.Component {
           <Link href={"/profile/forgot"}>
             <a className={"forgot--password"}> Forgot password</a>
           </Link>
-          <p className={"login--error"} role={"alert"} aria-atomic="true">
-            <span>{this.state.error}</span>
+          <p className={"message"} role={"alert"} aria-atomic="true">
+            <span>{this.state.message}</span>
           </p>
           <div className={"button--group"}>
             <Button
               _onClick={this._onClick}
               label={"Login"}
-              className={"login"}
+              className={"primary"}
               type={"button"}
             >
               Login
@@ -108,7 +108,7 @@ class LoginContainer extends React.Component {
               <Button
                 _onClick={this._onClick}
                 label={"Register"}
-                className={"register"}
+                className={"primary"}
                 href={"/profile/register"}
                 type={"a"}
               >
@@ -126,7 +126,6 @@ class LoginContainer extends React.Component {
         >
           <h2>{this.state.socialLogin ? "Use Email" : "Use Social"}</h2>
         </a>
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </main>
     );

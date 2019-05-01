@@ -21,9 +21,7 @@
   padding: 10px;
   border-bottom: #1d3557 1px solid;
 }
-.forgot--form {
-  margin-top: 30px;
-}
+
 .button--group {
   display: flex;
   flex-flow: row nowrap;

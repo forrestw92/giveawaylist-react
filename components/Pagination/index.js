@@ -162,13 +162,12 @@ export default class Pagination extends Component {
                           : item.text.toString()
                     }`}
                   >
-                    <a>{item.text.toString()}</a>
+                    <a className={"link"}>{item.text.toString()}</a>
                   </Link>
                 )}
               </li>
             ))}
         </ul>
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </nav>
     );

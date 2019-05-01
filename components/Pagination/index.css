@@ -36,14 +36,14 @@
   display: block;
   margin: 0 -10px;
 }
-a {
+.link {
   color: black;
   text-decoration: none;
 }
-a:hover {
+.link:hover {
   text-decoration: underline;
 }
-.page a {
+.page .link {
   padding: 15px;
 }
 .separator {

@@ -43,7 +43,6 @@ class Footer extends React.Component {
             respective owners.
           </p>
         </div>
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </footer>
     );

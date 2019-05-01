@@ -13,7 +13,7 @@ class Form extends React.PureComponent {
         {socialLogin ? (
           <SocialButtons />
         ) : (
-          <form className={"register--form"} onSubmit={e => e.preventDefault()}>
+          <form className={"form"} onSubmit={e => e.preventDefault()}>
             {inputs &&
               inputs.map((input, key) => (
                 <InputGroup
@@ -32,7 +32,6 @@ class Form extends React.PureComponent {
             {children}
           </form>
         )}
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </React.Fragment>
     );

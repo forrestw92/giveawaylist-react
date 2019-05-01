@@ -160,7 +160,7 @@ class RegisterContainer extends React.Component {
           <Button
             _onClick={this._onSubmit}
             label={"Register"}
-            className={"register"}
+            className={"primary"}
             type={"button"}
           />
         </Form>
@@ -173,7 +173,6 @@ class RegisterContainer extends React.Component {
         >
           <h2>{this.state.socialLogin ? "Use Email" : "Use Social"}</h2>
         </a>
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </main>
     );

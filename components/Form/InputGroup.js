@@ -22,7 +22,6 @@ const InputGroup = props => {
       >
         {props.label}
       </label>
-      {/*language=CSS*/}
       <style jsx>{stylesheet}</style>
     </div>
   );

@@ -40,7 +40,6 @@ class GiveawayHeader extends React.Component {
             value={searchValue}
           />
         </form>
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </section>
     );

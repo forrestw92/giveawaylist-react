@@ -224,21 +224,20 @@ class FilterContainer extends React.Component {
               <Button
                 _onClick={() => this.props.resetFilter()}
                 label={"Reset"}
-                className={"login"}
+                className={"primary"}
                 type={"button"}
               />
               {fabOpen && (
                 <Button
                   _onClick={() => this.props.showHideFAB()}
                   label={"Close"}
-                  className={"login"}
+                  className={"primary"}
                   type={"button"}
                 />
               )}
             </div>
           </div>
         </div>
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </aside>
     );

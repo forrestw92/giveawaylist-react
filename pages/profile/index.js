@@ -192,7 +192,7 @@ class Profile extends React.Component {
                   <Button
                     _onClick={this.handlePasswordChange}
                     label={"Confirm"}
-                    className={"login"}
+                    className={"primary"}
                     type={"button"}
                   />
                 </Form>

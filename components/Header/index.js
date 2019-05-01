@@ -6,7 +6,6 @@ class Header extends React.Component {
     return (
       <header className="header">
         <Navigation />
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </header>
     );

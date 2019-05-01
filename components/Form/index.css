@@ -1,18 +1,8 @@
-.register--form {
+.form {
   margin-top: 30px;
   position: relative;
 }
-.login {
-  max-width: 640px;
-  display: flex;
-  flex-flow: column nowrap;
-  width: 100%;
-  justify-content: center;
-  background: #fff;
-  margin: 20px auto;
-  padding: 10px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-}
+
 .title {
   text-align: center;
   padding: 10px;

@@ -79,7 +79,7 @@ class ForgotContainer extends React.Component {
             <Button
               _onClick={this._onClick}
               label={"Request"}
-              className={"login"}
+              className={"primary"}
               type={"button"}
             />
           </div>

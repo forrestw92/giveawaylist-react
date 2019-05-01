@@ -116,7 +116,6 @@ class GiveawayCard extends React.PureComponent {
           handleSaveClick={this.handleSaveClick}
           giveaway={giveaway}
         />
-        {/*language=CSS*/}
         <style jsx>{stylesheet}</style>
       </a>
     );
