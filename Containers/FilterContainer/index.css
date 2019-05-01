@@ -34,18 +34,20 @@
 .input--group {
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 10px;
+  margin: 10px 0;
   width: 100%;
 }
 .input--group label input {
   width: 100%;
+}
+.box {
+  height: auto;
 }
 @media only screen and (max-width: 560px) {
   .filterContainer {
     position: fixed;
     overflow-y: scroll;
     z-index: 10;
-    height: 100%;
     box-sizing: border-box;
     max-width: 100%;
     width: 100%;
