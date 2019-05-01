@@ -42,8 +42,8 @@ class ForgotContainer extends React.Component {
       });
   };
   _onChange = (e, name) => {
-    if (this.state.error) {
-      this.setState({ error: "" });
+    if (this.state.message) {
+      this.setState({ message: "" });
     }
     if (name === "email") {
       if (this.state.errorEmail) {
