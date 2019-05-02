@@ -97,14 +97,6 @@ export const resetPassword = RESET_DATA =>
   axios.post(`${baseURL}/auth/reset`, RESET_DATA);
 
 /**
- * Resend email to confirm account
- * @param RESET_DATA
- * @returns {AxiosPromise<any>}
- */
-export const resendEmail = RESET_DATA =>
-  axios.post(`${baseURL}/auth/reset`, RESET_DATA);
-
-/**
  * Change password
  * @param {object} FORM_DATA
  * @returns {AxiosPromise<any>}
