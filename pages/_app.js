@@ -1,5 +1,6 @@
 import App, { Container } from "next/app";
 import React from "react";
+import Router from "next/router";
 import { parseCookies, destroyCookie } from "nookies";
 
 import { Provider } from "react-redux";
@@ -19,9 +20,12 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 import global from "./global.js";
+
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const { giveawayToken } = parseCookies(ctx);
+    const protectedRoutes = ["/profile", "/profile/reset", "/profile/forgot"];
+
     let pageProps = {};
     await ctx.store.dispatch(setCurrentPage(ctx.pathname));
 
@@ -34,7 +38,20 @@ class MyApp extends App {
       await ctx.store.dispatch(deleteGiveaways());
     }
 
-    if (giveawayToken && !ctx.store.getState().user.loggedIn) {
+    if (!ctx.store.getState().user.loggedIn) {
+      if (!giveawayToken) {
+        if (protectedRoutes.indexOf(ctx.pathname) !== -1) {
+          if (ctx.res) {
+            ctx.res.writeHead(302, {
+              Location: "/profile/login"
+            });
+            ctx.res.end();
+          } else {
+            Router.push("/profile/login");
+          }
+        }
+        return { pageProps };
+      }
       setBearer(giveawayToken);
       await userDetails()
         .then(result => {
@@ -59,15 +76,7 @@ class MyApp extends App {
           }
         });
     }
-    if (
-      (!giveawayToken && ctx.pathname === "/profile") ||
-      ctx.pathname === "/saved"
-    ) {
-      ctx.res.writeHead(301, {
-        Location: "/profile/login"
-      });
-      ctx.res.end();
-    }
+
     return { pageProps };
   }
 
