@@ -2,13 +2,20 @@ import React from "react";
 import Link from "next/link";
 import stylesheet from "./index.css";
 const footerOutLinks = [
-  { link: "https://blog.giveawaylist.com", text: " Blog " },
-  { link: "https://giveawaylist.com/contact.php", text: " Contact " },
-  { link: "https://forrestwalker.net", text: " Portfolio " }
+  {
+    link: "https://www.buymeacoffee.com/giveawaylist",
+    children: (
+      <img src={"/static/images/bmc-button.png"} alt={"Buy me a coffee"} />
+    ),
+    fullWidth: true
+  },
+  { link: "https://blog.giveawaylist.com", children: " Blog " },
+  { link: "https://giveawaylist.com/contact.php", children: " Contact " },
+  { link: "https://forrestwalker.net", children: " Portfolio " }
 ];
 const footerInLinks = [
-  { link: "/privacy", text: " Privacy Policy " },
-  { link: "/tos", text: " Terms Of Service " }
+  { link: "/privacy", children: " Privacy Policy " },
+  { link: "/tos", children: " Terms Of Service " }
 ];
 class Footer extends React.Component {
   render() {
@@ -18,9 +25,9 @@ class Footer extends React.Component {
           <ul className="footer--links">
             {footerOutLinks &&
               footerOutLinks.map((item, idx) => (
-                <li key={idx}>
-                  <a href={item.link} className={"link"}>
-                    {item.text}
+                <li key={idx} className={item.fullWidth && "full"}>
+                  <a href={item.link} className={`link `}>
+                    {item.children}
                   </a>
                 </li>
               ))}
@@ -31,7 +38,7 @@ class Footer extends React.Component {
                 <li key={idx}>
                   <Link href={item.link} shallow>
                     <a href={item.link} className={"link"}>
-                      {item.text}
+                      {item.children}
                     </a>
                   </Link>
                 </li>
