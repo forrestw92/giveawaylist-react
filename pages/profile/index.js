@@ -112,9 +112,6 @@ class Profile extends React.Component {
         });
       });
   };
-  handleDeleteAccount = () => {
-    //TODO Handle delete account
-  };
   handleSubscriptions = () => {
     //TODO Handle email subscriptions.
   };
@@ -160,9 +157,6 @@ class Profile extends React.Component {
                 <li className={"nav--item"}>
                   <a href="#subscriptions">Subscriptions</a>
                 </li>
-                <li className="nav--item">
-                  <a href="#deleteAccount">Delete Account</a>
-                </li>
               </ul>
             </nav>
           </aside>
@@ -206,16 +200,6 @@ class Profile extends React.Component {
                   label={"Daily Ending Giveaways"}
                   checked={this.state.endingGiveaways}
                   _onChange={this._onChange}
-                />
-              </Form>
-            </div>
-            <div className="section" id="deleteAccount">
-              <Form _onChange={this._onChange} title={"Delete Account"}>
-                <Button
-                  _onClick={this.handleDeleteAccount}
-                  label={"Delete Account"}
-                  className={"danger"}
-                  type={"button"}
                 />
               </Form>
             </div>
