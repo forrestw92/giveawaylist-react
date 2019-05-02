@@ -7,7 +7,7 @@ const CardImage = props => {
   const Placeholder = (
     <img
       alt={"Loading Giveaway Picture"}
-      src={`/static/box.jpg`}
+      src={`/static/images/box.jpg`}
       style={{ margin: "20px auto", "min-height": "160px" }}
     />
   );

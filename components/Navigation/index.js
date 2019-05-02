@@ -9,7 +9,7 @@ import Book from "../../static/icons/book.svg";
 import User from "../../static/icons/user.svg";
 import UserRegister from "../../static/icons/user-plus.svg";
 import UserLogin from "../../static/icons/log-in.svg";
-import Logo from "../../static/logo.svg";
+import Logo from "../../static/images/logo.svg";
 
 import stylesheet from "./index.css";
 export class Navigation extends React.Component {
