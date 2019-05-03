@@ -5,7 +5,7 @@ class Privacy extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        <Head title="Privacy Policy - Amazon Giveaway List" />
+        <Head title="Privacy Policy - Amazon Giveaway List" description={""} />
         <div className={"content"}>Privacy Policy</div>
       </React.Fragment>
     );

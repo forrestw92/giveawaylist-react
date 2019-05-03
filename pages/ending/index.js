@@ -12,7 +12,10 @@ class Ending extends React.Component {
     const { router } = this.props;
     return (
       <React.Fragment>
-        <Head title="Ending Giveaways - Amazon Giveaway List" />
+        <Head
+          title="Ending Giveaways - Amazon Giveaway List"
+          description={"Enter all the ending Amazon Giveaways before midnight."}
+        />
         <div className={"content"}>
           <FilterContainer />
           <GiveawayContainer title="Ending Giveaways" router={router} />

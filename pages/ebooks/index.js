@@ -12,7 +12,12 @@ class EBooks extends React.Component {
     const { router } = this.props;
     return (
       <React.Fragment>
-        <Head title="eBooks Giveaways - Amazon Giveaway List" />
+        <Head
+          title="eBooks Giveaways - Amazon Giveaway List"
+          description={
+            "All Amazon E-Book Giveaways. Search,Sort And Filter for the best E-Books."
+          }
+        />
         <div className={"content"}>
           <FilterContainer />
           <GiveawayContainer title={"eBook Giveaways"} router={router} />
