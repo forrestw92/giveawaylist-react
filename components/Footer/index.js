@@ -5,7 +5,12 @@ const footerOutLinks = [
   {
     link: "https://www.buymeacoffee.com/giveawaylist",
     children: (
-      <img src={"/static/images/bmc-button.png"} alt={"Buy me a coffee"} />
+      <img
+        src={"/static/images/bmc-button.png"}
+        alt={"Buy me a coffee"}
+        height={37}
+        width={170}
+      />
     ),
     fullWidth: true
   },

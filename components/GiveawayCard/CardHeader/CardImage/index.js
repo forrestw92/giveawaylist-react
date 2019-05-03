@@ -8,6 +8,8 @@ const CardImage = props => {
     <img
       alt={"Loading Giveaway Picture"}
       src={`/static/images/box.jpg`}
+      height={160}
+      width={160}
       style={{ margin: "20px auto", "min-height": "160px" }}
     />
   );
