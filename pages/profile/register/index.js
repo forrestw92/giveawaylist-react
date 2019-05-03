@@ -6,11 +6,11 @@ import Head from "../../../components/head";
 import RegisterContainer from "../../../Containers/RegisterContainer";
 
 import stylesheet from "./index.css";
-class Login extends React.Component {
+class Register extends React.Component {
   static async getInitialProps({ req, res, store }) {
     const ctx = { req };
     const { giveawayToken } = parseCookies(ctx);
-    if (giveawayToken && store.getState().user.loggedIn) {
+    if (giveawayToken || store.getState().user.loggedIn) {
       if (res) {
         res.clearCookie("giveawayToken");
         res.writeHead(302, {
@@ -36,4 +36,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default Register;
