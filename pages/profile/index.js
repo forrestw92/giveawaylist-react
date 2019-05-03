@@ -1,5 +1,5 @@
 import React from "react";
-import { string, object } from "prop-types";
+import { string, object, bool } from "prop-types";
 import Router from "next/router";
 
 import Head from "../../components/head";
@@ -9,8 +9,14 @@ import Button from "../../components/Button";
 import Alert from "../../components/Alert";
 import stylesheet from "./index.css";
 
-import { changePassword } from "../../API";
+import {
+  changePassword,
+  changeSubscription,
+  checkSubscription,
+  setBearer
+} from "../../API";
 import { connect } from "react-redux";
+import { parseCookies } from "nookies";
 const validateMessages = {
   min: "New password much contain at least 8 characters.",
   max: "New password can not contain more than 100 characters.",
@@ -25,21 +31,43 @@ class Profile extends React.Component {
       newPassword: "",
       errorPassword: false,
       errorNewPassword: false,
-      endingGiveaways: false,
+      endingGiveaways: props.endingGiveaways || false,
       alert: undefined,
+      hideSubscriptions: false,
       message: ""
     };
   }
 
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ query, ctx }) {
+    const { giveawayToken } = parseCookies(ctx);
+    let hideSubscriptions = false;
+    let endingGiveaways = false;
+    setBearer(giveawayToken);
+
+    await checkSubscription()
+      .then(({ data }) => {
+        const { isSubscribed } = data;
+        console.log(data);
+        if (isSubscribed) {
+          endingGiveaways = true;
+        }
+      })
+      .catch(({ response }) => {
+        const { err } = response.data;
+        if (err === "INVALID_EMAIL") {
+          hideSubscriptions = true;
+        }
+      });
     if (query.message) {
       const { err, msg } = query.message;
       return { message: msg, error: err };
     }
-    return {};
+    return { endingGiveaways, hideSubscriptions };
   }
+
   componentDidMount() {
     const { message, error } = this.props;
+
     if (message) {
       this.setState({
         alert: (
@@ -68,9 +96,7 @@ class Profile extends React.Component {
       this.setState({ newPassword: inputVal, errorNewPassword: false });
     }
     if (name === "endingGiveaways") {
-      this.setState({ endingGiveaways: !this.state.endingGiveaways }, () => {
-        this.handleSubscriptions();
-      });
+      this.handleSubscriptions();
     }
   };
 
@@ -113,7 +139,25 @@ class Profile extends React.Component {
       });
   };
   handleSubscriptions = () => {
-    //TODO Handle email subscriptions.
+    changeSubscription({ endingGiveaways: !this.state.endingGiveaways })
+      .then(({ data }) => {
+        const { endingGiveaways } = data;
+        this.setState({ endingGiveaways: endingGiveaways });
+      })
+      .catch(({ response }) => {
+        const { msg } = response.data;
+        const alert = (
+          <Alert
+            show={true}
+            onDeath={() => this.setState({ alert: undefined })}
+            ttl={3}
+            alertType={"danger"}
+          >
+            <p>{msg}</p>
+          </Alert>
+        );
+        this.setState({ alert });
+      });
   };
 
   render() {
@@ -192,17 +236,19 @@ class Profile extends React.Component {
                 </Form>
               </div>
             )}
-            <div className="section" id="subscriptions">
-              <Form _onChange={this._onChange} title={"Subscriptions"}>
-                <CheckBox
-                  id={"endingGiveaways"}
-                  name={"endingGiveaways"}
-                  label={"Daily Ending Giveaways"}
-                  checked={this.state.endingGiveaways}
-                  _onChange={this._onChange}
-                />
-              </Form>
-            </div>
+            {!this.state.hideSubscriptions && (
+              <div className="section" id="subscriptions">
+                <Form _onChange={this._onChange} title={"Subscriptions"}>
+                  <CheckBox
+                    id={"endingGiveaways"}
+                    name={"endingGiveaways"}
+                    label={"Daily Ending Giveaways"}
+                    checked={this.state.endingGiveaways}
+                    _onChange={this._onChange}
+                  />
+                </Form>
+              </div>
+            )}
           </main>
         </div>
         <style jsx>{stylesheet}</style>
@@ -213,7 +259,8 @@ class Profile extends React.Component {
 Profile.propTypes = {
   message: string,
   error: string,
-  userDetails: object.isRequired
+  userDetails: object.isRequired,
+  endingGiveaways: bool
 };
 function mapStateToProps(state) {
   return {

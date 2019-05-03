@@ -97,6 +97,21 @@ export const resetPassword = RESET_DATA =>
   axios.post(`${baseURL}/auth/reset`, RESET_DATA);
 
 /**
+ * Changes user email subscriptions
+ * @param FORM_DATA
+ * @returns {AxiosPromise<any>}
+ */
+export const changeSubscription = FORM_DATA =>
+  axios.post(`${baseURL}/subscriptions/update`, FORM_DATA);
+
+/**
+ * Checks if user has email subscription
+ * @returns {AxiosPromise<any>}
+ */
+export const checkSubscription = () =>
+  axios.get(`${baseURL}/subscriptions/check`);
+
+/**
  * Change password
  * @param {object} FORM_DATA
  * @returns {AxiosPromise<any>}
