@@ -90,3 +90,8 @@
     border: none;
   }
 }
+@media only screen and (min-height: 1080px) {
+  .sticky {
+    display: none;
+  }
+}
