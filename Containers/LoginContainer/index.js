@@ -7,7 +7,7 @@ import { userLogin } from "../../Redux/actions/loginActions";
 import stylesheet from "./index.css";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
-import { login } from "../../API";
+import { login, setBearer } from "../../API";
 class LoginContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +28,7 @@ class LoginContainer extends React.Component {
         }; path=/; expires=${new Date(
           new Date().getTime() + 15 * 24 * 60 * 60 * 1000
         ).toUTCString()};`;
+        setBearer(data.token);
         return this.props.userLogin(data);
       })
       .then(() => Router.push("/profile"))
