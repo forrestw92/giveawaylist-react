@@ -26,7 +26,7 @@ class Login extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Head title="Amazon Giveaway List - Register" />
+        <Head title="Register - Amazon Giveaway List" />
         <div className={"content"}>
           <RegisterContainer />
         </div>
