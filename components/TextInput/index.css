@@ -4,6 +4,7 @@
   width: 100%;
   font-size: 25px;
   padding: 0 5px;
+  border-radius: 0;
 }
 .input--number {
   height: 20px;
