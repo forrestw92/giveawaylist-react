@@ -1,52 +1,51 @@
 .list--header {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 .slider {
-    display: flex;
-    flex-flow: row nowrap;
-    width: auto;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-    margin: 0 0 10px 0;
-    appearance: none;
-    -webkit-appearance: none;
-
+  display: flex;
+  flex-flow: row nowrap;
+  width: auto;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 10px 0;
+  appearance: none;
+  -webkit-appearance: none;
 }
 .slider label {
-    padding:10px 10px;
-
+  padding: 10px 10px;
 }
-
 
 .slider input {
-    -webkit-appearance:none;
-    apperance:none;
-    padding:0;
-    margin:0;
-
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  border: none;
 }
 .slider label:hover {
-    cursor: pointer;
-
+  cursor: pointer;
 }
-.slider input +label {
-    transition: .3s linear;
-    background: rgba(69, 123, 157,0.2);
-    color: black;
-    border: 1px solid rgba(0, 0, 0, 0.25);
+.slider input + label {
+  transition: 0.3s linear;
+  background: rgba(69, 123, 157, 0.2);
+  color: black;
+  border: 1px solid rgba(0, 0, 0, 0.25);
 }
-.slider input:nth-child(1) +label {
-    border-right:none;
+.slider input:nth-child(1) + label {
+  border-right: none;
 }
-.slider input:nth-child(3) +label {
-    border-left:none;
+.slider input:nth-child(3) + label {
+  border-left: none;
 }
-.slider input:checked +label {
-    background:rgb(69, 123, 157);
-    color: white;
+.slider input:checked + label {
+  background: rgb(69, 123, 157);
+  color: white;
 }
