@@ -135,4 +135,9 @@ export const enterGiveaway = giveaway =>
 export const saveGiveaway = giveaway =>
   axios.post(`${baseURL}/giveaway/save`, { giveaway });
 
-export const getCategories = () => axios.get(`${baseURL}/giveaway/categories`);
+export const getCategories = FILTER_DATA =>
+  axios.get(
+    `${baseURL}/giveaway/categories${
+      Object.keys(FILTER_DATA).length >= 1 ? "/?" + objToPrams(FILTER_DATA) : ""
+    }`
+  );
