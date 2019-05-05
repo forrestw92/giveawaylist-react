@@ -1,5 +1,5 @@
 import React from "react";
-import { func, bool, string, array } from "prop-types";
+import { number, func, bool, string, array } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
@@ -13,7 +13,44 @@ import {
 } from "../../Redux/actions/giveawayActions";
 import throttle from "lodash/throttle";
 import Button from "../../components/Button";
+import Select from "../../components/Select";
+import { getCategories } from "../../API";
+
+const defaultCategories = [
+  { category: "All Categories" },
+  { category: "Amazon Devices" },
+  { category: "Appliances" },
+  { category: "Arts, Crafts & Sewing" },
+  { category: "Automotive Parts & Accessories" },
+  { category: "Baby" },
+  { category: "Beauty & Personal Care" },
+  { category: "Books" },
+  { category: "Cell Phones & Accessories" },
+  { category: "Clothing, Shoes & Jewelry" },
+  { category: "Electronics" },
+  { category: "Garden & Outdoor" },
+  { category: "Grocery & Gourmet Food" },
+  { category: "Handmade" },
+  { category: "Health, Household & Baby Care" },
+  { category: "Home & Kitchen" },
+  { category: "Industrial & Scientific" },
+  { category: "Kindle eBook" },
+  { category: "Musical Instruments" },
+  { category: "Office Products" },
+  { category: "Pet Supplies" },
+  { category: "Sports & Outdoors" },
+  { category: "Tools & Home Improvement" },
+  { category: "Toys & Games" },
+  { category: "Video Games" }
+];
 class FilterContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: [...defaultCategories]
+    };
+  }
+
   componentDidMount() {
     this.delayfetchGiveaways = throttle(function() {
       this.props.fetchGiveaways();
@@ -26,6 +63,9 @@ class FilterContainer extends React.Component {
     const checked = e.target.checked;
 
     switch (name) {
+      case "category":
+        this.props.setFilter({ category: value });
+        break;
       case "hideAmazon":
         this.props.setFilter({ hideAmazon: checked });
         break;
@@ -74,6 +114,15 @@ class FilterContainer extends React.Component {
   _onClick = () => {
     this.props.showHideFAB();
   };
+  _onFocus = () => {
+    const defaultOption = { category: "All Categories" };
+    getCategories().then(({ data }) => {
+      const { results } = data;
+      this.setState({
+        categories: [defaultOption, ...results]
+      });
+    });
+  };
   render() {
     const { fabOpen, currentPage } = this.props;
     const {
@@ -97,6 +146,16 @@ class FilterContainer extends React.Component {
       >
         <div className={"box"}>
           <h1 className={"title"}>Filter</h1>
+          <div className="filterGroup">
+            <h4 className="filterTitle">Categories</h4>
+            <Select
+              name={"category"}
+              _onFocus={this._onFocus}
+              _onChange={this._onChange}
+              defaultSelection={0}
+              options={this.state.categories}
+            />
+          </div>
           <div className={"filterGroup"}>
             <h4 className={"filterTitle"}>Requirements</h4>
             <CheckBox
@@ -262,12 +321,14 @@ FilterContainer.propTypes = {
   hideKindle: bool.isRequired,
   endingSoon: bool.isRequired,
   prizeHigh: bool.isRequired,
-  viewCount: bool.isRequired
+  viewCount: bool.isRequired,
+  totalGiveaways: number.isRequired
 };
 
 export default connect(
   ({ menus, giveaways, nav }) => ({
     fabOpen: menus.fabOpen,
+    totalGiveaways: giveaways.totalGiveaways,
     ...giveaways.filter,
     currentPage: nav.currentPage
   }),

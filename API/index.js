@@ -134,3 +134,5 @@ export const enterGiveaway = giveaway =>
  */
 export const saveGiveaway = giveaway =>
   axios.post(`${baseURL}/giveaway/save`, { giveaway });
+
+export const getCategories = () => axios.get(`${baseURL}/giveaway/categories`);

@@ -11,6 +11,7 @@ const initialState = {
   items: [],
   totalGiveaways: undefined,
   filter: {
+    category: "All Categories",
     oddsLow: false,
     oddsHigh: false,
     oddsMin: "",
