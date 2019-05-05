@@ -19,7 +19,6 @@ const initialState = {
     hideVideo: false,
     hideAmazon: false,
     hideSweepstakes: false,
-    hideKeywords: [],
     latestWinner: false,
     hideKindle: false,
     endingSoon: false,

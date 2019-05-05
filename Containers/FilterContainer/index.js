@@ -1,5 +1,5 @@
 import React from "react";
-import { number, func, bool, string, array } from "prop-types";
+import { number, func, bool, string } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
@@ -64,7 +64,7 @@ class FilterContainer extends React.Component {
 
     switch (name) {
       case "category":
-        this.props.setFilter({ category: value });
+        this.props.setFilter({ category: encodeURIComponent(value) });
         break;
       case "hideAmazon":
         this.props.setFilter({ hideAmazon: checked });
@@ -77,11 +77,6 @@ class FilterContainer extends React.Component {
         break;
       case "oddsHigh":
         this.props.setFilter({ oddsHigh: checked });
-        break;
-      case "hideKeywords":
-        this.props.setFilter({
-          hideKeywords: [...this.state.hideKeywords, value]
-        });
         break;
       case "hideKindle":
         this.props.setFilter({ hideKindle: checked });
@@ -115,8 +110,33 @@ class FilterContainer extends React.Component {
     this.props.showHideFAB();
   };
   _onFocus = () => {
+    const {
+      oddsLow,
+      oddsHigh,
+      oddsMin,
+      oddsMax,
+      hideVideo,
+      hideAmazon,
+      latestWinner,
+      hideKindle,
+      endingSoon,
+      prizeHigh,
+      viewCount
+    } = this.props;
     const defaultOption = { category: "All Categories" };
-    getCategories().then(({ data }) => {
+    getCategories({
+      oddsLow,
+      oddsHigh,
+      oddsMin,
+      oddsMax,
+      hideVideo,
+      hideAmazon,
+      latestWinner,
+      hideKindle,
+      endingSoon,
+      prizeHigh,
+      viewCount
+    }).then(({ data }) => {
       const { results } = data;
       this.setState({
         categories: [defaultOption, ...results]
@@ -132,7 +152,6 @@ class FilterContainer extends React.Component {
       oddsMax,
       hideVideo,
       hideAmazon,
-      hideKeywords,
       latestWinner,
       hideKindle,
       endingSoon,
@@ -146,16 +165,18 @@ class FilterContainer extends React.Component {
       >
         <div className={"box"}>
           <h1 className={"title"}>Filter</h1>
-          <div className="filterGroup">
-            <h4 className="filterTitle">Categories</h4>
-            <Select
-              name={"category"}
-              _onFocus={this._onFocus}
-              _onChange={this._onChange}
-              defaultSelection={0}
-              options={this.state.categories}
-            />
-          </div>
+          {currentPage !== "/ebooks" && (
+            <div className="filterGroup">
+              <h4 className="filterTitle">Categories</h4>
+              <Select
+                name={"category"}
+                _onFocus={this._onFocus}
+                _onChange={this._onChange}
+                defaultSelection={0}
+                options={this.state.categories}
+              />
+            </div>
+          )}
           <div className={"filterGroup"}>
             <h4 className={"filterTitle"}>Requirements</h4>
             <CheckBox
@@ -253,21 +274,9 @@ class FilterContainer extends React.Component {
               _onChange={this._onChange}
             />
           </div>
-          <div className={"filterGroup"}>
-            <h4 className={"filterTitle"}>Giveaways</h4>
-            <div className={"input--group"}>
-              <TextInput
-                type={"text"}
-                id={"hideKeywords"}
-                name={"hideKeywords"}
-                autoComplete={"off"}
-                _onChange={this._onChange}
-                placeHolder={"Hide Keywords"}
-                className={"input--md"}
-                value={hideKeywords}
-              />
-            </div>
-            {currentPage !== "/ebooks" && (
+          {currentPage !== "/ebooks" && (
+            <div className={"filterGroup"}>
+              <h4 className={"filterTitle"}>Giveaways</h4>
               <CheckBox
                 id={"hideKindle"}
                 name={"hideKindle"}
@@ -275,8 +284,8 @@ class FilterContainer extends React.Component {
                 checked={hideKindle}
                 _onChange={this._onChange}
               />
-            )}
-          </div>
+            </div>
+          )}
 
           <div className={"filterGroup"}>
             <div className={"input--group"}>
@@ -316,7 +325,6 @@ FilterContainer.propTypes = {
   oddsMax: string.isRequired,
   hideVideo: bool.isRequired,
   hideAmazon: bool.isRequired,
-  hideKeywords: array.isRequired,
   latestWinner: bool.isRequired,
   hideKindle: bool.isRequired,
   endingSoon: bool.isRequired,
