@@ -6,6 +6,7 @@ const axios = require("axios");
 const app = next({ dev: process.env.NODE_ENV !== "production" });
 const handle = app.getRequestHandler();
 require("dotenv").config();
+
 app.prepare().then(() => {
   const server = express();
   server.use(compression());
@@ -19,6 +20,14 @@ app.prepare().then(() => {
       reset_key: req.params.slug
     });
   });
+  server.get("/giveaway/:slug", (req, res) => {
+    return axios
+      .get(`${process.env.BASE_API}/giveaway/single/${req.params.slug}`)
+      .then(({ data }) => {
+        const { results } = data;
+        return app.render(req, res, "/", { giveaway: results[0] });
+      });
+  });
   server.get("/profile/confirm/:slug", (req, res) => {
     axios
       .get(`${process.env.BASE_API}/auth/confirm/${req.params.slug}`)
@@ -28,6 +37,18 @@ app.prepare().then(() => {
       .catch(({ response }) => {
         return app.render(req, res, "/profile", { message: response.data });
       });
+  });
+  server.get("/item.php", (req, res) => {
+    res.writeHead(301, {
+      Location: `/giveaway/${req.query.gl}`
+    });
+    return res.end();
+  });
+  server.get("/ending.php", (req, res) => {
+    res.writeHead(301, {
+      Location: `/ending`
+    });
+    return res.end();
   });
   server.get("*", (req, res) => {
     handle(req, res);

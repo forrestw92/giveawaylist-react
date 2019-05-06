@@ -4,7 +4,7 @@ import { string } from "prop-types";
 
 const defaultDescription =
   "Listing all open Amazon Giveaways with Sort,Search And Filter Options.";
-const defaultOGURL = "https://test.giveawaylist.com";
+const defaultOGURL = "https://giveawaylist.com";
 const defaultOGImage = "/static/images/og-image.png";
 
 const Head = props => (

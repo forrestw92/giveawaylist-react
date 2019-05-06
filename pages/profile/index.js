@@ -47,7 +47,6 @@ class Profile extends React.Component {
     await checkSubscription()
       .then(({ data }) => {
         const { isSubscribed } = data;
-        console.log(data);
         if (isSubscribed) {
           endingGiveaways = true;
         }
