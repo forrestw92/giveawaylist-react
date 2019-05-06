@@ -32,8 +32,6 @@ export const fetchGiveaways = () => (dispatch, getState) => {
       return results;
     })
     .catch(err => {
-      console.log(err);
-
       const { data } = err.response;
       if (data.error === "INVALID_AUTHORIZATION") {
         dispatch(userLogout());
