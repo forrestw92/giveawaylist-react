@@ -10,7 +10,7 @@ const CardImage = props => {
       src={`/static/images/box.jpg`}
       height={160}
       width={160}
-      style={{ margin: "20px auto", "min-height": "160px" }}
+      style={{ margin: "20px auto", minHeight: "160px" }}
     />
   );
   return (
