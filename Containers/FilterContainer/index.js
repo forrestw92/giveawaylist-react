@@ -58,7 +58,6 @@ class FilterContainer extends React.Component {
   }
 
   _onChange = (e, name) => {
-    console.log(this);
     const value = e.target.value;
     const checked = e.target.checked;
 
