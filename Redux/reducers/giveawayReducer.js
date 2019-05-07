@@ -23,7 +23,8 @@ const initialState = {
     hideKindle: false,
     endingSoon: false,
     prizeHigh: false,
-    viewCount: false
+    viewCount: false,
+    search: ""
   }
 };
 

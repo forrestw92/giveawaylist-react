@@ -1,18 +1,22 @@
 import React from "react";
 import { array, func, string, object, number } from "prop-types";
-import stylesheet from "./index.css";
+import { debounce } from "lodash";
 import { connect } from "react-redux";
 import {
   deleteGiveaways,
   deleteSingleGiveaway,
-  fetchGiveaways
+  fetchGiveaways,
+  setFilter
 } from "../../Redux/actions/giveawayActions";
+import { showHideFAB } from "../../Redux/actions/menuActions";
+
 import Pagination from "../../components/Pagination";
 import GiveawayList from "../../components/GiveawayList";
 import GiveawayHeader from "../../components/GiveawayHeader";
-import debounce from "lodash/debounce";
 import FAB from "../../components/FAB";
-import { showHideFAB } from "../../Redux/actions/menuActions";
+
+import stylesheet from "./index.css";
+
 class GiveawayContainer extends React.Component {
   state = {
     search: "",
@@ -30,7 +34,12 @@ class GiveawayContainer extends React.Component {
   };
   handleSearch = e => {
     e.preventDefault();
-    this.setState({ search: e.target.value });
+
+    this.setState({ search: e.target.value }, () => {
+      this.props.setFilter({ search: this.state.search });
+      this.props.deleteGiveaways();
+      this.delayfetchGiveaways();
+    });
   };
   loadGiveaways = async () => {
     if (this.state.loading) return;
@@ -62,6 +71,9 @@ class GiveawayContainer extends React.Component {
     if (process.browser && this.props.giveaways.length === 0) {
       this.loadGiveaways();
     }
+    this.delayfetchGiveaways = debounce(function() {
+      this.props.fetchGiveaways();
+    }, 500);
   }
   componentWillUnmount() {
     this.props.deleteGiveaways();
@@ -121,6 +133,7 @@ class GiveawayContainer extends React.Component {
 GiveawayContainer.propTypes = {
   giveaways: array.isRequired,
   deleteSingleGiveaway: func.isRequired,
+  setFilter: func.isRequired,
   title: string.isRequired,
   fetchGiveaways: func.isRequired,
   deleteGiveaways: func.isRequired,
@@ -134,6 +147,7 @@ export default connect(
     totalGiveaways: giveaways.totalGiveaways
   }),
   {
+    setFilter,
     showHideFAB,
     fetchGiveaways,
     deleteSingleGiveaway,
