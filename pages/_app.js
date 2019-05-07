@@ -22,7 +22,7 @@ import Header from "../components/Header";
 import global from "./global.js";
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx, router }) {
     const { giveawayToken } = parseCookies(ctx);
     const protectedRoutes = ["/profile", "/profile/reset", "/profile/forgot"];
 
@@ -35,7 +35,12 @@ class MyApp extends App {
     if (!process.browser && !ctx.pathname.includes("/profile")) {
       await ctx.store.dispatch(fetchGiveaways());
     } else {
-      await ctx.store.dispatch(deleteGiveaways());
+      const handleRouteChange = async url => {
+        if (router.pathname !== url) {
+          await ctx.store.dispatch(deleteGiveaways());
+        }
+      };
+      Router.events.on("routeChangeStart", handleRouteChange);
     }
 
     if (!ctx.store.getState().user.loggedIn) {
