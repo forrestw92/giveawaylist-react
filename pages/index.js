@@ -44,7 +44,9 @@ function oddsFormat(odds, oddsType) {
 class Home extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { modal: !!props.router.query.giveaway };
+    this.state = {
+      modal: !!props.router.query.giveaway || !!props.router.query.winners
+    };
   }
   _closeModal = () => {
     const { router } = this.props;
@@ -54,7 +56,7 @@ class Home extends React.PureComponent {
   };
   render() {
     const { router } = this.props;
-    const { giveaway } = router.query;
+    const { giveaway, winners } = router.query;
     const customStyles = {
       content: {
         top: "50%",
@@ -64,8 +66,11 @@ class Home extends React.PureComponent {
         marginRight: "-50%",
         transform: "translate(-50%, -50%)",
         maxWidth: "300px",
-        padding: "0",
-        zIndex: 10
+        padding: winners ? "5px" : "0",
+        textAlign: winners ? "center" : "initial",
+        zIndex: 10,
+        border: "1px solid rgba(0,0,0,0.25)",
+        borderRadius: "0"
       },
       overlay: {
         zIndex: 10
@@ -93,11 +98,32 @@ class Home extends React.PureComponent {
             isOpen={this.state.modal}
             onRequestClose={this._closeModal}
           >
-            <GiveawayList
-              giveaways={[giveaway]}
-              deleteSingleGiveaway={() => {}}
-              totalGiveaways={1}
-            />
+            {giveaway && (
+              <GiveawayList
+                giveaways={[giveaway]}
+                deleteSingleGiveaway={() => {}}
+                totalGiveaways={1}
+              />
+            )}
+            {winners && (
+              <React.Fragment>
+                <h4>Giveaway Ended</h4>
+                {winners.length >= 1 ? (
+                  <React.Fragment>
+                    <h5>Winners</h5>
+                    <ol className="winners">
+                      {winners.map((winner, idx) => (
+                        <li className="name" key={idx}>
+                          {winner}
+                        </li>
+                      ))}
+                    </ol>
+                  </React.Fragment>
+                ) : (
+                  <h5>Time Expired. No Winners</h5>
+                )}
+              </React.Fragment>
+            )}
           </Modal>
           <GiveawayContainer title={"All Giveaways"} router={router} />
         </div>

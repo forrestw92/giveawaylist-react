@@ -25,6 +25,14 @@ app.prepare().then(() => {
       .get(`${process.env.BASE_API}/giveaway/single/${req.params.slug}`)
       .then(({ data }) => {
         const { results } = data;
+        if (results.length === 0) {
+          return axios
+            .get(`${process.env.WINNER_API}${req.params.slug}`)
+            .then(({ data }) => {
+              const { winners } = data;
+              return app.render(req, res, "/", { winners });
+            });
+        }
         return app.render(req, res, "/", { giveaway: results[0] });
       });
   });
