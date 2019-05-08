@@ -41,10 +41,10 @@ class GiveawayContainer extends React.Component {
       this.delayfetchGiveaways();
     });
   };
-  loadGiveaways = async () => {
+  loadGiveaways = () => {
     if (this.state.loading) return;
     this.setState({ loading: true });
-    await this.props.fetchGiveaways().then(() => {
+    this.props.fetchGiveaways().then(() => {
       this.setState({ loading: false });
     });
   };
@@ -60,7 +60,10 @@ class GiveawayContainer extends React.Component {
   };
   handleScroll = () => {
     if (!this.state.autoLoad) return;
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 100
+    ) {
       if (this.state.loading === false) {
         this.replacePageID();
       }

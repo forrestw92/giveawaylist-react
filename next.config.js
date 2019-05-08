@@ -4,11 +4,13 @@ const withOffline = require("next-offline");
 
 module.exports = withOffline({
   workboxOpts: {
-    globPatterns: ["static/**/*"],
-    globDirectory: ".",
     runtimeCaching: [
       {
         urlPattern: /amazon/,
+        handler: "networkOnly"
+      },
+      {
+        urlPattern: /api/,
         handler: "networkOnly"
       },
       {

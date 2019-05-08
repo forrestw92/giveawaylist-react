@@ -4,16 +4,19 @@ import { connect } from "react-redux";
 import { node, func, object } from "prop-types";
 import { setPageId } from "../Redux/actions/navActions";
 import { parseCookies } from "nookies";
+
 import { setBearer } from "../API";
 class Layout extends React.Component {
   componentDidMount() {
     const { giveawayToken } = parseCookies();
     setBearer(giveawayToken);
     const handleRouteChange = url => {
-      const pageId =
-        url.includes("pageId") && parseInt(url.replace("/?pageId=", ""));
-      this.props.setPageId(pageId || 1);
+      const pageId = url.includes("?pageId")
+        ? parseInt(url.replace(/^\D+/g, "")) || 1
+        : 1;
+      this.props.setPageId(pageId);
     };
+
     Router.events.on("routeChangeStart", handleRouteChange);
   }
 

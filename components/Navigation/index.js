@@ -112,11 +112,18 @@ export class Navigation extends React.Component {
         <ul className={"navigation"} id={"menu"} tabIndex={"-1"}>
           {renderLinks.map(({ href, label, image, className }) => (
             <li key={href} className={`${className}`}>
-              <Link href={href}>
-                <a className={currentPage === href ? `link active` : "link"}>
-                  {image}
-                  <span>{label}</span>
-                </a>
+              <Link href={href} >
+                {currentPage === href ? (
+                  <div className={`link active`}>
+                    {image}
+                    <span>{label}</span>
+                  </div>
+                ) : (
+                  <a className={currentPage === href ? `link active` : "link"}>
+                    {image}
+                    <span>{label}</span>
+                  </a>
+                )}
               </Link>
             </li>
           ))}

@@ -44,6 +44,12 @@ app.prepare().then(() => {
     });
     return res.end();
   });
+  server.get("/index.php", (req, res) => {
+    res.writeHead(301, {
+      Location: `/`
+    });
+    return res.end();
+  });
   server.get("/ending.php", (req, res) => {
     res.writeHead(301, {
       Location: `/ending`
@@ -53,6 +59,6 @@ app.prepare().then(() => {
   server.get("*", (req, res) => {
     handle(req, res);
   });
-
+  server.enable("trust proxy");
   server.listen(3007);
 });
