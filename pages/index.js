@@ -80,7 +80,11 @@ class Home extends React.PureComponent {
     return (
       <React.Fragment>
         <Head
-          title={giveaway ? giveaway.name : "Home - Amazon Giveaway List"}
+          title={
+            giveaway
+              ? giveaway.name
+              : "List of all updated open Amazon Giveaways - Amazon Giveaway List"
+          }
           description={
             giveaway
               ? `Odds: ${oddsFormat(giveaway.odds, giveaway.oddsType) ||

@@ -13,7 +13,7 @@ class Ending extends React.Component {
     return (
       <React.Fragment>
         <Head
-          title="Ending Giveaways - Amazon Giveaway List"
+          title="Updated daily list of ending Amazon Giveaways - Amazon Giveaway List"
           description={"Enter all the ending Amazon Giveaways before midnight."}
         />
         <div className={"content"}>

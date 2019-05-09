@@ -13,7 +13,7 @@ class EBooks extends React.Component {
     return (
       <React.Fragment>
         <Head
-          title="eBooks Giveaways - Amazon Giveaway List"
+          title="List of all Amazon Kindle eBook Giveaways - Amazon Giveaway List"
           description={
             "All Amazon E-Book Giveaways. Search,Sort And Filter for the best E-Books."
           }
