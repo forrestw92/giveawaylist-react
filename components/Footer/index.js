@@ -6,7 +6,7 @@ const footerOutLinks = [
     link: "https://www.buymeacoffee.com/giveawaylist",
     children: (
       <img
-        src={"/static/images/bmc-button.png"}
+        src={"https://giveawaylist.b-cdn.net/bmc-button.png"}
         alt={"Buy me a coffee"}
         height={37}
         width={170}

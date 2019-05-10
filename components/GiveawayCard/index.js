@@ -89,7 +89,7 @@ class GiveawayCard extends React.PureComponent {
       <a
         className={"giveawayCard"}
         href={giveaway}
-        rel={"nofollow"}
+        rel={"nofollow noopener noreferrer"}
         target={"_blank"}
         onClick={() => this.handleEnterClick(id, giveaway)}
       >
