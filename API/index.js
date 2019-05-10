@@ -105,6 +105,14 @@ export const changeSubscription = FORM_DATA =>
   axios.post(`${baseURL}/subscriptions/update`, FORM_DATA);
 
 /**
+ * Unsubscribe user email subscriptions
+ * @param FORM_DATA
+ * @returns {AxiosPromise<any>}
+ */
+export const unsubscribeNewsletter = FORM_DATA =>
+  axios.post(`${baseURL}/subscriptions/unsubscribe`, FORM_DATA);
+
+/**
  * Checks if user has email subscription
  * @returns {AxiosPromise<any>}
  */
