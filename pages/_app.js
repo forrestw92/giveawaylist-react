@@ -6,10 +6,7 @@ import { parseCookies, destroyCookie } from "nookies";
 import { Provider } from "react-redux";
 import { initializeStore } from "../Redux/store";
 import withRedux from "next-redux-wrapper";
-import {
-  deleteGiveaways,
-  fetchGiveaways
-} from "../Redux/actions/giveawayActions";
+import { fetchGiveaways } from "../Redux/actions/giveawayActions";
 import { userLogin, userLogout } from "../Redux/actions/loginActions";
 import { setCurrentPage } from "../Redux/actions/navActions";
 
@@ -35,8 +32,6 @@ class MyApp extends App {
 
     if (!process.browser && !ctx.pathname.includes("/profile")) {
       await ctx.store.dispatch(fetchGiveaways());
-    } else {
-      await ctx.store.dispatch(deleteGiveaways());
     }
 
     if (!ctx.store.getState().user.loggedIn) {

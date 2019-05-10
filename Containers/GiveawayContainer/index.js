@@ -99,6 +99,7 @@ class GiveawayContainer extends React.Component {
     const {
       giveaways,
       deleteSingleGiveaway,
+      deleteGiveaways,
       title,
       totalGiveaways,
       router
@@ -127,6 +128,7 @@ class GiveawayContainer extends React.Component {
           totalPages={totalGiveaways / 24 || 1}
           currentlySelected={parseInt(pageId) || 1}
           hide={this.state.autoLoad || totalGiveaways < 24}
+          handleDelete={deleteGiveaways}
         />
         <style jsx>{stylesheet}</style>
       </main>

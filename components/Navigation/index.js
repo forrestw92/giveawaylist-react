@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
-import { bool, string } from "prop-types";
+import { bool, string, func } from "prop-types";
 import Home from "../../static/icons/home.svg";
 import Clock from "../../static/icons/clock.svg";
 import Saved from "../../static/icons/saved.svg";
@@ -10,8 +10,9 @@ import User from "../../static/icons/user.svg";
 import UserRegister from "../../static/icons/user-plus.svg";
 import UserLogin from "../../static/icons/log-in.svg";
 import Logo from "../../static/images/logo.svg";
-
+import { deleteGiveaways } from "../../Redux/actions/giveawayActions";
 import stylesheet from "./index.css";
+
 export class Navigation extends React.Component {
   constructor(props) {
     super(props);
@@ -105,7 +106,7 @@ export class Navigation extends React.Component {
   render() {
     if (this.state.links.length === 0) return "";
     const renderLinks = this.state.links.filter(link => link.shouldRender);
-    const { currentPage } = this.props;
+    const { currentPage, deleteGiveaways } = this.props;
     return (
       <nav role="navigation" className={"nav"}>
         <Logo className={"logo"} />
@@ -119,7 +120,10 @@ export class Navigation extends React.Component {
                     <span>{label}</span>
                   </div>
                 ) : (
-                  <a className={currentPage === href ? `link active` : "link"}>
+                  <a
+                    className={currentPage === href ? `link active` : "link"}
+                    onClick={() => deleteGiveaways()}
+                  >
                     {image}
                     <span>{label}</span>
                   </a>
@@ -135,7 +139,8 @@ export class Navigation extends React.Component {
 }
 Navigation.propTypes = {
   loggedIn: bool.isRequired,
-  currentPage: string.isRequired
+  currentPage: string.isRequired,
+  deleteGiveaways: func.isRequired
 };
 function mapStateToProps(state) {
   return {
@@ -143,4 +148,7 @@ function mapStateToProps(state) {
     currentPage: state.nav.currentPage
   };
 }
-export default connect(mapStateToProps)(Navigation);
+export default connect(
+  mapStateToProps,
+  { deleteGiveaways }
+)(Navigation);

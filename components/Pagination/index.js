@@ -1,11 +1,11 @@
 /*eslint prettier/prettier:0*/
 import React, { Component } from "react";
 import Link from "next/link";
-import { number, bool } from "prop-types";
+import { number, bool, func } from "prop-types";
 import stylesheet from "./index.css";
 export default class Pagination extends Component {
   render() {
-    const { totalPages, currentlySelected, hide } = this.props;
+    const { totalPages, currentlySelected, hide, handleDelete } = this.props;
     const SEPARATOR = "...",
       NEXT = "Next",
       BACK = "Back";
@@ -124,7 +124,11 @@ export default class Pagination extends Component {
       return renderItems;
     };
     return (
-      <nav role="navigation" aria-label="Pagination Navigation" className={"nav"}>
+      <nav
+        role="navigation"
+        aria-label="Pagination Navigation"
+        className={"nav"}
+      >
         <ul className={`${"pagination"} ${hide ? "hide" : undefined}`}>
           {genPages()
             .filter(item => item.render)
@@ -162,7 +166,9 @@ export default class Pagination extends Component {
                           : item.text.toString()
                     }`}
                   >
-                    <a className={"link"}>{item.text.toString()}</a>
+                    <a className={"link"} onClick={() => handleDelete()}>
+                      {item.text.toString()}
+                    </a>
                   </Link>
                 )}
               </li>
@@ -176,5 +182,6 @@ export default class Pagination extends Component {
 Pagination.propTypes = {
   totalPages: number.isRequired,
   currentlySelected: number.isRequired,
-  hide: bool.isRequired
+  hide: bool.isRequired,
+  handleDelete: func.isRequired
 };
