@@ -5,14 +5,14 @@ import stylesheet from "./index.css";
 import { unsubscribeNewsletter } from "../../../API";
 class Unsubscribe extends React.Component {
   static async getInitialProps({ req }) {
-    const { email, unsubscribe_key } = req.query;
-    if (!email || !unsubscribe_key) {
+    const { email, key } = req.query;
+    if (!email || !key) {
       return {
         message:
           "Make sure you click the correct unsubscribe link in the email."
       };
     }
-    return await unsubscribeNewsletter({ email, unsubscribe_key })
+    return await unsubscribeNewsletter({ email, unsubscribe_key: key })
       .then(({ data }) => {
         const { unsubscribe } = data;
         if (unsubscribe) {
