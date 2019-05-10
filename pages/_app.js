@@ -11,6 +11,7 @@ import { userLogin, userLogout } from "../Redux/actions/loginActions";
 import { setCurrentPage } from "../Redux/actions/navActions";
 
 import { setBearer, userDetails } from "../API";
+import { initGA, logPageView } from "../utils/analytics";
 
 import Layout from "../components/Layout";
 import Footer from "../components/Footer";
@@ -75,7 +76,11 @@ class MyApp extends App {
 
     return { pageProps };
   }
-
+  componentDidMount() {
+    initGA();
+    logPageView();
+    Router.router.events.on("routeChangeComplete", logPageView);
+  }
   render() {
     const { Component, pageProps, store } = this.props;
     return (
