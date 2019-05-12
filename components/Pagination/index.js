@@ -135,7 +135,18 @@ export default class Pagination extends Component {
             .map(item => (
               <li
                 key={item.id}
-                aria-selected={item.disabled && item.text !== SEPARATOR}
+                aria-current={
+                  item.disabled && item.text !== SEPARATOR ? true : undefined
+                }
+                aria-label={
+                  item.disabled && item.text !== SEPARATOR
+                    ? `Current Page, Page ${item.text}`
+                    : !isNaN(item.text)
+                      ? `Page ${item.text}`
+                      : item.text !== SEPARATOR
+                        ? item.text
+                        : undefined
+                }
                 rel={
                   item.text === BACK
                     ? "prev"
