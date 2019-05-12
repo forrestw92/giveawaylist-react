@@ -15,7 +15,7 @@ const footerOutLinks = [
     fullWidth: true
   },
   { link: "https://blog.giveawaylist.com", children: " Blog " },
-  { link: "https://giveawaylist.com/contact.php", children: " Contact " },
+  { link: "https://giveawaylist.com/contact", children: " Contact " },
   { link: "https://forrestwalker.net", children: " Portfolio " }
 ];
 const footerInLinks = [

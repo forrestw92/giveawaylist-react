@@ -143,9 +143,22 @@ export const enterGiveaway = giveaway =>
 export const saveGiveaway = giveaway =>
   axios.post(`${baseURL}/giveaway/save`, { giveaway });
 
+/**
+ * Get Giveaway Categories
+ * @param FILTER_DATA
+ * @returns {AxiosPromise<any>}
+ */
 export const getCategories = FILTER_DATA =>
   axios.get(
     `${baseURL}/giveaway/categories${
       Object.keys(FILTER_DATA).length >= 1 ? "/?" + objToPrams(FILTER_DATA) : ""
     }`
   );
+
+/**
+ * Send contact form message
+ * @param CONTACT_DATA
+ * @returns {AxiosPromise<any>}
+ */
+export const sendMessage = CONTACT_DATA =>
+  axios.post(`${baseURL}/contact`, CONTACT_DATA);
