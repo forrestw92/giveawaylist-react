@@ -2,14 +2,25 @@ import { global } from "styled-jsx/css";
 {
   /*language=CSS*/
 }
-export default global`html {
+export default global`
+    @font-face {
+        font-family: 'Open-Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: auto; /* or block, swap, fallback, optional */
+        src: local('Open-Sans'),
+        url('../static/fonts/OpenSans-Bold.ttf') format('ttf');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }  
+    
+    html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 body {
   background: #fdfefd;
   width: 100%;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Arial',sans-serif;
   color: #181818;
 }
 html,

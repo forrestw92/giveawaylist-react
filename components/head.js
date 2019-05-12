@@ -39,10 +39,6 @@ const Head = props => (
       />
 
       <meta name="theme-color" content="#1d3557" />
-      <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans"
-        rel="stylesheet"
-      />
       <meta property="og:url" content={props.url || defaultOGURL} />
       <meta property="og:title" content={props.title || ""} />
       <meta
