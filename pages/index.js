@@ -69,8 +69,9 @@ class Home extends React.PureComponent {
         padding: winners ? "5px" : "0",
         textAlign: winners ? "center" : "initial",
         zIndex: 10,
-        border: "1px solid rgba(0,0,0,0.25)",
-        borderRadius: "0"
+        border: winners && "1px solid rgba(0,0,0,0.25)",
+        borderRadius: "0",
+        background: winners && "rgb(255, 255, 255)"
       },
       overlay: {
         zIndex: 10
