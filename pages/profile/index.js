@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { string, object, bool } from "prop-types";
 import Router from "next/router";
 
@@ -23,96 +23,57 @@ const validateMessages = {
   uppercase: "New Password must contain uppercase characters.",
   lowercase: "New Password must contain lowercase characters"
 };
-class Profile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      password: "",
-      newPassword: "",
-      errorPassword: false,
-      errorNewPassword: false,
-      endingGiveaways: props.endingGiveaways || false,
-      alert: undefined,
-      hideSubscriptions: false,
-      message: ""
-    };
-  }
+function Profile(props) {
+  const { hideSubscriptions, error, userDetails } = props;
 
-  static async getInitialProps({ query, ctx }) {
-    const { giveawayToken } = parseCookies(ctx);
-    let hideSubscriptions = false;
-    let endingGiveaways = false;
-    setBearer(giveawayToken);
-
-    await checkSubscription()
-      .then(({ data }) => {
-        const { isSubscribed } = data;
-        if (isSubscribed) {
-          endingGiveaways = true;
-        }
-      })
-      .catch(({ response }) => {
-        const { err } = response.data;
-        if (err === "INVALID_EMAIL") {
-          hideSubscriptions = true;
-        }
-      });
-    if (query.message) {
-      const { err, msg } = query.message;
-      return { message: msg, error: err };
-    }
-    return { endingGiveaways, hideSubscriptions };
-  }
-
-  componentDidMount() {
-    const { message, error } = this.props;
-
+  let [password, setPassword] = useState("");
+  let [newPassword, setNewPassword] = useState("");
+  let [errorPassword, setErrorPassword] = useState(false);
+  let [errorNewPassword, setErrorNewPassword] = useState(false);
+  let [endingGiveaways, setEndingGiveaways] = useState(
+    props.endingGiveaways || false
+  );
+  let [alert, setAlert] = useState(undefined);
+  let [message, setMessage] = useState(props.message || "");
+  useEffect(() => {
     if (message) {
-      this.setState({
-        alert: (
-          <Alert
-            show={true}
-            onDeath={() => {
-              this.setState({ alert: undefined }, () => {
-                Router.replace("/profile", "/profile", { shallow: true });
-              });
-            }}
-            alertType={error ? "danger" : "info"}
-            ttl={3}
-          >
-            <p>{message}</p>
-          </Alert>
-        )
-      });
+      setAlert(
+        <Alert
+          show={true}
+          onDeath={() => {
+            setAlert(undefined);
+            Router.replace("/profile", "/profile", { shallow: true });
+          }}
+          alertType={error ? "danger" : "info"}
+          ttl={3}
+        >
+          <p>{message}</p>
+        </Alert>
+      );
     }
-  }
-  _onChange = (e, name) => {
-    const inputVal = e.target.value;
+  });
+  const _onChange = (e, name) => {
+    const { value } = e.target;
     if (name === "password") {
-      this.setState({ password: inputVal, errorPassword: false });
+      setPassword(value);
+      setErrorPassword(false);
     }
     if (name === "newPassword") {
-      this.setState({ newPassword: inputVal, errorNewPassword: false });
+      setNewPassword(value);
+      setErrorNewPassword(false);
     }
     if (name === "endingGiveaways") {
-      this.handleSubscriptions();
+      handleSubscriptions();
     }
   };
-
-  handlePasswordChange = () => {
-    const { password, newPassword } = this.state;
+  const handlePasswordChange = () => {
     changePassword({ password, newPassword })
       .then(() => {
-        const alert = (
-          <Alert
-            show={true}
-            onDeath={() => this.setState({ alert: undefined })}
-            ttl={3}
-          >
+        setAlert(
+          <Alert show={true} onDeath={() => setAlert(undefined)} ttl={3}>
             <p>Password changed!</p>
           </Alert>
         );
-        this.setState({ alert });
       })
       .catch(({ response }) => {
         const { msg, err, validate } = response.data;
@@ -123,6 +84,7 @@ class Profile extends React.Component {
         if (err === "INCORRECT_PASSWORD") {
           errorPassword = true;
         }
+
         if (err === "EMPTY_FIELDS") {
           errorPassword = true;
           errorNewPassword = true;
@@ -130,136 +92,159 @@ class Profile extends React.Component {
         if (validate) {
           errorNewPassword = true;
         }
-        this.setState({
-          message,
-          errorPassword,
-          errorNewPassword
-        });
+        setMessage(message);
+        setErrorPassword(errorPassword);
+        setErrorNewPassword(errorNewPassword);
       });
   };
-  handleSubscriptions = () => {
-    changeSubscription({ endingGiveaways: !this.state.endingGiveaways })
+
+  const handleSubscriptions = () => {
+    changeSubscription({ endingGiveaways: !endingGiveaways })
       .then(({ data }) => {
         const { endingGiveaways } = data;
-        this.setState({ endingGiveaways: endingGiveaways });
+        setEndingGiveaways(endingGiveaways);
       })
       .catch(({ response }) => {
         const { msg } = response.data;
-        const alert = (
+        setAlert(
           <Alert
             show={true}
-            onDeath={() => this.setState({ alert: undefined })}
+            onDeath={() => setAlert(undefined)}
             ttl={3}
             alertType={"danger"}
           >
             <p>{msg}</p>
           </Alert>
         );
-        this.setState({ alert });
       });
   };
-
-  render() {
-    const { userDetails } = this.props;
-    const inputs = [
-      {
-        label: "Current Password",
-        value: this.state.password,
-        type: "password",
-        id: "password",
-        name: "password",
-        autoComplete: "off",
-        hasError: this.state.errorPassword
-      },
-      {
-        label: "New Password",
-        value: this.state.newPassword,
-        type: "password",
-        id: "newPassword",
-        name: "newPassword",
-        autoComplete: "off",
-        hasError: this.state.errorNewPassword
-      }
-    ];
-    return (
-      <React.Fragment>
-        <Head title="Amazon Giveaway List - Profile" />
-        {this.state.alert}
-        <div className={"profile"}>
-          <aside className={"sticky"}>
-            <nav role={"navigation"} className={"profile--nav"}>
-              <ul className={"nav--items"}>
-                <li className={"nav--item active"}>
-                  <a href="#stats">Profile</a>
-                </li>
-                {!userDetails.social && (
-                  <li className={"nav--item"}>
-                    <a href="#changePassword">Change Password</a>
-                  </li>
-                )}
-                <li className={"nav--item"}>
-                  <a href="#subscriptions">Subscriptions</a>
-                </li>
-              </ul>
-            </nav>
-          </aside>
-          <main className={"content"}>
-            <div className="section" id={"stats"}>
-              <h1 className="title">Stats</h1>
-              <div className="stats">
-                You have been a member since{" "}
-                {new Date(userDetails.register_date).toDateString()}
-              </div>
-            </div>
-            {!userDetails.social && (
-              <div className="section" id="changePassword">
-                <Form
-                  _onChange={this._onChange}
-                  title={"Change Password"}
-                  inputs={inputs}
-                  socialLogin={false}
-                >
-                  <p
-                    className={"password--error"}
-                    role={"alert"}
-                    aria-atomic="true"
-                  >
-                    <span>{this.state.message}</span>
-                  </p>
-                  <Button
-                    _onClick={this.handlePasswordChange}
-                    label={"Confirm"}
-                    className={"primary"}
-                    type={"button"}
-                  />
-                </Form>
-              </div>
-            )}
-            {!this.state.hideSubscriptions && (
-              <div className="section" id="subscriptions">
-                <Form _onChange={this._onChange} title={"Subscriptions"}>
-                  <CheckBox
-                    id={"endingGiveaways"}
-                    name={"endingGiveaways"}
-                    label={"Daily Ending Giveaways"}
-                    checked={this.state.endingGiveaways}
-                    _onChange={this._onChange}
-                  />
-                </Form>
-              </div>
-            )}
-          </main>
-        </div>
-        <style jsx>{stylesheet}</style>
-      </React.Fragment>
-    );
+  const inputs = [
+    {
+      label: "Current Password",
+      value: password,
+      type: "password",
+      id: "password",
+      name: "password",
+      autoComplete: "off",
+      hasError: errorPassword
+    },
+    {
+      label: "New Password",
+      value: newPassword,
+      type: "password",
+      id: "newPassword",
+      name: "newPassword",
+      autoComplete: "off",
+      hasError: errorNewPassword
+    }
+  ];
+  if (!userDetails) {
+    return "";
   }
+  return (
+    <React.Fragment>
+      <Head title="Amazon Giveaway List - Profile" />
+      {alert}
+      <div className={"profile"}>
+        <aside className={"sticky"}>
+          <nav role={"navigation"} className={"profile--nav"}>
+            <ul className={"nav--items"}>
+              <li className={"nav--item active"}>
+                <a href="#stats">Profile</a>
+              </li>
+              {!userDetails.social && (
+                <li className={"nav--item"}>
+                  <a href="#changePassword">Change Password</a>
+                </li>
+              )}
+              <li className={"nav--item"}>
+                <a href="#subscriptions">Subscriptions</a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+        <main className={"content"}>
+          <div className="section" id={"stats"}>
+            <h1 className="title">Stats</h1>
+            <div className="stats">
+              You have been a member since{" "}
+              {new Date(userDetails.register_date).toDateString()}
+            </div>
+          </div>
+          {!userDetails.social && (
+            <div className="section" id="changePassword">
+              <Form
+                _onChange={_onChange}
+                title={"Change Password"}
+                inputs={inputs}
+                socialLogin={false}
+              >
+                <p
+                  className={"password--error"}
+                  role={"alert"}
+                  aria-atomic="true"
+                >
+                  <span>{message}</span>
+                </p>
+                <Button
+                  _onClick={handlePasswordChange}
+                  label={"Confirm"}
+                  className={"primary"}
+                  type={"button"}
+                />
+              </Form>
+            </div>
+          )}
+          {!hideSubscriptions && (
+            <div className="section" id="subscriptions">
+              <Form _onChange={_onChange} title={"Subscriptions"}>
+                <CheckBox
+                  id={"endingGiveaways"}
+                  name={"endingGiveaways"}
+                  label={"Daily Ending Giveaways"}
+                  checked={endingGiveaways}
+                  _onChange={_onChange}
+                />
+              </Form>
+            </div>
+          )}
+        </main>
+      </div>
+      <style jsx>{stylesheet}</style>
+    </React.Fragment>
+  );
 }
+Profile.getInitialProps = async ({ query, ctx }) => {
+  const { giveawayToken } = parseCookies(ctx);
+  let hideSubscriptions = false;
+  let endingGiveaways = false;
+  setBearer(giveawayToken);
+
+  await checkSubscription()
+    .then(({ data }) => {
+      const { isSubscribed } = data;
+      if (isSubscribed) {
+        endingGiveaways = true;
+      }
+    })
+    .catch(({ response }) => {
+      const { err } = response.data;
+      if (err === "INVALID_EMAIL") {
+        hideSubscriptions = true;
+      }
+    });
+  if (query.message) {
+    const { err, msg } = query.message;
+    return { message: msg, error: err };
+  }
+  return { endingGiveaways, hideSubscriptions };
+};
 Profile.propTypes = {
   message: string,
   error: string,
   userDetails: object.isRequired,
-  endingGiveaways: bool
+  endingGiveaways: bool,
+  hideSubscriptions: bool
 };
 function mapStateToProps(state) {
   return {

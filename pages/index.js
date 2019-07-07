@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { withRouter } from "next/router";
 import { object } from "prop-types";
@@ -40,101 +40,90 @@ function oddsFormat(odds, oddsType) {
       return false;
   }
 }
+function Home(props) {
+  let [modal, setModal] = useState(
+    !!props.router.query.giveaway || !!props.router.query.winners
+  );
+  const { router } = props;
+  const { giveaway, winners } = router.query;
 
-class Home extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: !!props.router.query.giveaway || !!props.router.query.winners
-    };
-  }
-  _closeModal = () => {
-    const { router } = this.props;
-    this.setState({ modal: false }, () => {
-      router.replace("/");
-    });
+  const _closeModal = () => {
+    setModal(false);
+    router.replace("/");
   };
-  render() {
-    const { router } = this.props;
-    const { giveaway, winners } = router.query;
-    const customStyles = {
-      content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-        maxWidth: "300px",
-        padding: winners ? "5px" : "0",
-        textAlign: winners ? "center" : "initial",
-        zIndex: 10,
-        border: winners && "1px solid rgba(0,0,0,0.25)",
-        borderRadius: "0",
-        background: winners && "rgb(255, 255, 255)"
-      },
-      overlay: {
-        zIndex: 10
-      }
-    };
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      maxWidth: "300px",
+      padding: winners ? "5px" : "0",
+      textAlign: winners ? "center" : "initial",
+      zIndex: 10,
+      border: winners && "1px solid rgba(0,0,0,0.25)",
+      borderRadius: "0",
+      background: winners && "rgb(255, 255, 255)"
+    },
+    overlay: {
+      zIndex: 10
+    }
+  };
 
-    return (
-      <React.Fragment>
-        <Head
-          title={
-            giveaway
-              ? giveaway.name
-              : "List of all updated open Amazon Giveaways - Amazon Giveaway List"
-          }
-          description={
-            giveaway
-              ? `Odds: ${oddsFormat(giveaway.odds, giveaway.oddsType) ||
-                  "Sweepstakes"}| Requirement: ${giveaway.requirement}`
-              : undefined
-          }
-          ogImage={
-            giveaway ? giveaway.picture.replace("._SR160,160_", "") : undefined
-          }
-        />
-        <div className={"content"}>
-          <FilterContainer />
-          <Modal
-            style={customStyles}
-            isOpen={this.state.modal}
-            onRequestClose={this._closeModal}
-          >
-            {giveaway && (
-              <GiveawayList
-                giveaways={[giveaway]}
-                deleteSingleGiveaway={() => {}}
-                totalGiveaways={1}
-              />
-            )}
-            {winners && (
-              <React.Fragment>
-                <h4>Giveaway Ended</h4>
-                {winners.length >= 1 ? (
-                  <React.Fragment>
-                    <h5>Winners</h5>
-                    <ol className="winners">
-                      {winners.map((winner, idx) => (
-                        <li className="name" key={idx}>
-                          {winner}
-                        </li>
-                      ))}
-                    </ol>
-                  </React.Fragment>
-                ) : (
-                  <h5>Time Expired. No Winners</h5>
-                )}
-              </React.Fragment>
-            )}
-          </Modal>
-          <GiveawayContainer title={"All Giveaways"} router={router} />
-        </div>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <Head
+        title={
+          giveaway
+            ? giveaway.name
+            : "List of all updated open Amazon Giveaways - Amazon Giveaway List"
+        }
+        description={
+          giveaway
+            ? `Odds: ${oddsFormat(giveaway.odds, giveaway.oddsType) ||
+                "Sweepstakes"}| Requirement: ${giveaway.requirement}`
+            : undefined
+        }
+        ogImage={
+          giveaway ? giveaway.picture.replace("._SR160,160_", "") : undefined
+        }
+      />
+      <div className={"content"}>
+        <FilterContainer />
+        <Modal style={customStyles} isOpen={modal} onRequestClose={_closeModal}>
+          {giveaway && (
+            <GiveawayList
+              giveaways={[giveaway]}
+              deleteSingleGiveaway={() => {}}
+              totalGiveaways={1}
+            />
+          )}
+          {winners && (
+            <React.Fragment>
+              <h4>Giveaway Ended</h4>
+              {winners.length >= 1 ? (
+                <React.Fragment>
+                  <h5>Winners</h5>
+                  <ol className="winners">
+                    {winners.map((winner, idx) => (
+                      <li className="name" key={idx}>
+                        {winner}
+                      </li>
+                    ))}
+                  </ol>
+                </React.Fragment>
+              ) : (
+                <h5>Time Expired. No Winners</h5>
+              )}
+            </React.Fragment>
+          )}
+        </Modal>
+        <GiveawayContainer title={"All Giveaways"} router={router} />
+      </div>
+    </React.Fragment>
+  );
 }
 Home.propTypes = {
   router: object.isRequired

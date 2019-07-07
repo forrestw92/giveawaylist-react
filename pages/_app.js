@@ -20,62 +20,6 @@ import Header from "../components/Header";
 import global from "./global.js";
 
 class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
-    const { giveawayToken } = parseCookies(ctx);
-    const protectedRoutes = ["/profile", "/profile/reset", "/profile/forgot"];
-
-    let pageProps = {};
-    await ctx.store.dispatch(setCurrentPage(ctx.pathname));
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    if (!process.browser && !ctx.pathname.includes("/profile")) {
-      await ctx.store.dispatch(fetchGiveaways());
-    }
-
-    if (!ctx.store.getState().user.loggedIn) {
-      if (!giveawayToken) {
-        if (protectedRoutes.indexOf(ctx.pathname) !== -1) {
-          if (ctx.res) {
-            ctx.res.writeHead(302, {
-              Location: "/profile/login"
-            });
-            ctx.res.end();
-          } else {
-            Router.push("/profile/login");
-          }
-        }
-        return { pageProps };
-      }
-      setBearer(giveawayToken);
-      await userDetails()
-        .then(result => {
-          if (result.data.userDetails) {
-            const user = { ...result.data, token: giveawayToken };
-            ctx.store.dispatch(userLogin(user));
-          }
-        })
-        .catch(({ response }) => {
-          if (response === undefined) {
-            return;
-          }
-          if (response.data.error === "INVALID_AUTHORIZATION") {
-            ctx.store.dispatch(userLogout());
-            if (ctx.res) {
-              destroyCookie(ctx, "giveawayToken", {});
-              ctx.res.writeHead(302, {
-                Location: "/profile/login"
-              });
-              ctx.res.end();
-            }
-          }
-        });
-    }
-
-    return { pageProps };
-  }
   componentDidMount() {
     initGA();
     logPageView();
@@ -97,5 +41,60 @@ class MyApp extends App {
     );
   }
 }
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  const { giveawayToken } = parseCookies(ctx);
+  const protectedRoutes = ["/profile", "/profile/reset", "/profile/forgot"];
 
+  let pageProps = {};
+  await ctx.store.dispatch(setCurrentPage(ctx.pathname));
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  if (!process.browser && !ctx.pathname.includes("/profile")) {
+    await ctx.store.dispatch(fetchGiveaways());
+  }
+
+  if (!ctx.store.getState().user.loggedIn) {
+    if (!giveawayToken) {
+      if (protectedRoutes.indexOf(ctx.pathname) !== -1) {
+        if (ctx.res) {
+          ctx.res.writeHead(302, {
+            Location: "/profile/login"
+          });
+          ctx.res.end();
+        } else {
+          Router.push("/profile/login");
+        }
+      }
+      return { pageProps };
+    }
+    setBearer(giveawayToken);
+    await userDetails()
+      .then(result => {
+        if (result.data.userDetails) {
+          const user = { ...result.data, token: giveawayToken };
+          ctx.store.dispatch(userLogin(user));
+        }
+      })
+      .catch(({ response }) => {
+        if (response === undefined) {
+          return;
+        }
+        if (response.data.error === "INVALID_AUTHORIZATION") {
+          ctx.store.dispatch(userLogout());
+          if (ctx.res) {
+            destroyCookie(ctx, "giveawayToken", {});
+            ctx.res.writeHead(302, {
+              Location: "/profile/login"
+            });
+            ctx.res.end();
+          }
+        }
+      });
+  }
+
+  return { pageProps };
+};
 export default withRedux(initializeStore)(MyApp);

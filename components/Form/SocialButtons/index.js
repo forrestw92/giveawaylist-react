@@ -4,7 +4,7 @@ import stylesheet from "./index.css";
 const GOOGLE_LOGIN = process.env.GOOGLE_LOGIN;
 const FACEBOOK_LOGIN = process.env.FACEBOOK_LOGIN;
 const TWITTER_LOGIN = process.env.TWITTER_LOGIN;
-const SocialButtons = () => {
+function SocialButtons() {
   return (
     <div className={"social--icons"}>
       <a href={FACEBOOK_LOGIN} id="facebook" className="social--btn">
@@ -19,5 +19,5 @@ const SocialButtons = () => {
       <style jsx>{stylesheet}</style>
     </div>
   );
-};
+}
 export default SocialButtons;

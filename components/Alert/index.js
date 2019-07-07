@@ -1,59 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { string, node, bool, func, number } from "prop-types";
 import stylesheet from "./index.css";
-class Alert extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      forceHide: false
-    };
-  }
-  _onClick = e => {
+function Alert(props) {
+  const { alertType, children, show, transitionTime, onDeath, ttl } = props;
+  let [forceHide, setForceHide] = useState(false);
+
+  const _onClick = e => {
     e.preventDefault();
     e.stopPropagation();
   };
-  _startDeathTimer = () => {
-    const { onDeath, transitionTime } = this.props;
+  const _startDeathTimer = () => {
     setTimeout(() => {
       onDeath();
     }, transitionTime * 1000);
   };
-  _startTTLTimer = () => {
-    const { ttl } = this.props;
+  const _startTTLTimer = () => {
     setTimeout(() => {
-      this.setState({ forceHide: true }, () => this._startDeathTimer());
+      setForceHide(true);
     }, ttl * 1000);
   };
-  componentDidMount() {
-    const { show } = this.props;
-    if (!show) return;
-    this._startTTLTimer();
-  }
-  componentDidUpdate(prevProps) {
-    const { show } = this.props;
-    if (show !== prevProps.show) {
-      this._startTTLTimer();
-    }
-  }
 
-  render() {
-    const { alertType, children, show, transitionTime } = this.props;
-    return (
-      <div
-        onClick={this._onClick}
-        className={`alert ${alertType ? alertType : "primary"} ${
-          show && !this.state.forceHide ? "" : "hide"
-        }`}
-        style={{ transition: `opacity ${transitionTime}s linear` }}
-        role="alert"
-        aria-atomic="true"
-      >
-        {children}
-        <style jsx>{stylesheet}</style>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (forceHide) _startDeathTimer();
+    if (show) _startTTLTimer();
+  });
+
+  return (
+    <div
+      onClick={_onClick}
+      className={`alert ${alertType ? alertType : "primary"} ${
+        show && !forceHide ? "" : "hide"
+      }`}
+      style={{ transition: `opacity ${transitionTime}s linear` }}
+      role="alert"
+      aria-atomic="true"
+    >
+      {children}
+      <style jsx>{stylesheet}</style>
+    </div>
+  );
 }
+
 Alert.defaultProps = {
   transitionTime: 0.33,
   ttl: 1.5

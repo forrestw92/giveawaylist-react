@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { bool, string, func } from "prop-types";
@@ -13,129 +13,113 @@ import Logo from "../../static/images/logo.svg";
 import { deleteGiveaways } from "../../Redux/actions/giveawayActions";
 import stylesheet from "./index.css";
 
-export class Navigation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      links: [
-        {
-          href: "/",
-          label: "Home",
-          shouldRender: true,
-          className: "nav--item",
-          image: <Home className={"link--image"} />
-        },
-        {
-          href: "/ending",
-          label: "Ending",
-          shouldRender: true,
-          className: "nav--item",
-          image: <Clock className={"link--image"} />
-        },
-        {
-          href: "/saved",
-          label: "Saved",
-          shouldRender: props.loggedIn === true,
-          className: "nav--item",
-          image: <Saved className={"link--image"} />
-        },
-        {
-          href: "/ebooks",
-          label: "eBooks",
-          shouldRender: true,
-          className: "nav--item",
-          image: <Book className={"link--image"} />
-        },
-        {
-          href: "/sweepstakes",
-          label: "Sweepstakes",
-          shouldRender: false,
-          className: "nav--item"
-        },
-        {
-          href: "/profile",
-          label: "Profile",
-          shouldRender: props.loggedIn === true,
-          className: "nav--item",
-          image: <User className={"link--image"} />
-        },
-        {
-          href: "/profile/login",
-          label: "Login",
-          shouldRender:
-            props.loggedIn === false || props.currentPage === "/profile/login",
-          className: "nav--item",
-          image: <UserLogin className={"link--image"} />
-        },
-        {
-          href: "/profile/register",
-          label: "Register",
-          shouldRender:
-            props.loggedIn === false || props.currentPage === "/profile/login",
-          className: "nav--item",
-          image: <UserRegister className={"link--image"} />
-        }
-      ]
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    if (!prevProps.loggedIn && this.props.loggedIn) {
-      let newLinks = this.state.links.map(link => {
-        if (link.href === "/profile/login") {
-          link.shouldRender = false;
-        }
-        if (link.href === "/profile/register") {
-          link.shouldRender = false;
-        }
-
-        if (link.href === "/profile") {
-          link.shouldRender = true;
-        }
-        if (link.href === "/saved") {
-          link.shouldRender = true;
-        }
-      });
-
-      this.setState({
-        links: Object.assign(this.state.links, ...newLinks)
-      });
+function Navigation(props) {
+  const { loggedIn, currentPage, deleteGiveaways } = props;
+  let [shownLinks, setShownLinks] = useState([
+    {
+      href: "/",
+      label: "Home",
+      shouldRender: true,
+      className: "nav--item",
+      image: <Home className={"link--image"} />
+    },
+    {
+      href: "/ending",
+      label: "Ending",
+      shouldRender: true,
+      className: "nav--item",
+      image: <Clock className={"link--image"} />
+    },
+    {
+      href: "/saved",
+      label: "Saved",
+      shouldRender: props.loggedIn === true,
+      className: "nav--item",
+      image: <Saved className={"link--image"} />
+    },
+    {
+      href: "/ebooks",
+      label: "eBooks",
+      shouldRender: true,
+      className: "nav--item",
+      image: <Book className={"link--image"} />
+    },
+    {
+      href: "/profile",
+      label: "Profile",
+      shouldRender: loggedIn === true,
+      className: "nav--item",
+      image: <User className={"link--image"} />
+    },
+    {
+      href: "/profile/login",
+      label: "Login",
+      shouldRender: loggedIn === false || currentPage === "/profile/login",
+      className: "nav--item",
+      image: <UserLogin className={"link--image"} />
+    },
+    {
+      href: "/profile/register",
+      label: "Register",
+      shouldRender: loggedIn === false || currentPage === "/profile/login",
+      className: "nav--item",
+      image: <UserRegister className={"link--image"} />
     }
-  }
+  ]);
+  /*eslint prettier/prettier:0*/
+  useEffect(
+    () => {
+      if (loggedIn) {
+        let newLinks = shownLinks.map(link => {
+          if (link.href === "/profile/login") {
+            link.shouldRender = false;
+          }
+          if (link.href === "/profile/register") {
+            link.shouldRender = false;
+          }
 
-  render() {
-    if (this.state.links.length === 0) return "";
-    const renderLinks = this.state.links.filter(link => link.shouldRender);
-    const { currentPage, deleteGiveaways } = this.props;
-    return (
-      <nav role="navigation" className={"nav"}>
-        <Logo className={"logo"} />
-        <ul className={"navigation"} id={"menu"} tabIndex={"-1"}>
-          {renderLinks.map(({ href, label, image, className }) => (
-            <li key={href} className={`${className}`}>
-              <Link href={href}>
-                {currentPage === href ? (
-                  <div className={`link active`}>
-                    {image}
-                    <span>{label}</span>
-                  </div>
-                ) : (
-                  <a
-                    className={currentPage === href ? `link active` : "link"}
-                    onClick={() => deleteGiveaways()}
-                  >
-                    {image}
-                    <span>{label}</span>
-                  </a>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <style jsx>{stylesheet}</style>
-      </nav>
-    );
-  }
+          if (link.href === "/profile") {
+            link.shouldRender = true;
+          }
+          if (link.href === "/saved") {
+            link.shouldRender = true;
+          }
+        });
+
+        setShownLinks(Object.assign(shownLinks, ...newLinks));
+      }
+    },
+    [loggedIn]
+  );
+  const renderLinks = shownLinks.filter(link => link.shouldRender);
+  return (
+    <nav role="navigation" className={"nav"}>
+      <Logo className={"logo"} />
+      <ul className={"navigation"} id={"menu"} tabIndex={"-1"}>
+        {renderLinks.map(({ href, label, image, className }) => (
+          <li key={href} className={`${className}`}>
+            <Link href={href}>
+              {currentPage === href ? (
+                <div className={`link active`}>
+                  {image}
+                  <span>{label}</span>
+                </div>
+              ) : (
+                <a
+                  className={currentPage === href ? `link active` : "link"}
+                  onClick={() => deleteGiveaways()}
+                >
+                  {image}
+                  <span>{label}</span>
+                </a>
+              )}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <style jsx>{stylesheet}</style>
+    </nav>
+  );
 }
 Navigation.propTypes = {
   loggedIn: bool.isRequired,

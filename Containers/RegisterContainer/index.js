@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { func } from "prop-types";
 
@@ -9,174 +9,173 @@ import { register } from "../../API";
 import { userLogin } from "../../Redux/actions/loginActions";
 
 import stylesheet from "./index.css";
+function RegisterContainer() {
+  let [username, setUsername] = useState("");
+  let [email, setEmail] = useState("");
+  let [email2, setEmail2] = useState("");
+  let [password, setPassword] = useState("");
+  let [password2, setPassword2] = useState("");
 
-class RegisterContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      email: "",
-      email2: "",
-      password: "",
-      password2: "",
-      message: "",
-      socialLogin: true,
-      errorUsername: false,
-      errorEmail: false,
-      errorEmail2: false,
-      errorPassword: false,
-      errorPassword2: false
-    };
-  }
-  compareInputs = (a, b) => a !== "" && b !== "" && a === b;
-  validateInputs = () => {
-    if (!this.compareInputs(this.state.password, this.state.password2)) {
-      this.setState({ errorPassword2: true, message: "Passwords must match." });
-    } else {
-      this.setState({ errorPassword2: false, message: "" });
+  let [message, setMessage] = useState("");
+  let [socialLogin, setSocialLogin] = useState(true);
+  let [errorUsername, setErrorUsername] = useState(false);
+  let [errorEmail, setErrorEmail] = useState(false);
+  let [errorEmail2, setErrorEmail2] = useState(false);
+  let [errorPassword] = useState(false);
+  let [errorPassword2, setErrorPassword2] = useState(false);
+  const compareInputs = (a, b) => a !== "" && b !== "" && a === b;
+  const validateInputs = input => {
+    if (input === "password2") {
+      if (!compareInputs(password, password2)) {
+        setErrorPassword2(true);
+        setMessage("Passwords must match.");
+      } else {
+        setErrorPassword2(false);
+        setMessage("");
+      }
     }
-    if (!this.compareInputs(this.state.email, this.state.email2)) {
-      this.setState({ errorEmail2: true, message: "Emails must match." });
-    } else {
-      this.setState({ errorEmail2: false, message: "" });
+    if (input === "email2") {
+      if (!compareInputs(email, email2)) {
+        setErrorEmail2(true);
+        setMessage("Emails must match.");
+      } else {
+        setErrorEmail2(false);
+        setMessage("");
+      }
     }
   };
-  _onSubmit = e => {
+  const _onSubmit = e => {
     e.preventDefault();
-    const { username, email, email2, password, password2 } = this.state;
     register({ username, email, email2, password, password2 })
       .then(({ data }) => {
-        this.setState({ message: data.msg });
-        this.props.userLogin(data);
+        const { msg } = data;
+        setMessage(msg);
+        userLogin(data);
       })
       .catch(({ response }) => {
         const { err, msg } = response.data;
         if (err === "INVALID_EMAIL") {
-          this.setState({ errorEmail: true, email2: "", message: msg });
+          setErrorEmail(true);
+          setEmail2("");
         }
         if (err === "EMAIL_TAKEN") {
-          this.setState({
-            errorEmail: true,
-            email: "",
-            email2: "",
-            message: msg
-          });
+          setErrorEmail(true);
+          setEmail("");
+          setEmail2("");
         }
         if (err === "USERNAME_TAKEN") {
-          this.setState({
-            errorUsername: true,
-            username: "",
-            message: msg
-          });
+          setUsername("");
+          setErrorUsername(true);
         }
+        setMessage(msg);
       });
   };
-  _onChange = (e, state) => {
+  const _onChange = (e, state) => {
+    const { value } = e.target;
+
     switch (state) {
       case "username":
-        this.setState({ username: e.target.value });
+        setUsername(value);
+
         break;
       case "password":
-        this.setState({ password: e.target.value });
+        setPassword(value);
         break;
       case "password2":
-        this.setState({ password2: e.target.value });
+        setPassword2(value);
+
         break;
       case "email":
-        this.setState({ email: e.target.value });
+        setEmail(value);
         break;
       case "email2":
-        this.setState({ email2: e.target.value });
+        setEmail2(value);
         break;
       default:
         break;
     }
   };
-  render() {
-    const inputs = [
-      {
-        label: "Username",
-        value: this.state.username,
-        type: "text",
-        id: "username",
-        name: "username",
-        autoComplete: "off",
-        hasError: this.state.errorUsername,
-        onBlur: this.validateInputs
-      },
-      {
-        label: "Email",
-        value: this.state.email,
-        type: "email",
-        id: "email",
-        name: "email",
-        autoComplete: "off",
-        hasError: this.state.errorEmail,
-        onBlur: this.validateInputs
-      },
-      {
-        label: "Repeat Email",
-        value: this.state.email2,
-        type: "email",
-        id: "email2",
-        name: "email2",
-        autoComplete: "off",
-        hasError: this.state.errorEmail2,
-        onBlur: this.validateInputs
-      },
-      {
-        label: "Password",
-        value: this.state.password,
-        type: "password",
-        id: "password",
-        name: "password",
-        autoComplete: "off",
-        hasError: this.state.errorPassword,
-        onBlur: this.validateInputs
-      },
-      {
-        label: "Repeat Password",
-        value: this.state.password2,
-        type: "password",
-        id: "password2",
-        name: "password2",
-        autoComplete: "off",
-        hasError: this.state.errorPassword2,
-        onBlur: this.validateInputs
-      }
-    ];
-    return (
-      <main role="main" className={"register"}>
-        <Form
-          title={"Register"}
-          {...this.state}
-          _onChange={this._onChange}
-          inputs={inputs}
-          _onSubmit={this._onSubmit}
-        >
-          <p className={"register--error"} role={"alert"} aria-atomic="true">
-            <span>{this.state.message}</span>
-          </p>
-          <Button
-            _onClick={this._onSubmit}
-            label={"Register"}
-            className={"primary"}
-            type={"button"}
-          />
-        </Form>
-        <a
-          href={"#"}
-          onClick={() =>
-            this.setState({ socialLogin: !this.state.socialLogin })
-          }
-          className={"switch--type"}
-        >
-          <h2>{this.state.socialLogin ? "Use Email" : "Use Social"}</h2>
-        </a>
-        <style jsx>{stylesheet}</style>
-      </main>
-    );
-  }
+  const inputs = [
+    {
+      label: "Username",
+      value: username,
+      type: "text",
+      id: "username",
+      name: "username",
+      autoComplete: "off",
+      hasError: errorUsername,
+      onBlur: validateInputs
+    },
+    {
+      label: "Email",
+      value: email,
+      type: "email",
+      id: "email",
+      name: "email",
+      autoComplete: "off",
+      hasError: errorEmail,
+      onBlur: validateInputs
+    },
+    {
+      label: "Repeat Email",
+      value: email2,
+      type: "email",
+      id: "email2",
+      name: "email2",
+      autoComplete: "off",
+      hasError: errorEmail2,
+      onBlur: validateInputs
+    },
+    {
+      label: "Password",
+      value: password,
+      type: "password",
+      id: "password",
+      name: "password",
+      autoComplete: "off",
+      hasError: errorPassword,
+      onBlur: validateInputs
+    },
+    {
+      label: "Repeat Password",
+      value: password2,
+      type: "password",
+      id: "password2",
+      name: "password2",
+      autoComplete: "off",
+      hasError: errorPassword2,
+      onBlur: validateInputs
+    }
+  ];
+  return (
+    <main role="main" className={"register"}>
+      <Form
+        title={"Register"}
+        socialLogin={socialLogin}
+        _onChange={_onChange}
+        inputs={inputs}
+        _onSubmit={_onSubmit}
+      >
+        <p className={"register--error"} role={"alert"} aria-atomic="true">
+          <span>{message}</span>
+        </p>
+        <Button
+          _onClick={_onSubmit}
+          label={"Register"}
+          className={"primary"}
+          type={"button"}
+        />
+      </Form>
+      <a
+        href={"#"}
+        onClick={() => setSocialLogin(!socialLogin)}
+        className={"switch--type"}
+      >
+        <h2>{socialLogin ? "Use Email" : "Use Social"}</h2>
+      </a>
+      <style jsx>{stylesheet}</style>
+    </main>
+  );
 }
 RegisterContainer.propTypes = {
   userLogin: func.isRequired

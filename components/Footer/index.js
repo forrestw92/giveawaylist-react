@@ -22,42 +22,42 @@ const footerInLinks = [
   { link: "/privacy", children: " Privacy Policy " },
   { link: "/tos", children: " Terms Of Service " }
 ];
-class Footer extends React.Component {
-  render() {
-    return (
-      <footer className={"footer"} role="contentinfo">
-        <div className="info">
-          <ul className="footer--links">
-            {footerOutLinks &&
-              footerOutLinks.map((item, idx) => (
-                <li key={idx} className={item.fullWidth && "full"}>
-                  <a href={item.link} className={`link `}>
+
+function Footer() {
+  return (
+    <footer className={"footer"} role="contentinfo">
+      <div className="info">
+        <ul className="footer--links">
+          {footerOutLinks &&
+            footerOutLinks.map((item, idx) => (
+              <li key={idx} className={item.fullWidth && "full"}>
+                <a href={item.link} className={`link `}>
+                  {item.children}
+                </a>
+              </li>
+            ))}
+        </ul>
+        <ul className="footer--links">
+          {footerInLinks &&
+            footerInLinks.map((item, idx) => (
+              <li key={idx}>
+                <Link href={item.link} shallow>
+                  <a href={item.link} className={"link"}>
                     {item.children}
                   </a>
-                </li>
-              ))}
-          </ul>
-          <ul className="footer--links">
-            {footerInLinks &&
-              footerInLinks.map((item, idx) => (
-                <li key={idx}>
-                  <Link href={item.link} shallow>
-                    <a href={item.link} className={"link"}>
-                      {item.children}
-                    </a>
-                  </Link>
-                </li>
-              ))}
-          </ul>
-          <p>&copy; 2017 - {new Date().getFullYear()}, Giveaway List</p>
-          <p>
-            All product names, logos, and brands are property of their
-            respective owners.
-          </p>
-        </div>
-        <style jsx>{stylesheet}</style>
-      </footer>
-    );
-  }
+                </Link>
+              </li>
+            ))}
+        </ul>
+        <p>&copy; 2017 - {new Date().getFullYear()}, Giveaway List</p>
+        <p>
+          All product names, logos, and brands are property of their respective
+          owners.
+        </p>
+      </div>
+      <style jsx>{stylesheet}</style>
+    </footer>
+  );
 }
+
 export default Footer;

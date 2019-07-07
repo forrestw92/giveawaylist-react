@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "../../components/head";
 
 import stylesheet from "./index.css";
@@ -6,115 +6,105 @@ import InputGroup from "../../components/Form/InputGroup";
 import Button from "../../components/Button";
 import { sendMessage } from "../../API";
 
-class Contact extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      message: "",
-      name: "",
-      formMessage: undefined,
-      error: false,
-      errorEmail: false
-    };
-  }
-
-  _onChange = (e, name) => {
+function Contact() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
+  const [formMessage, setFormMessage] = useState(undefined);
+  const [error, setError] = useState(false);
+  const _onChange = (e, name) => {
     const { value } = e.target;
     switch (name) {
       case "message":
-        this.setState({ message: value });
+        setMessage(value);
         break;
       case "email":
-        this.setState({ email: value });
+        setEmail(value);
         break;
       case "name":
-        this.setState({ name: value });
+        setName(value);
         break;
       default:
         return;
     }
   };
-  handleForm = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    const { message, name, email } = this.state;
     if (!message || !name || !email) {
-      this.setState({ formMessage: "Please fill out all fields", error: true });
+      setFormMessage("Please fill out all fields.");
+      setError(true);
     } else {
       sendMessage({ message, name, email })
         .then(({ data }) => {
           const { msg, success } = data;
           if (success === "MESSAGE_SENT") {
-            this.setState({ formMessage: msg, error: false });
+            setFormMessage(msg);
+            setError(false);
           }
         })
         .catch(({ response }) => {
           const { msg } = response.data;
-          this.setState({ formMessage: msg, error: true });
+          setFormMessage(msg);
+          setError(true);
         });
     }
   };
-  render() {
-    return (
-      <React.Fragment>
-        <Head title="Contact - Amazon Giveaway List" description={""} />
-        <main className={"content"}>
-          <div className="contact">
-            <h1 className={"title"}>Contact</h1>
-            <form onChange={this._onChange} className={"contact-form"}>
-              <InputGroup
-                _onChange={this._onChange}
-                label={"Email"}
-                value={this.state.email}
-                type={"email"}
-                id={"email"}
-                name={"email"}
-                autoComplete={"on"}
+  return (
+    <React.Fragment>
+      <Head title="Contact - Amazon Giveaway List" description={""} />
+      <main className={"content"}>
+        <div className="contact">
+          <h1 className={"title"}>Contact</h1>
+          <form onChange={_onChange} className={"contact-form"}>
+            <InputGroup
+              _onChange={_onChange}
+              label={"Email"}
+              value={email}
+              type={"email"}
+              id={"email"}
+              name={"email"}
+              autoComplete={"on"}
+            />
+            <InputGroup
+              _onChange={_onChange}
+              label={"Name"}
+              value={name}
+              type={"name"}
+              id={"name"}
+              name={"name"}
+              autoComplete={"off"}
+            />
+            <div className="input--group">
+              <textarea
+                rows="10"
+                className={"textarea"}
+                id={"message"}
+                onChange={e => _onChange(e, "message")}
+                value={message}
+                name={"message"}
               />
-              <InputGroup
-                _onChange={this._onChange}
-                label={"Name"}
-                value={this.state.name}
-                type={"name"}
-                id={"name"}
-                name={"name"}
-                autoComplete={"off"}
-              />
-              <div className="input--group">
-                <textarea
-                  rows="10"
-                  className={"textarea"}
-                  id={"message"}
-                  onChange={e => this._onChange(e, "message")}
-                  value={this.state.message}
-                  name={"message"}
-                />
-                <label
-                  htmlFor="message"
-                  className={this.state.message && "input--filled"}
-                >
-                  Message
-                </label>
-              </div>
-              <p
-                className={`message ${this.state.error ? "error" : "success"}`}
-                role={"alert"}
-                aria-atomic="true"
-              >
-                <span>{this.state.formMessage}</span>
-              </p>
-              <Button
-                _onClick={this.handleForm}
-                label={"Send"}
-                className={"primary"}
-                type={"button"}
-              />
-            </form>
-          </div>
-        </main>
-        <style jsx>{stylesheet}</style>
-      </React.Fragment>
-    );
-  }
+              <label htmlFor="message" className={message && "input--filled"}>
+                Message
+              </label>
+            </div>
+            <p
+              className={`message ${error ? "error" : "success"}`}
+              role={"alert"}
+              aria-atomic="true"
+            >
+              <span>{formMessage}</span>
+            </p>
+            <Button
+              _onClick={handleSubmit}
+              label={"Send"}
+              className={"primary"}
+              type={"button"}
+            />
+          </form>
+        </div>
+      </main>
+      <style jsx>{stylesheet}</style>
+    </React.Fragment>
+  );
 }
 export default Contact;

@@ -224,6 +224,9 @@ template {
 .height {
   height: auto;
 }
+    .ReactModal__Content--after-open li:nth-child(2) {
+        display: none;
+    }
 @media only screen and (min-width: 676px) and (max-width: 767px) {
   .link--image {
     margin: 0;

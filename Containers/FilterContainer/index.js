@@ -1,5 +1,5 @@
-import React from "react";
-import { number, func, bool, string } from "prop-types";
+import React, { useState } from "react";
+import { number, func, bool, string, object } from "prop-types";
 import stylesheet from "./index.css";
 import CheckBox from "../../components/CheckBox";
 import TextInput from "../../components/TextInput";
@@ -43,272 +43,209 @@ const defaultCategories = [
   { category: "Toys & Games" },
   { category: "Video Games" }
 ];
-class FilterContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: [...defaultCategories]
-    };
-  }
 
-  componentDidMount() {
-    this.delayfetchGiveaways = throttle(function() {
-      this.props.fetchGiveaways();
-    }, 2000);
-  }
+function FilterContainer(props) {
+  let [categories, setCategoires] = useState(defaultCategories);
+  if (!props) return;
+  const {
+    deleteGiveaways,
+    setFilter,
+    fabOpen,
+    currentPage,
+    fetchGiveaways,
+    filter
+  } = props;
+  const {
+    oddsLow,
+    oddsHigh,
+    oddsMin,
+    oddsMax,
+    hideVideo,
+    hideAmazon,
+    latestWinner,
+    hideKindle,
+    endingSoon,
+    prizeHigh,
+    viewCount
+  } = filter;
+  let delayFetch = throttle(function() {
+    fetchGiveaways();
+  }, 2000);
 
-  _onChange = (e, name) => {
+  const _onChange = (e, name) => {
     const value = e.target.value;
     const checked = e.target.checked;
-
-    switch (name) {
-      case "category":
-        this.props.setFilter({ category: encodeURIComponent(value) });
-        break;
-      case "hideAmazon":
-        this.props.setFilter({ hideAmazon: checked });
-        break;
-      case "hideVideo":
-        this.props.setFilter({ hideVideo: checked });
-        break;
-      case "oddsLow":
-        this.props.setFilter({ oddsLow: checked });
-        break;
-      case "oddsHigh":
-        this.props.setFilter({ oddsHigh: checked });
-        break;
-      case "hideKindle":
-        this.props.setFilter({ hideKindle: checked });
-        break;
-      case "endingSoon":
-        this.props.setFilter({ endingSoon: checked });
-        break;
-      case "prizeHigh":
-        this.props.setFilter({ prizeHigh: checked });
-        break;
-      case "viewCount":
-        this.props.setFilter({ viewCount: checked });
-        break;
-      case "latestWinner":
-        this.props.setFilter({ latestWinner: checked });
-        break;
-      case "oddsMin":
-        this.props.setFilter({ oddsMin: value });
-        break;
-      case "oddsMax":
-        this.props.setFilter({ oddsMax: value });
-        break;
-      default:
-        return false;
+    if (name === "category") {
+      filter["category"] = encodeURIComponent(value);
+      setFilter(filter);
+    } else if (name === "oddsMin" || name === "oddsMax") {
+      filter[name] = value;
+      setFilter(filter);
+    } else {
+      filter[name] = checked;
+      setFilter(filter);
     }
-    this.props.deleteGiveaways();
-    this.delayfetchGiveaways();
+    deleteGiveaways();
+    delayFetch();
   };
 
-  _onClick = () => {
-    this.props.showHideFAB();
-  };
-  _onFocus = () => {
-    const {
-      oddsLow,
-      oddsHigh,
-      oddsMin,
-      oddsMax,
-      hideVideo,
-      hideAmazon,
-      latestWinner,
-      hideKindle,
-      endingSoon,
-      prizeHigh,
-      viewCount
-    } = this.props;
+  const _onFocus = () => {
     const defaultOption = { category: "All Categories" };
-    getCategories({
-      oddsLow,
-      oddsHigh,
-      oddsMin,
-      oddsMax,
-      hideVideo,
-      hideAmazon,
-      latestWinner,
-      hideKindle,
-      endingSoon,
-      prizeHigh,
-      viewCount
-    }).then(({ data }) => {
+    getCategories(filter).then(({ data }) => {
       const { results } = data;
-      this.setState({
-        categories: [defaultOption, ...results]
-      });
+      setCategoires([defaultOption, ...results]);
     });
   };
-  render() {
-    const { fabOpen, currentPage } = this.props;
-    const {
-      oddsLow,
-      oddsHigh,
-      oddsMin,
-      oddsMax,
-      hideVideo,
-      hideAmazon,
-      latestWinner,
-      hideKindle,
-      endingSoon,
-      prizeHigh,
-      viewCount
-    } = this.props;
-
-    return (
-      <aside
-        className={fabOpen ? `filterContainer off-screen` : "filterContainer"}
-      >
-        <div className={"box"}>
-          <h1 className={"title"}>Filter</h1>
-          {currentPage !== "/ebooks" && (
-            <div className="filterGroup">
-              <h4 className="filterTitle">Categories</h4>
-              <Select
-                name={"category"}
-                _onFocus={this._onFocus}
-                _onChange={this._onChange}
-                defaultSelection={0}
-                options={this.state.categories}
+  return (
+    <aside
+      className={fabOpen ? `filterContainer off-screen` : "filterContainer"}
+    >
+      <div className={"box"}>
+        <h1 className={"title"}>Filter</h1>
+        {currentPage !== "/ebooks" && (
+          <div className="filterGroup">
+            <h4 className="filterTitle">Categories</h4>
+            <Select
+              name={"category"}
+              _onFocus={_onFocus}
+              _onChange={_onChange}
+              defaultSelection={0}
+              options={categories}
+            />
+          </div>
+        )}
+        <div className={"filterGroup"}>
+          <h4 className={"filterTitle"}>Requirements</h4>
+          <CheckBox
+            id={"hideAmazon"}
+            name={"hideAmazon"}
+            label={"Amazon Follow"}
+            checked={hideAmazon}
+            _onChange={_onChange}
+          />
+          <CheckBox
+            id={"hideVideo"}
+            name={"hideVideo"}
+            label={"Hide Video"}
+            checked={hideVideo}
+            _onChange={_onChange}
+          />
+        </div>
+        <div className={"filterGroup"}>
+          <h4 className={"filterTitle"}>Odds</h4>
+          <div className={"input--group"}>
+            <label htmlFor={"oddsMin"}>
+              Min Odds
+              <TextInput
+                min={1}
+                max={1000000}
+                type={"number"}
+                id={"oddsMin"}
+                name={"oddsMin"}
+                autoComplete={"off"}
+                _onChange={_onChange}
+                value={oddsMin}
+                className={"input--number"}
               />
-            </div>
+            </label>
+            <label htmlFor={"oddsMax"}>
+              Max Odds
+              <TextInput
+                min={parseInt(oddsMin) + 1}
+                max={1000000}
+                type={"number"}
+                id={"oddsMax"}
+                name={"oddsMax"}
+                autoComplete={"off"}
+                _onChange={_onChange}
+                value={oddsMax}
+                className={"input--number"}
+              />
+            </label>
+          </div>
+        </div>
+        <div className={"filterGroup"}>
+          <h4 className={"filterTitle"}>Sort</h4>
+          {currentPage !== "/ending" && (
+            <CheckBox
+              id={"endingSoon"}
+              name={"endingSoon"}
+              label={"Ending Soon"}
+              checked={endingSoon}
+              _onChange={_onChange}
+            />
           )}
+          <CheckBox
+            id={"prizeHigh"}
+            name={"prizeHigh"}
+            label={"Prize High"}
+            checked={prizeHigh}
+            _onChange={_onChange}
+          />
+          <CheckBox
+            id={"oddsHigh"}
+            name={"oddsHigh"}
+            label={"Odds High"}
+            checked={oddsHigh}
+            _onChange={_onChange}
+          />
+          <CheckBox
+            id={"oddsLow"}
+            name={"oddsLow"}
+            label={"Odds Low"}
+            checked={oddsLow}
+            _onChange={_onChange}
+          />
+          <CheckBox
+            id={"viewCount"}
+            name={"viewCount"}
+            label={"View Count High"}
+            checked={viewCount}
+            _onChange={_onChange}
+          />
+          <CheckBox
+            id={"latestWinner"}
+            name={"latestWinner"}
+            label={"Latest Winners"}
+            checked={latestWinner}
+            _onChange={_onChange}
+          />
+        </div>
+        {currentPage !== "/ebooks" && (
           <div className={"filterGroup"}>
-            <h4 className={"filterTitle"}>Requirements</h4>
+            <h4 className={"filterTitle"}>Giveaways</h4>
             <CheckBox
-              id={"hideAmazon"}
-              name={"hideAmazon"}
-              label={"Amazon Follow"}
-              checked={hideAmazon}
-              _onChange={this._onChange}
-            />
-            <CheckBox
-              id={"hideVideo"}
-              name={"hideVideo"}
-              label={"Hide Video"}
-              checked={hideVideo}
-              _onChange={this._onChange}
+              id={"hideKindle"}
+              name={"hideKindle"}
+              label={"Hide Kindle Books"}
+              checked={hideKindle}
+              _onChange={_onChange}
             />
           </div>
-          <div className={"filterGroup"}>
-            <h4 className={"filterTitle"}>Odds</h4>
-            <div className={"input--group"}>
-              <label htmlFor={"oddsMin"}>
-                Min Odds
-                <TextInput
-                  min={1}
-                  max={1000000}
-                  type={"number"}
-                  id={"oddsMin"}
-                  name={"oddsMin"}
-                  autoComplete={"off"}
-                  _onChange={this._onChange}
-                  value={oddsMin}
-                  className={"input--number"}
-                />
-              </label>
-              <label htmlFor={"oddsMax"}>
-                Max Odds
-                <TextInput
-                  min={parseInt(oddsMin) + 1}
-                  max={1000000}
-                  type={"number"}
-                  id={"oddsMax"}
-                  name={"oddsMax"}
-                  autoComplete={"off"}
-                  _onChange={this._onChange}
-                  value={oddsMax}
-                  className={"input--number"}
-                />
-              </label>
-            </div>
-          </div>
-          <div className={"filterGroup"}>
-            <h4 className={"filterTitle"}>Sort</h4>
-            {currentPage !== "/ending" && (
-              <CheckBox
-                id={"endingSoon"}
-                name={"endingSoon"}
-                label={"Ending Soon"}
-                checked={endingSoon}
-                _onChange={this._onChange}
-              />
-            )}
-            <CheckBox
-              id={"prizeHigh"}
-              name={"prizeHigh"}
-              label={"Prize High"}
-              checked={prizeHigh}
-              _onChange={this._onChange}
-            />
-            <CheckBox
-              id={"oddsHigh"}
-              name={"oddsHigh"}
-              label={"Odds High"}
-              checked={oddsHigh}
-              _onChange={this._onChange}
-            />
-            <CheckBox
-              id={"oddsLow"}
-              name={"oddsLow"}
-              label={"Odds Low"}
-              checked={oddsLow}
-              _onChange={this._onChange}
-            />
-            <CheckBox
-              id={"viewCount"}
-              name={"viewCount"}
-              label={"View Count High"}
-              checked={viewCount}
-              _onChange={this._onChange}
-            />
-            <CheckBox
-              id={"latestWinner"}
-              name={"latestWinner"}
-              label={"Latest Winners"}
-              checked={latestWinner}
-              _onChange={this._onChange}
-            />
-          </div>
-          {currentPage !== "/ebooks" && (
-            <div className={"filterGroup"}>
-              <h4 className={"filterTitle"}>Giveaways</h4>
-              <CheckBox
-                id={"hideKindle"}
-                name={"hideKindle"}
-                label={"Hide Kindle Books"}
-                checked={hideKindle}
-                _onChange={this._onChange}
-              />
-            </div>
-          )}
+        )}
 
-          <div className={"filterGroup"}>
-            <div className={"input--group"}>
+        <div className={"filterGroup"}>
+          <div className={"input--group"}>
+            <Button
+              _onClick={() => resetFilter()}
+              label={"Reset"}
+              className={"primary"}
+              type={"button"}
+            />
+            {fabOpen && (
               <Button
-                _onClick={() => this.props.resetFilter()}
-                label={"Reset"}
+                _onClick={() => showHideFAB()}
+                label={"Close"}
                 className={"primary"}
                 type={"button"}
               />
-              {fabOpen && (
-                <Button
-                  _onClick={() => this.props.showHideFAB()}
-                  label={"Close"}
-                  className={"primary"}
-                  type={"button"}
-                />
-              )}
-            </div>
+            )}
           </div>
         </div>
-        <style jsx>{stylesheet}</style>
-      </aside>
-    );
-  }
+      </div>
+      <style jsx>{stylesheet}</style>
+    </aside>
+  );
 }
 FilterContainer.propTypes = {
   showHideFAB: func.isRequired,
@@ -329,14 +266,15 @@ FilterContainer.propTypes = {
   endingSoon: bool.isRequired,
   prizeHigh: bool.isRequired,
   viewCount: bool.isRequired,
-  totalGiveaways: number.isRequired
+  totalGiveaways: number.isRequired,
+  filter: object.isRequired
 };
 
 export default connect(
   ({ menus, giveaways, nav }) => ({
     fabOpen: menus.fabOpen,
     totalGiveaways: giveaways.totalGiveaways,
-    ...giveaways.filter,
+    filter: giveaways.filter,
     currentPage: nav.currentPage
   }),
 

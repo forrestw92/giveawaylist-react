@@ -3,7 +3,7 @@ import LazyLoad from "react-lazyload";
 import { string } from "prop-types";
 import stylesheet from "./index.css";
 
-const CardImage = props => {
+function CardImage(props) {
   const Placeholder = (
     <img
       alt={"Loading Giveaway Picture"}
@@ -23,7 +23,7 @@ const CardImage = props => {
       <style jsx>{stylesheet}</style>
     </LazyLoad>
   );
-};
+}
 CardImage.propTypes = {
   picture: string.isRequired,
   giveawayID: string

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Router, { withRouter } from "next/router";
 import { connect } from "react-redux";
 import { node, func, object } from "prop-types";
@@ -6,25 +6,23 @@ import { setPageId } from "../Redux/actions/navActions";
 import { parseCookies } from "nookies";
 
 import { setBearer } from "../API";
-class Layout extends React.Component {
-  componentDidMount() {
+function Layout(props) {
+  const { children, setPageId } = props;
+  useEffect(() => {
     const { giveawayToken } = parseCookies();
     setBearer(giveawayToken);
     const handleRouteChange = url => {
       const pageId = url.includes("?pageId")
         ? parseInt(url.replace(/^\D+/g, "")) || 1
         : 1;
-      this.props.setPageId(pageId);
+      setPageId(pageId);
     };
 
     Router.events.on("routeChangeStart", handleRouteChange);
-  }
-
-  render() {
-    const { children } = this.props;
-    return <React.Fragment>{children}</React.Fragment>;
-  }
+  }, []);
+  return <React.Fragment>{children}</React.Fragment>;
 }
+
 Layout.propTypes = {
   children: node.isRequired,
   setPageId: func.isRequired,

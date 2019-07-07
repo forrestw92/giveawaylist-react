@@ -1,92 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import stylesheet from "./index.css";
 import Form from "../../components/Form";
 import Button from "../../components/Button";
 import { forgotPassword } from "../../API";
-class ForgotContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      message: "",
-      errorEmail: false
-    };
-  }
+function ForgotContainer() {
+  let [email, setEmail] = useState("");
+  let [message, setMessage] = useState("");
+  let [errorEmail, setErrorEmail] = useState(false);
 
-  _onClick = () => {
-    if (this.state.email === "") {
-      this.setState({
-        errorEmail: true,
-        message: "Please enter a valid email."
-      });
+  const _onClick = () => {
+    if (email === "") {
+      setErrorEmail(true);
+      setMessage("Please enter a valid email.");
       return;
     }
-    forgotPassword({ ...this.state })
+    forgotPassword(email)
       .then(({ data }) => {
         const { msg, success } = data;
         if (success) {
-          this.setState({ message: msg });
+          setMessage(msg);
         }
       })
       .catch(({ response }) => {
         const { err, msg } = response.data;
         if (err === "PASSWORD_TIMER") {
-          this.setState({ message: msg });
+          setMessage(msg);
         }
         if (err === "INVALID_ACCOUNT") {
-          this.setState({ errorEmail: true, email: "", message: msg });
+          setMessage(msg);
+          setEmail("");
+          setErrorEmail(true);
         }
         if (err === "INVALID_EMAIL") {
-          this.setState({ errorEmail: true, message: msg });
+          setErrorEmail(false);
+          setMessage(msg);
         }
       });
   };
-  _onChange = (e, name) => {
-    if (this.state.message) {
-      this.setState({ message: "" });
+  const _onChange = (e, name) => {
+    if (message) {
+      setMessage("");
     }
     if (name === "email") {
-      if (this.state.errorEmail) {
-        this.setState({ errorEmail: false });
+      if (errorEmail) {
+        setErrorEmail(false);
       }
-      this.setState({ email: e.target.value });
+      setEmail(e.target.value);
     }
   };
-  render() {
-    const inputs = [
-      {
-        label: "Account Email",
-        value: this.state.email,
-        type: "text",
-        id: "email",
-        name: "email",
-        autoComplete: "off",
-        hasError: this.state.errorEmail
-      }
-    ];
-    return (
-      <main role="main" className={"forgot--password"}>
-        <Form
-          title={"Forgot Password"}
-          _onChange={this._onChange}
-          inputs={inputs}
-          socialLogin={false}
-        >
-          <p className={"message"} role={"alert"} aria-atomic="true">
-            <span>{this.state.message}</span>
-          </p>
-          <div className={"button--group"}>
-            <Button
-              _onClick={this._onClick}
-              label={"Request"}
-              className={"primary"}
-              type={"button"}
-            />
-          </div>
-        </Form>
-        <style jsx>{stylesheet}</style>
-      </main>
-    );
-  }
+  const inputs = [
+    {
+      label: "Account Email",
+      value: email,
+      type: "text",
+      id: "email",
+      name: "email",
+      autoComplete: "off",
+      hasError: errorEmail
+    }
+  ];
+  return (
+    <main role="main" className={"forgot--password"}>
+      <Form
+        title={"Forgot Password"}
+        _onChange={_onChange}
+        inputs={inputs}
+        socialLogin={false}
+      >
+        <p className={"message"} role={"alert"} aria-atomic="true">
+          <span>{message}</span>
+        </p>
+        <div className={"button--group"}>
+          <Button
+            _onClick={_onClick}
+            label={"Request"}
+            className={"primary"}
+            type={"button"}
+          />
+        </div>
+      </Form>
+      <style jsx>{stylesheet}</style>
+    </main>
+  );
 }
 export default ForgotContainer;

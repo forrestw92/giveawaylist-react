@@ -2,7 +2,8 @@
 import React from "react";
 import PropTypes, { string, number, bool } from "prop-types";
 import stylesheet from "./index.css";
-const GroupItem = props => {
+
+function GroupItem(props) {
   const {
     firstItem,
     firstItemAria,
@@ -35,7 +36,7 @@ const GroupItem = props => {
       <style jsx>{stylesheet}</style>
     </div>
   );
-};
+}
 GroupItem.defaultProps = {
   around: false,
   bold: false,

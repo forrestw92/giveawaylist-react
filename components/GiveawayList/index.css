@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
 }
+
 .giveaway--list--item {
   display: flex;
   flex-grow: 1;
@@ -15,6 +16,7 @@
   min-width: 250px;
   max-width: 300px;
   height: 479px;
+  max-height: 479px;
   margin: 20px;
   position: relative;
   background: #fff;
@@ -27,6 +29,14 @@
   box-shadow: 0 2px 14px 1px rgba(0, 0, 0, 0.3);
 }
 
+.remove-shadow {
+  box-shadow: none;
+  justify-content: center;
+}
+.remove-shadow:hover,
+.remove-shadow:focus {
+  box-shadow: none;
+}
 .loading {
   display: flex;
   width: 100vw;

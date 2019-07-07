@@ -2,18 +2,17 @@ import React from "react";
 import { string } from "prop-types";
 import CardImage from "./CardImage";
 import stylesheet from "./index.css";
-class CardHeader extends React.Component {
-  render() {
-    const { name, picture, giveawayID } = this.props;
-    return (
-      <div className={"giveawayCard--header"}>
-        <CardImage picture={picture} giveawayID={giveawayID} />
-        <div className={"giveawayCard--itemName"}>{name}</div>
-        <style jsx>{stylesheet}</style>
-      </div>
-    );
-  }
+function CardHeader(props) {
+  const { name, picture, giveawayID } = props;
+  return (
+    <div className={"giveawayCard--header"}>
+      <CardImage picture={picture} giveawayID={giveawayID} />
+      <div className={"giveawayCard--itemName"}>{name}</div>
+      <style jsx>{stylesheet}</style>
+    </div>
+  );
 }
+
 CardHeader.propTypes = {
   name: string.isRequired,
   picture: string.isRequired,

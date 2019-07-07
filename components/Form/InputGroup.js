@@ -3,29 +3,37 @@ import { string, func, bool } from "prop-types";
 import stylesheet from "./index.css";
 import TextInput from "../TextInput";
 
-const InputGroup = props => {
+function InputGroup(props) {
+  const {
+    type,
+    id,
+    name,
+    autoComplete,
+    _onChange,
+    value,
+    hasError,
+    onBlur,
+    label
+  } = props;
   return (
     <div className={"input--group"}>
       <TextInput
-        type={props.type}
-        id={props.id}
-        name={props.name}
-        autoComplete={props.autoComplete}
-        _onChange={props._onChange}
-        value={props.value}
-        hasError={props.hasError}
-        onBlur={props.onBlur}
+        type={type}
+        id={id}
+        name={name}
+        autoComplete={autoComplete}
+        _onChange={_onChange}
+        value={value}
+        hasError={hasError}
+        onBlur={onBlur}
       />
-      <label
-        htmlFor={props.name}
-        className={props.value ? "input--filled" : undefined}
-      >
-        {props.label}
+      <label htmlFor={name} className={value ? "input--filled" : undefined}>
+        {label}
       </label>
       <style jsx>{stylesheet}</style>
     </div>
   );
-};
+}
 InputGroup.propTypes = {
   _onChange: func.isRequired,
   label: string.isRequired,

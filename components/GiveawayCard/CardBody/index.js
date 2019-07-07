@@ -35,7 +35,7 @@ function oddsFormat(odds, oddsType) {
       return ``;
   }
 }
-const CardBody = props => {
+function CardBody(props) {
   const {
     category,
     requirement,
@@ -88,7 +88,7 @@ const CardBody = props => {
       <style jsx>{stylesheet}</style>
     </div>
   );
-};
+}
 CardBody.propTypes = {
   endDate: string.isRequired,
   addedDate: string.isRequired,
