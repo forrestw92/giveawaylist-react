@@ -86,18 +86,20 @@ function GiveawayContainer(props) {
       }
     }
   };
-/*eslint prettier/prettier:0*/
+  /*eslint prettier/prettier:0*/
   useEffect(() => {
-      if (!window.evtScroll) {
-        window.addEventListener("scroll", debounce(handleScroll, 100));
-        window.evtScroll = true;
-      }
-      if (process.browser && giveaways.length === 0) {
-        loadGiveaways();
-      }
-      },
-    [giveaways]
-  );
+    const debounceScroll = debounce(handleScroll, 100);
+    if (!window.evtScroll) {
+      window.addEventListener("scroll", debounceScroll);
+      window.evtScroll = true;
+    }
+    if (process.browser && giveaways.length === 0) {
+      loadGiveaways();
+    }
+    return function cleanup() {
+      window.removeEventListener("scroll", debounceScroll);
+    };
+  }, []);
   const _onClick = () => {
     showHideFAB();
   };

@@ -255,17 +255,6 @@ FilterContainer.propTypes = {
   fetchGiveaways: func.isRequired,
   deleteGiveaways: func.isRequired,
   currentPage: string.isRequired,
-  oddsLow: bool.isRequired,
-  oddsHigh: bool.isRequired,
-  oddsMin: string.isRequired,
-  oddsMax: string.isRequired,
-  hideVideo: bool.isRequired,
-  hideAmazon: bool.isRequired,
-  latestWinner: bool.isRequired,
-  hideKindle: bool.isRequired,
-  endingSoon: bool.isRequired,
-  prizeHigh: bool.isRequired,
-  viewCount: bool.isRequired,
   totalGiveaways: number.isRequired,
   filter: object.isRequired
 };

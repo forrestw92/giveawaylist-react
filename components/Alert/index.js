@@ -23,7 +23,7 @@ function Alert(props) {
   useEffect(() => {
     if (forceHide) _startDeathTimer();
     if (show) _startTTLTimer();
-  });
+  }, []);
 
   return (
     <div

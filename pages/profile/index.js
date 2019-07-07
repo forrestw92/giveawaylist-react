@@ -51,7 +51,7 @@ function Profile(props) {
         </Alert>
       );
     }
-  });
+  }, []);
   const _onChange = (e, name) => {
     const { value } = e.target;
     if (name === "password") {
