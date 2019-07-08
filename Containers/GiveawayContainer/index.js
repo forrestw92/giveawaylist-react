@@ -18,7 +18,6 @@ import FAB from "../../components/FAB";
 import stylesheet from "./index.css";
 function GiveawayContainer(props) {
   let [search, setSearch] = useState("");
-  let [loading, setLoading] = useState(false);
   let [autoLoad, setAutoLoad] = useState(false);
   const {
     setFilter,
@@ -34,9 +33,7 @@ function GiveawayContainer(props) {
   const { pageId } = router.query;
 
   const delayFetch = debounce(function() {
-    fetchGiveaways().then(() => {
-      setLoading(false);
-    });
+    fetchGiveaways();
   }, 500);
 
   const handleLoadType = e => {
@@ -58,13 +55,6 @@ function GiveawayContainer(props) {
     delayFetch();
   };
 
-  const loadGiveaways = () => {
-    if (loading) return;
-    setLoading(false);
-    fetchGiveaways().then(() => {
-      setLoading(true);
-    });
-  };
   const replacePageID = () => {
     const { push, pathname, query } = router;
     push(
@@ -81,25 +71,24 @@ function GiveawayContainer(props) {
       window.innerHeight + window.scrollY >=
       document.body.offsetHeight - 100
     ) {
-      if (loading === false) {
-        replacePageID();
-      }
+      replacePageID();
     }
   };
   /*eslint prettier/prettier:0*/
-  useEffect(() => {
-    const debounceScroll = debounce(handleScroll, 100);
-    if (!window.evtScroll) {
-      window.addEventListener("scroll", debounceScroll);
-      window.evtScroll = true;
-    }
-    if (process.browser && giveaways.length === 0) {
-      loadGiveaways();
-    }
-    return function cleanup() {
-      window.removeEventListener("scroll", debounceScroll);
-    };
-  }, []);
+  useEffect(
+    () => {
+      const debounceScroll = debounce(handleScroll, 100);
+
+      if (autoLoad) {
+        window.addEventListener("scroll", debounceScroll);
+        window.evtScroll = true;
+      }
+      return function cleanup() {
+        window.removeEventListener("scroll", debounceScroll);
+      };
+    },
+    [giveaways, autoLoad]
+  );
   const _onClick = () => {
     showHideFAB();
   };

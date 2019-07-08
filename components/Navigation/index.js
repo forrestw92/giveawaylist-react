@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
-import { bool, string, func } from "prop-types";
+import { bool, string } from "prop-types";
 import Home from "../../static/icons/home.svg";
 import Clock from "../../static/icons/clock.svg";
 import Saved from "../../static/icons/saved.svg";
@@ -10,11 +10,10 @@ import User from "../../static/icons/user.svg";
 import UserRegister from "../../static/icons/user-plus.svg";
 import UserLogin from "../../static/icons/log-in.svg";
 import Logo from "../../static/images/logo.svg";
-import { deleteGiveaways } from "../../Redux/actions/giveawayActions";
 import stylesheet from "./index.css";
 
 function Navigation(props) {
-  const { loggedIn, currentPage, deleteGiveaways } = props;
+  const { loggedIn, currentPage } = props;
   let [shownLinks, setShownLinks] = useState([
     {
       href: "/",
@@ -105,10 +104,7 @@ function Navigation(props) {
                   <span>{label}</span>
                 </div>
               ) : (
-                <a
-                  className={currentPage === href ? `link active` : "link"}
-                  onClick={() => deleteGiveaways()}
-                >
+                <a className={currentPage === href ? `link active` : "link"}>
                   {image}
                   <span>{label}</span>
                 </a>
@@ -123,8 +119,7 @@ function Navigation(props) {
 }
 Navigation.propTypes = {
   loggedIn: bool.isRequired,
-  currentPage: string.isRequired,
-  deleteGiveaways: func.isRequired
+  currentPage: string.isRequired
 };
 function mapStateToProps(state) {
   return {
@@ -132,7 +127,4 @@ function mapStateToProps(state) {
     currentPage: state.nav.currentPage
   };
 }
-export default connect(
-  mapStateToProps,
-  { deleteGiveaways }
-)(Navigation);
+export default connect(mapStateToProps)(Navigation);
