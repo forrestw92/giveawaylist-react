@@ -9,9 +9,9 @@ export const logPageView = () => {
   pageview(window.location.pathname);
 };
 
-export const logEvent = (category = "", action = "") => {
+export const logEvent = (category = "", action = "", label = "") => {
   if (category && action) {
-    event({ category, action });
+    event({ category, action, label });
   }
 };
 

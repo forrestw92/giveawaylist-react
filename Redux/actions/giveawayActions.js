@@ -18,6 +18,7 @@ import { userLogout } from "./loginActions";
 export const fetchGiveaways = () => (dispatch, getState) => {
   const { filter } = getState().giveaways;
   const { pageId, currentPage } = getState().nav;
+
   return fetchGiveawayPage(pageId, currentPage, filter)
     .then(res => {
       const { results, totalGiveaways } = res.data;

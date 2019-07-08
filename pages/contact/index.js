@@ -5,6 +5,7 @@ import stylesheet from "./index.css";
 import InputGroup from "../../components/Form/InputGroup";
 import Button from "../../components/Button";
 import { sendMessage } from "../../API";
+import { logEvent } from "../../utils/analytics";
 
 function Contact() {
   const [email, setEmail] = useState("");
@@ -40,6 +41,7 @@ function Contact() {
           if (success === "MESSAGE_SENT") {
             setFormMessage(msg);
             setError(false);
+            logEvent("submit_form", "Contact", message);
           }
         })
         .catch(({ response }) => {

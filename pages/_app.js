@@ -46,8 +46,7 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
   const protectedRoutes = ["/profile", "/profile/reset", "/profile/forgot"];
 
   let pageProps = {};
-  await ctx.store.dispatch(setCurrentPage(ctx.pathname));
-
+  if (!process.browser) await ctx.store.dispatch(setCurrentPage(ctx.pathname));
   if (Component.getInitialProps) {
     pageProps = await Component.getInitialProps(ctx);
   }

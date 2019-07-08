@@ -16,6 +16,7 @@ import GiveawayHeader from "../../components/GiveawayHeader";
 import FAB from "../../components/FAB";
 
 import stylesheet from "./index.css";
+import AdSpace from "../../components/AdSpace";
 function GiveawayContainer(props) {
   let [search, setSearch] = useState("");
   let [autoLoad, setAutoLoad] = useState(false);
@@ -102,12 +103,14 @@ function GiveawayContainer(props) {
         searchValue={search}
         handleLoadType={handleLoadType}
       />
+      <AdSpace/>
+
       <GiveawayList
         giveaways={giveaways}
         totalGiveaways={totalGiveaways}
         deleteSingleGiveaway={deleteSingleGiveaway}
       />
-
+      <AdSpace/>
       <Pagination
         totalPages={Math.round(totalGiveaways / 24 || 1)}
         currentlySelected={parseInt(pageId) || 1}
