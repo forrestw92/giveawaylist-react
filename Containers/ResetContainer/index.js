@@ -15,7 +15,7 @@ function ResetContainer(props) {
   let [errorRepeatPassword, setErrorRepeatPassword] = useState(false);
   let [errorPassword, setErrorPassword] = useState(false);
   const { router } = props;
-  const { reset_key } = router.query.reset_key;
+  const { reset_key } = router.query;
   const noResetKey = () => {
     setMessage("Make sure you click or copy the whole link from the email.");
   };
@@ -34,6 +34,8 @@ function ResetContainer(props) {
     }
   };
   function handleSubmit() {
+    console.log(router.query.reset_key);
+
     validateInputs();
     resetPassword({ password, repeatPassword, reset_key })
       .then(({ data }) => {
